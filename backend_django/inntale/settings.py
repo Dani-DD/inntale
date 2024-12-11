@@ -147,6 +147,10 @@ REST_FRAMEWORK = {
     )
 }
 
+DJOSER = {
+    "SERIALIZERS": {"user_create": "campaigns.serializers.RegisteringUserSerializer"}
+}
+
 SIMPLE_JWT = {
     "AUTH_HEADERS_TYPES": ("JWT",),
 }
