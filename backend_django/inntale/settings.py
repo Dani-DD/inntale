@@ -153,4 +153,5 @@ DJOSER = {
 
 SIMPLE_JWT = {
     "AUTH_HEADERS_TYPES": ("JWT",),
+    "TOKEN_OBTAIN_SERIALIZER": "campaigns.serializers.MyTokenObtainPairSerializer",
 }
