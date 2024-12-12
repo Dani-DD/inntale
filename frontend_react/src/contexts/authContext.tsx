@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 interface AuthContext {
     registration: (userInputs: RegistrationForm) => Promise<void>;
     login: (userInputs: UserCredentials) => Promise<void>;
+    logout: () => void;
     user: User | null;
 }
 
@@ -32,39 +33,50 @@ export const AuthProvider = () => {
 
     const navigate = useNavigate();
 
-    function registration(userInputs: RegistrationForm) {
-        return axios
-            .post("http://127.0.0.1:8000/auth/users/", userInputs)
-            .then(() => {
-                console.log("New user created.");
-                console.log("Redirecting to the homepage.");
-                navigate("/");
-            })
-            .catch((error: Error) => console.log(error.message));
-    }
-
-    function login(userInputs: UserCredentials) {
-        return axios
-            .post<
-                Tokens,
-                AxiosResponse<Tokens, UserCredentials>,
-                UserCredentials
-            >("http://127.0.0.1:8000/auth/jwt/create/", userInputs)
-            .then((response) => {
-                // store the tokens into the local storage
-                localStorage.setItem("tokens", JSON.stringify(response.data));
-
-                // decode the tokens and update user
-                setUser(jwtDecode(response.data.access));
-
-                navigate("/");
-            })
-            .catch((error: Error) => console.log(error.message));
-    }
-
     const contextData: AuthContext = {
-        registration,
-        login,
+        registration: (userInputs: RegistrationForm) => {
+            return axios
+                .post("http://127.0.0.1:8000/auth/users/", userInputs)
+                .then(() => {
+                    console.log("New user created.");
+                    console.log("Redirecting to the homepage.");
+                    navigate("/");
+                })
+                .catch((error: Error) => console.log(error.message));
+        },
+
+        login: (userInputs: UserCredentials) => {
+            return axios
+                .post<
+                    Tokens,
+                    AxiosResponse<Tokens, UserCredentials>,
+                    UserCredentials
+                >("http://127.0.0.1:8000/auth/jwt/create/", userInputs)
+                .then((response) => {
+                    // store the tokens into the local storage
+                    localStorage.setItem(
+                        "tokens",
+                        JSON.stringify(response.data)
+                    );
+
+                    // decode the tokens and update user
+                    setUser(jwtDecode(response.data.access));
+
+                    navigate("/");
+                })
+                .catch((error: Error) => console.log(error.message));
+        },
+
+        logout: () => {
+            // remove tokens from local storage
+            localStorage.removeItem("tokens");
+
+            // set user to null
+            setUser(null);
+
+            navigate("/login");
+        },
+
         user,
     };
 
