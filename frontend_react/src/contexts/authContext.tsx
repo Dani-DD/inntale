@@ -1,24 +1,24 @@
+import Layout from "@/components/Layout";
 import { Tokens, User, UserCredentials } from "@/interfaces/allIntefaces";
 import { RegistrationForm } from "@/interfaces/allIntefaces";
 import axios, { AxiosResponse } from "axios";
 import { jwtDecode } from "jwt-decode";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+// Interfaces
 interface AuthContext {
     registration: (userInputs: RegistrationForm) => Promise<void>;
     login: (userInputs: UserCredentials) => Promise<void>;
     user: User | null;
 }
 
-interface AuthProviderProps {
-    children: ReactNode;
-}
-
+// The context
 const AuthContext = createContext<AuthContext>({} as AuthContext);
-
 export default AuthContext;
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+// The custom provider
+export const AuthProvider = () => {
     const [user, setUser] = useState<User | null>(() => {
         const stringifyTokens = localStorage.getItem("tokens");
 
@@ -30,12 +30,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     });
 
+    const navigate = useNavigate();
+
     function registration(userInputs: RegistrationForm) {
         return axios
             .post("http://127.0.0.1:8000/auth/users/", userInputs)
             .then(() => {
                 console.log("New user created.");
                 console.log("Redirecting to the homepage.");
+                navigate("/");
             })
             .catch((error: Error) => console.log(error.message));
     }
@@ -51,8 +54,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 // store the tokens into the local storage
                 localStorage.setItem("tokens", JSON.stringify(response.data));
 
-                // decode the tokens
+                // decode the tokens and update user
                 setUser(jwtDecode(response.data.access));
+
+                navigate("/");
             })
             .catch((error: Error) => console.log(error.message));
     }
@@ -65,7 +70,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     return (
         <AuthContext.Provider value={contextData}>
-            {children}
+            <Layout />
         </AuthContext.Provider>
     );
 };

@@ -2,12 +2,12 @@ import HomePage from "@/pages/HomePage";
 import LoginPage from "@/pages/LoginPage";
 import RegistrationPage from "@/pages/RegistrationPage";
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "./Layout";
+import { AuthProvider } from "@/contexts/authContext";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Layout />,
+        element: <AuthProvider />,
         children: [
             {
                 path: "/",
