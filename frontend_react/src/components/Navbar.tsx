@@ -26,6 +26,8 @@ const Navbar = () => {
                     <NavLink to="/registration">Register</NavLink>
                 </>
             )}
+
+            <NavLink to="/protected-endpoint">Private endpoint</NavLink>
         </HStack>
     );
 };

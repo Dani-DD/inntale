@@ -3,7 +3,7 @@ import { Tokens, User, UserCredentials } from "@/interfaces/allIntefaces";
 import { RegistrationForm } from "@/interfaces/allIntefaces";
 import axios, { AxiosResponse } from "axios";
 import { jwtDecode } from "jwt-decode";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Interfaces
@@ -11,6 +11,7 @@ interface AuthContext {
     registration: (userInputs: RegistrationForm) => Promise<void>;
     login: (userInputs: UserCredentials) => Promise<void>;
     logout: () => void;
+    tokens: Tokens | null;
     user: User | null;
 }
 
@@ -20,6 +21,11 @@ export default AuthContext;
 
 // The custom provider
 export const AuthProvider = () => {
+    const [tokens, setTokens] = useState<Tokens | null>(() => {
+        const stringifyTokens = localStorage.getItem("tokens");
+        return stringifyTokens ? JSON.parse(stringifyTokens) : null;
+    });
+
     const [user, setUser] = useState<User | null>(() => {
         const stringifyTokens = localStorage.getItem("tokens");
 
@@ -59,6 +65,7 @@ export const AuthProvider = () => {
                         JSON.stringify(response.data)
                     );
 
+                    setTokens(response.data);
                     // decode the tokens and update user
                     setUser(jwtDecode(response.data.access));
 
@@ -70,15 +77,21 @@ export const AuthProvider = () => {
         logout: () => {
             // remove tokens from local storage
             localStorage.removeItem("tokens");
-
-            // set user to null
+            setTokens(null);
             setUser(null);
 
             navigate("/login");
         },
 
         user,
+        tokens,
     };
+
+    useEffect(() => {
+        console.log("Application start");
+        console.log("User: ", user);
+        console.log("Tokens: ", tokens);
+    }, [user, tokens]);
 
     return (
         <AuthContext.Provider value={contextData}>

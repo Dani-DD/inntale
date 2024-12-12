@@ -4,6 +4,7 @@ import RegistrationPage from "@/pages/RegistrationPage";
 import { createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@/contexts/authContext";
 import UserPage from "@/pages/UserPage";
+import PrivatePage from "@/pages/PrivatePage";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             {
                 path: "/me",
                 element: <UserPage />,
+            },
+            {
+                path: "/protected-endpoint",
+                element: <PrivatePage />,
             },
         ],
     },
