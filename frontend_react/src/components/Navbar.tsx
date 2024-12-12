@@ -17,7 +17,7 @@ const Navbar = () => {
 
             {user ? (
                 <>
-                    <p>{user.username}</p>
+                    <NavLink to="/me">{user.username}</NavLink>
                     <Button onClick={logout}>Logout</Button>
                 </>
             ) : (
