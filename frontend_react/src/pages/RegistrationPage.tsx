@@ -2,18 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { PasswordInput } from "@/components/ui/password-input";
 import AuthContext from "@/contexts/authContext";
+import { RegistrationForm } from "@/interfaces/allIntefaces";
 import { Input, Text } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-
-export interface RegistrationForm {
-    first_name: string;
-    last_name: string;
-    email: string;
-    username: string;
-    password: string;
-    repeat_password: string;
-}
 
 const RegistrationPage = () => {
     const { registration } = useContext(AuthContext);
