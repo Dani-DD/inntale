@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { PasswordInput } from "@/components/ui/password-input";
+import AuthContext from "@/contexts/authContext";
 import { Input, Text } from "@chakra-ui/react";
-import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
-interface RegistrationForm {
+export interface RegistrationForm {
     first_name: string;
     last_name: string;
     email: string;
@@ -16,6 +16,8 @@ interface RegistrationForm {
 }
 
 const RegistrationPage = () => {
+    const { registration } = useContext(AuthContext);
+
     const [doPasswordsMatch, setPasswordMatch] = useState<boolean>(true);
 
     const { register, handleSubmit } = useForm<RegistrationForm>();
@@ -27,12 +29,7 @@ const RegistrationPage = () => {
             setPasswordMatch(false);
         } else {
             // send the http-post-request containing user's data
-            axios
-                .post("http://127.0.0.1:8000/auth/users/", data)
-                .then((response) =>
-                    console.log("New user created: ", response.data)
-                )
-                .catch((error: Error) => console.log(error.message));
+            registration(data);
         }
     });
 
