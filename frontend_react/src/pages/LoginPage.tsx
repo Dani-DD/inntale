@@ -1,19 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { PasswordInput } from "@/components/ui/password-input";
+import AuthContext from "@/contexts/authContext";
+import { UserCredentials } from "@/interfaces/allIntefaces";
 import { Input } from "@chakra-ui/react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
-
-interface UserCredentials {
-    username: string;
-    password: string;
-}
 
 const LoginPage = () => {
     const { register, handleSubmit } = useForm<UserCredentials>();
 
+    const { login } = useContext(AuthContext);
+
     const onSubmit = handleSubmit((data) => {
-        console.log(data);
+        login(data);
     });
 
     return (
