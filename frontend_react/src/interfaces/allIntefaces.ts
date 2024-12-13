@@ -1,8 +1,25 @@
+/**
+ *
+ *
+ */
+
 export interface User {
     first_name: string;
     last_name: string;
     email: string;
     username: string;
+}
+
+export interface DecodedToken extends User {
+    // first_name: string;
+    // last_name: string;
+    // email: string;
+    // username: string;
+    user_id: number;
+    exp: number;
+    iat: number;
+    jti: string;
+    token_type: string;
 }
 
 export interface RegistrationForm extends User {

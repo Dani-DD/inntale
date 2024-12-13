@@ -1,21 +1,17 @@
-import AuthContext from "@/contexts/authContext";
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import usePrivateAxios from "@/hooks/usePrivateAxios";
+import { useEffect, useState } from "react";
 
 const PrivatePage = () => {
     const [message, setMessage] = useState<string>("");
     const [error, setError] = useState<string>("");
-
-    const { tokens } = useContext(AuthContext);
+    const privateAxios = usePrivateAxios();
 
     useEffect(() => {
-        axios
-            .get("http://127.0.0.1:8000/root/test/", {
-                headers: {
-                    Authorization: `JWT ${tokens?.access}`,
-                },
+        privateAxios
+            .get("http://127.0.0.1:8000/root/test/")
+            .then((response) => {
+                setMessage(response.data);
             })
-            .then((response) => setMessage(response.data))
             .catch((error: Error) => setError(error.message));
     }, []);
 

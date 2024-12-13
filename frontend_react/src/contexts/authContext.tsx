@@ -11,8 +11,10 @@ interface AuthContext {
     registration: (userInputs: RegistrationForm) => Promise<void>;
     login: (userInputs: UserCredentials) => Promise<void>;
     logout: () => void;
-    tokens: Tokens | null;
     user: User | null;
+    setUser: (user: User) => void;
+    tokens: Tokens | null;
+    setTokens: (tokens: Tokens) => void;
 }
 
 // The context
@@ -84,7 +86,9 @@ export const AuthProvider = () => {
         },
 
         user,
+        setUser,
         tokens,
+        setTokens,
     };
 
     useEffect(() => {
