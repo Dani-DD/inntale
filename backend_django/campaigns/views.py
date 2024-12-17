@@ -19,8 +19,12 @@ def manual_list(request: Request):
 
 
 @api_view(["GET"])
-def manual_detail(request: Request, pk):
-    manual = get_object_or_404(Manual, pk=pk)
+def manual_detail(request: Request, identifier):
+    try:
+        pk = int(identifier)
+        manual = get_object_or_404(Manual, pk=pk)
+    except ValueError:
+        manual = get_object_or_404(Manual, slug=identifier)
 
     if request.method == "GET":
         serializer = ManualSerializer(manual)
