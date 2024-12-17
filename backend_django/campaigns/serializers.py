@@ -3,8 +3,16 @@ from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import User
+from .models import Manual
 
 
+class ManualSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Manual
+        fields = ["name", "slug"]
+
+
+# AUTHENTICATION
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user: User):

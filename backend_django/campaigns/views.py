@@ -1,10 +1,33 @@
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-
+from .models import Manual
+from .serializers import ManualSerializer
 
 # Create your views here.
+
+
+@api_view(["GET"])
+def manual_list(request: Request):
+    if request.method == "GET":
+        queryset = Manual.objects.all()
+        serializer = ManualSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def manual_detail(request: Request, pk):
+    manual = get_object_or_404(Manual, pk=pk)
+
+    if request.method == "GET":
+        serializer = ManualSerializer(manual)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# TESTING VIEWS
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def test_view(request: Request):
