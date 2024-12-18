@@ -10,6 +10,7 @@ class ManualSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manual
         fields = ["name", "slug"]
+        read_only_fields = ["slug"]
 
 
 # AUTHENTICATION
