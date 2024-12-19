@@ -14,6 +14,9 @@ class Campaign(models.Model):
     youtube_link = models.TextField()
     release_date = models.DateField(null=True, blank=True)
 
+    class Meta:
+        ordering = ["name", "season"]
+
     def save(self):
         if not self.slug:
             self.slug = slugify(f"{self.name} s{self.season}")
