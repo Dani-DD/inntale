@@ -10,22 +10,20 @@ class FilterCampaignsByYear(admin.SimpleListFilter):
     title = "Year"
 
     def lookups(self, request: HttpRequest, model_admin: admin.ModelAdmin):
-        return [
-            # (query_string_value, human_readable_value)
-            (2018, "2018"),
-            (2019, "2019"),
-            (2020, "2020"),
-        ]
+        # Get all the years from the release_date field
+        years = model_admin.model.objects.dates("release_date", "year", "ASC")
+        # Convert the years to a list of tuples
+        # (the first element is the query string value, the second is the human-readable value)
+        years = [(year.year, str(year.year)) for year in years]
+
+        return years
 
     parameter_name = "release_year"
 
     def queryset(self, request, queryset):
-        if self.value() == "2018":
-            return queryset.filter(release_date__year__exact=2018)
-        if self.value() == "2019":
-            return queryset.filter(release_date__year__exact=2019)
-        if self.value() == "2020":
-            return queryset.filter(release_date__year__exact=2020)
+        if self.value() is None:
+            return queryset
+        return queryset.filter(release_date__year__exact=self.value())
 
 
 # Register your models here.
