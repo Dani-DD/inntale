@@ -1,7 +1,7 @@
 from datetime import date
 from django.contrib import admin
 from django.http import HttpRequest
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Count
 from django.utils.html import format_html
 from .models import Campaign, Manual
 
@@ -57,4 +57,20 @@ class CampaignAdmin(admin.ModelAdmin):
         return format_html('<a href="{}" target="_blank">{}</a>', url, url)
 
 
-admin.site.register(Manual)
+@admin.register(Manual)
+class ManualAdmin(admin.ModelAdmin):
+    list_display = ["titlecase_name", "used_n_times"]
+
+    @admin.display(ordering="name")
+    def titlecase_name(self, manual: Manual):
+        return manual.name.title()
+
+    titlecase_name.short_description = "name"
+
+    # Implementing the used_n_times annotation
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(used_n_times=Count("used_in"))
+
+    @admin.display(ordering="used_n_times")
+    def used_n_times(self, manual: Manual):
+        return manual.used_n_times
