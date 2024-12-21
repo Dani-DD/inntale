@@ -4,10 +4,30 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-from .models import Manual
-from .serializers import ManualSerializer
+from .models import Campaign, Manual
+from .serializers import CampaignSerializer, ManualSerializer
+
 
 # Create your views here.
+@api_view(["GET"])
+def campaign_list(request: Request):
+    if request.method == "GET":
+        queryset = Campaign.objects.select_related("manual").all()
+        serializer = CampaignSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def campaign_detail(request: Request, identifier: str):
+    try:
+        pk = int(identifier)
+        campaign = get_object_or_404(Campaign, pk=pk)
+    except ValueError:
+        campaign = get_object_or_404(Campaign, slug=identifier)
+
+    if request.method == "GET":
+        serializer = CampaignSerializer(campaign)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])

@@ -1,10 +1,10 @@
 from . import views
-from django.urls import path, re_path
+from django.urls import path
 
 urlpatterns = [
     path("test/", views.test_view, name="test"),
     path("manuals/", views.manual_list, name="manuals"),
-    re_path(
-        r"^manuals/(?P<identifier>[\w-]+)/$", views.manual_detail, name="manual-detail"
-    ),
+    path("manuals/<str:identifier>/", views.manual_detail, name="manual-detail"),
+    path("campaigns/", views.campaign_list, name="campaigns"),
+    path("campaigns/<str:identifier>/", views.campaign_detail, name="campaign-detail"),
 ]

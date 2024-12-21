@@ -3,7 +3,25 @@ from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import User
-from .models import Manual
+from .models import Campaign, Manual
+
+
+class CampaignSerializer(serializers.ModelSerializer):
+
+    manual = serializers.StringRelatedField()
+
+    class Meta:
+        model = Campaign
+        fields = [
+            "name",
+            "season",
+            "slug",
+            "is_edited",
+            "manual",
+            "youtube_link",
+            "release_date",
+        ]
+        read_only_fields = ["slug"]
 
 
 class ManualSerializer(serializers.ModelSerializer):
