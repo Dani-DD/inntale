@@ -4,6 +4,8 @@ from django.db.models import Count
 from django.utils.html import format_html
 from .models import Campaign, Manual, Player, Cast
 
+BASE_URL = "http://127.0.0.1:8000/"
+
 
 class FilterCampaignsByYear(admin.SimpleListFilter):
     title = "Year"
@@ -38,7 +40,19 @@ class CampaignAdmin(admin.ModelAdmin):
         "slug",
     ]
     list_select_related = ["manual"]
-    list_filter = ["manual", "is_edited", FilterCampaignsByYear]
+    list_filter = [
+        "manual",
+        "is_edited",
+        FilterCampaignsByYear,
+    ]
+
+    search_fields = [
+        "name",
+        "campaign_cast__player__first_name",
+        "campaign_cast__player__last_name",
+        "campaign_cast__player__nickname",
+    ]
+    search_help_text = "Filter campaigns by name or player's name"
 
     @admin.display(ordering="name", description="name")
     def titlecase_name(self, campaign: Campaign):
@@ -68,7 +82,6 @@ class ManualAdmin(admin.ModelAdmin):
     # Displaying the used_n_times annotation in the admin
     @admin.display(ordering="used_n_times")
     def used_n_times(self, manual: Manual):
-        BASE_URL = "http://127.0.0.1:8000/"
         manual_url = (
             f"{BASE_URL}admin/campaigns/campaign/?manual__id__exact={manual.id}"
         )
@@ -77,12 +90,24 @@ class ManualAdmin(admin.ModelAdmin):
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ["full_name"]
+    list_display = ["full_name", "appearances"]
     ordering = ["first_name", "last_name"]
+    list_filter = ["campaigns_played__campaign"]
 
     @admin.display(description="player")
     def full_name(self, player: Player):
         return f"{player.first_name.capitalize()} {player.last_name.capitalize()}"
+
+    def get_queryset(self, request):
+        return (
+            super()
+            .get_queryset(request)
+            .annotate(appearances=Count("campaigns_played"))
+        )
+
+    @admin.display(ordering="appearances")
+    def appearances(self, player: Player):
+        return player.appearances
 
 
 admin.site.register(Cast)

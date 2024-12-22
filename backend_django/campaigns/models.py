@@ -40,6 +40,9 @@ class Manual(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+    class Meta:
+        ordering = ["name"]
+
 
 class Player(models.Model):
     nickname = models.CharField(max_length=64, blank=True)
