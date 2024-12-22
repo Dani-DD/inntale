@@ -13,7 +13,7 @@ class CampaignSerializer(serializers.ModelSerializer):
     class Meta:
         model = Campaign
         fields = [
-            "name",
+            "id" "name",
             "season",
             "slug",
             "is_edited",
@@ -27,7 +27,7 @@ class CampaignSerializer(serializers.ModelSerializer):
 class ManualSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manual
-        fields = ["name", "slug"]
+        fields = ["id", "name", "slug"]
         read_only_fields = ["slug"]
 
 
