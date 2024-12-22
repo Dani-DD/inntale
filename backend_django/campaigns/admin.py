@@ -40,16 +40,13 @@ class CampaignAdmin(admin.ModelAdmin):
     list_select_related = ["manual"]
     list_filter = ["manual", "is_edited", FilterCampaignsByYear]
 
-    @admin.display(ordering="name")
+    @admin.display(ordering="name", description="name")
     def titlecase_name(self, campaign: Campaign):
         return campaign.name.title()
 
-    titlecase_name.short_description = "name"
-
+    @admin.display(description="manual")
     def titlecase_manual(self, campaign: Campaign):
         return campaign.manual.name.title()
-
-    titlecase_manual.short_description = "manual"
 
     def show_youtube_link(self, campaign: Campaign):
         url = campaign.youtube_link
@@ -60,11 +57,9 @@ class CampaignAdmin(admin.ModelAdmin):
 class ManualAdmin(admin.ModelAdmin):
     list_display = ["titlecase_name", "used_n_times"]
 
-    @admin.display(ordering="name")
+    @admin.display(ordering="name", description="name")
     def titlecase_name(self, manual: Manual):
         return manual.name.title()
-
-    titlecase_name.short_description = "name"
 
     # Implementing the used_n_times annotation
     def get_queryset(self, request):
@@ -80,4 +75,11 @@ class ManualAdmin(admin.ModelAdmin):
         return format_html("<a href='{}'>{}</a>", manual_url, manual.used_n_times)
 
 
-admin.site.register(Player)
+@admin.register(Player)
+class PlayerAdmin(admin.ModelAdmin):
+    list_display = ["full_name"]
+    ordering = ["first_name", "last_name"]
+
+    @admin.display(description="player")
+    def full_name(self, player: Player):
+        return f"{player.first_name.capitalize()} {player.last_name.capitalize()}"
