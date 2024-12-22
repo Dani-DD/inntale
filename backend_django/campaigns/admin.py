@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.http import HttpRequest
 from django.db.models import Count
 from django.utils.html import format_html
-from .models import Campaign, Manual, Player
+from .models import Campaign, Manual, Player, Cast
 
 
 class FilterCampaignsByYear(admin.SimpleListFilter):
@@ -83,3 +83,6 @@ class PlayerAdmin(admin.ModelAdmin):
     @admin.display(description="player")
     def full_name(self, player: Player):
         return f"{player.first_name.capitalize()} {player.last_name.capitalize()}"
+
+
+admin.site.register(Cast)
