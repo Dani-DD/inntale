@@ -38,3 +38,12 @@ class Manual(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+
+class Player(models.Model):
+    nickname = models.CharField(max_length=64, blank=True)
+    first_name = models.CharField(max_length=64)
+    last_name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"

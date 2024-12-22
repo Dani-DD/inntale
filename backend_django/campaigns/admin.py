@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.http import HttpRequest
 from django.db.models import Count
 from django.utils.html import format_html
-from .models import Campaign, Manual
+from .models import Campaign, Manual, Player
 
 
 class FilterCampaignsByYear(admin.SimpleListFilter):
@@ -78,3 +78,6 @@ class ManualAdmin(admin.ModelAdmin):
             f"{BASE_URL}admin/campaigns/campaign/?manual__id__exact={manual.id}"
         )
         return format_html("<a href='{}'>{}</a>", manual_url, manual.used_n_times)
+
+
+admin.site.register(Player)
