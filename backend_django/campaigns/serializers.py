@@ -3,23 +3,34 @@ from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import User
-from .models import Campaign, Manual
+from .models import Campaign, Manual, Cast
+
+
+class CampaignCastSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cast
+        fields = ["player", "character"]
+
+    player = serializers.StringRelatedField()
 
 
 class CampaignSerializer(serializers.ModelSerializer):
 
     manual = serializers.StringRelatedField()
+    campaign_cast = CampaignCastSerializer(many=True)
 
     class Meta:
         model = Campaign
         fields = [
-            "id" "name",
+            "id",
+            "name",
             "season",
             "slug",
             "is_edited",
             "manual",
             "youtube_link",
             "release_date",
+            "campaign_cast",
         ]
         read_only_fields = ["slug"]
 

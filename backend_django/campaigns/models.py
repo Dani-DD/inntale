@@ -13,7 +13,7 @@ class Campaign(models.Model):
     )
     youtube_link = models.TextField()
     release_date = models.DateField(null=True, blank=True)
-    # "campaign_cast" field as reverse ForeignKey from Cast model
+    # "campaign_cast" as reverse ForeignKey from Cast model
 
     class Meta:
         ordering = ["name", "season"]
@@ -48,7 +48,7 @@ class Player(models.Model):
     nickname = models.CharField(max_length=64, blank=True)
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
-    # campaigns_played field as reverse ForeignKey from Cast model
+    # campaigns_played as reverse ForeignKey from Cast model
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

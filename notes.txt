@@ -1,12 +1,11 @@
 Things to do:
-2) implement custom action in admin.py to copy a campaign
-3) serving list of campaign with the cast
-4) in admin.py, implement an inline table for CampaignAdmin to add new cast
-5) override manual's and player's manager to render an annotated field
-6) switch from function based view to ViewSets
-7) in admin.py::players, filter player based on the campaign.
+1) in admin.py, implement an inline table for CampaignAdmin to add new cast
+2) player endpoint
+3) override manual's and player's manager to render an annotated field
+4) switch from function based view to ViewSets
+
+5) implement custom action in admin.py to copy a campaign
 
 ---------------------------------------------
 
 
-       
