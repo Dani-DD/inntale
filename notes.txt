@@ -1,10 +1,14 @@
 Things to do:
-1) player endpoint
-2) override manual's and player's manager to render an annotated field
-3) switch from function based view to ViewSets
+1) override manual's and player's manager to render an annotated field
+2) switch from function based view to ViewSets
 
-4) implement custom action in admin.py to copy a campaign
+3) implement custom action in admin.py to copy a campaign
 
 ---------------------------------------------
+
+
+
+
+
 
 

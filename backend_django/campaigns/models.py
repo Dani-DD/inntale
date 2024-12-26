@@ -48,6 +48,7 @@ class Player(models.Model):
     nickname = models.CharField(max_length=64, blank=True)
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
+    slug = models.SlugField(unique=True)
     # campaigns_played as reverse ForeignKey from Cast model
 
     def __str__(self):
@@ -55,6 +56,11 @@ class Player(models.Model):
 
     class Meta:
         ordering = ["first_name", "last_name"]
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(f"{self.first_name} {self.last_name}")
+        return super().save(*args, **kwargs)
 
 
 class Cast(models.Model):
