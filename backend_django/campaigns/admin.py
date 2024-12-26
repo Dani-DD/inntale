@@ -7,6 +7,10 @@ from .models import Campaign, Manual, Player, Cast
 BASE_URL = "http://127.0.0.1:8000/"
 
 
+class CastInline(admin.TabularInline):
+    model = Cast
+
+
 class FilterCampaignsByYear(admin.SimpleListFilter):
     title = "Year"
 
@@ -53,6 +57,8 @@ class CampaignAdmin(admin.ModelAdmin):
         "campaign_cast__player__nickname",
     ]
     search_help_text = "Filter campaigns by name or player's name"
+
+    inlines = [CastInline]
 
     @admin.display(ordering="name", description="name")
     def titlecase_name(self, campaign: Campaign):

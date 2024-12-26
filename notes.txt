@@ -1,10 +1,9 @@
 Things to do:
-1) in admin.py, implement an inline table for CampaignAdmin to add new cast
-2) player endpoint
-3) override manual's and player's manager to render an annotated field
-4) switch from function based view to ViewSets
+1) player endpoint
+2) override manual's and player's manager to render an annotated field
+3) switch from function based view to ViewSets
 
-5) implement custom action in admin.py to copy a campaign
+4) implement custom action in admin.py to copy a campaign
 
 ---------------------------------------------
 
