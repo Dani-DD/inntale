@@ -36,10 +36,15 @@ class CampaignSerializer(serializers.ModelSerializer):
 
 
 class ManualSerializer(serializers.ModelSerializer):
+    total_use = serializers.SerializerMethodField()
+
     class Meta:
         model = Manual
-        fields = ["id", "name", "slug"]
+        fields = ["id", "name", "slug", "total_use"]
         read_only_fields = ["slug"]
+
+    def get_total_use(self, manual: Manual):
+        return manual.total_use
 
 
 class PlayerSerializer(serializers.ModelSerializer):

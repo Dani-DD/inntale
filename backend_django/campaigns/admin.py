@@ -75,23 +75,21 @@ class CampaignAdmin(admin.ModelAdmin):
 
 @admin.register(Manual)
 class ManualAdmin(admin.ModelAdmin):
-    list_display = ["titlecase_name", "used_n_times"]
+    list_display = ["titlecase_name", "total_use"]
+
+    def get_queryset(self, request):
+        return Manual.objects.total_use().all()
 
     @admin.display(ordering="name", description="name")
     def titlecase_name(self, manual: Manual):
         return manual.name.title()
 
-    # Implementing the used_n_times annotation
-    def get_queryset(self, request):
-        return super().get_queryset(request).annotate(used_n_times=Count("used_in"))
-
-    # Displaying the used_n_times annotation in the admin
-    @admin.display(ordering="used_n_times")
-    def used_n_times(self, manual: Manual):
-        manual_url = (
-            f"{BASE_URL}admin/campaigns/campaign/?manual__id__exact={manual.id}"
-        )
-        return format_html("<a href='{}'>{}</a>", manual_url, manual.used_n_times)
+    @admin.display(ordering="total_use")
+    def total_use(self, manual: Manual):
+        campaign_admin_url = "admin/campaigns/campaign/"
+        url_query_parameter = "?manual__id__exact="
+        full_url = f"{BASE_URL}{campaign_admin_url}{url_query_parameter}{manual.pk}"
+        return format_html("<a href={}>{}</a>", full_url, manual.total_use)
 
 
 @admin.register(Player)

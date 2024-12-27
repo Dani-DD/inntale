@@ -36,7 +36,7 @@ def campaign_detail(request: Request, identifier: str):
 @api_view(["GET"])
 def manual_list(request: Request):
     if request.method == "GET":
-        queryset = Manual.objects.all()
+        queryset = Manual.objects.total_use().all()
         serializer = ManualSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

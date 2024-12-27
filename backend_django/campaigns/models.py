@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.aggregates import Count
 from django.utils.text import slugify
 
 
@@ -27,10 +28,20 @@ class Campaign(models.Model):
         return f"{self.name} s{self.season}"
 
 
+class ManualManager(models.Manager):
+    def total_use(self):
+        return (
+            self.get_queryset()
+            .prefetch_related("used_in")
+            .annotate(total_use=Count("used_in"))
+        )
+
+
 class Manual(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     # "used _in" as reverse foreign key from Campaign model
+    objects = ManualManager()
 
     def __str__(self):
         return f"{self.name}"

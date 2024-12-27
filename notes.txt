@@ -1,5 +1,5 @@
 Things to do:
-1) override manual's and player's manager to render an annotated field
+1) override manual's and player's manager to render an annotated field (used_n_times and appearance)
 2) switch from function based view to ViewSets
 
 3) implement custom action in admin.py to copy a campaign
