@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
+from django.db.models.aggregates import Count
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -57,7 +58,7 @@ def manual_detail(request: Request, identifier):
 @api_view(["GET"])
 def player_list(request: Request):
     if request.method == "GET":
-        queryset = Player.objects.all()
+        queryset = Player.objects.appearances().all()
         serializer = PlayerSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

@@ -103,11 +103,7 @@ class PlayerAdmin(admin.ModelAdmin):
         return f"{player.first_name.capitalize()} {player.last_name.capitalize()}"
 
     def get_queryset(self, request):
-        return (
-            super()
-            .get_queryset(request)
-            .annotate(appearances=Count("campaigns_played"))
-        )
+        return Player.objects.appearances().all()
 
     @admin.display(ordering="appearances")
     def appearances(self, player: Player):

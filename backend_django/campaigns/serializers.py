@@ -48,10 +48,15 @@ class ManualSerializer(serializers.ModelSerializer):
 
 
 class PlayerSerializer(serializers.ModelSerializer):
+    appearances = serializers.SerializerMethodField()
+
     class Meta:
         model = Player
-        fields = ["nickname", "first_name", "last_name"]
+        fields = ["nickname", "first_name", "last_name", "appearances"]
         read_only_fields = ["slug"]
+
+    def get_appearances(self, player: Player):
+        return player.appearances
 
 
 # AUTHENTICATION

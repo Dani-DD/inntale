@@ -55,12 +55,20 @@ class Manual(models.Model):
         ordering = ["name"]
 
 
+class PlayerManager(models.Manager):
+    def appearances(self):
+        return Player.objects.prefetch_related("campaigns_played").annotate(
+            appearances=Count("campaigns_played")
+        )
+
+
 class Player(models.Model):
     nickname = models.CharField(max_length=64, blank=True)
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     slug = models.SlugField(unique=True)
     # campaigns_played as reverse ForeignKey from Cast model
+    objects = PlayerManager()
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
