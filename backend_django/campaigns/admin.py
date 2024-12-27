@@ -1,7 +1,8 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.http import HttpRequest
 from django.db.models import Count
 from django.utils.html import format_html
+from django.utils.text import slugify
 from .models import Campaign, Manual, Player, Cast
 
 BASE_URL = "http://127.0.0.1:8000/"
@@ -49,7 +50,6 @@ class CampaignAdmin(admin.ModelAdmin):
         "is_edited",
         FilterCampaignsByYear,
     ]
-
     search_fields = [
         "name",
         "campaign_cast__player__first_name",
@@ -57,7 +57,7 @@ class CampaignAdmin(admin.ModelAdmin):
         "campaign_cast__player__nickname",
     ]
     search_help_text = "Filter campaigns by name or player's name"
-
+    actions = ["copy_campaign"]
     inlines = [CastInline]
 
     @admin.display(ordering="name", description="name")
@@ -71,6 +71,43 @@ class CampaignAdmin(admin.ModelAdmin):
     def show_youtube_link(self, campaign: Campaign):
         url = campaign.youtube_link
         return format_html('<a href="{}" target="_blank">{}</a>', url, url)
+
+    @admin.action(description="Copy selected campaigns as new seasons")
+    def copy_campaign(self, request, queryset):
+        successful_updates = 0
+        failure_updates = 0
+
+        for campaign in queryset:
+            try:
+                original_cast = list(campaign.campaign_cast.all())
+                campaign.season += 1
+                campaign.slug = slugify(f"{campaign.name} s{campaign.season}")
+                campaign.pk = None
+                campaign.save()
+
+                for cast_member in original_cast:
+                    cast_member.pk = None
+                    cast_member.campaign = campaign
+                    cast_member.save()
+
+                successful_updates += 1
+
+            except Exception:
+                failure_updates += 1
+
+        if successful_updates > 0:
+            self.message_user(
+                request,
+                f"{successful_updates} campaigns correctly copied",
+                messages.SUCCESS,
+            )
+
+        if failure_updates > 0:
+            self.message_user(
+                request,
+                f"Error in the copy of {failure_updates} campaigns",
+                messages.ERROR,
+            )
 
 
 @admin.register(Manual)
