@@ -1,9 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Field } from "@/components/ui/field";
-import { PasswordInput } from "@/components/ui/password-input";
 import AuthContext from "@/contexts/authContext";
 import { UserCredentials } from "@/interfaces/allIntefaces";
-import { Input } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
@@ -18,13 +15,15 @@ const LoginPage = () => {
 
     return (
         <form method="POST" onSubmit={onSubmit}>
-            <Field label="Username" required>
+            <FormControl isRequired>
+                <FormLabel>Username</FormLabel>
                 <Input {...register("username")} />
-            </Field>
+            </FormControl>
 
-            <Field label="Password" required>
-                <PasswordInput {...register("password")} />
-            </Field>
+            <FormControl isRequired>
+                <FormLabel>Password</FormLabel>
+                <Input type="password" {...register("password")} />
+            </FormControl>
 
             <Button type="submit">Log In</Button>
         </form>

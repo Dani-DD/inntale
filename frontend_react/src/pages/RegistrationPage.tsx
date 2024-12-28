@@ -1,9 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Field } from "@/components/ui/field";
-import { PasswordInput } from "@/components/ui/password-input";
 import AuthContext from "@/contexts/authContext";
 import { RegistrationForm } from "@/interfaces/allIntefaces";
-import { Input, Text } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -27,41 +24,47 @@ const RegistrationPage = () => {
 
     return (
         <form method="POST" onSubmit={onSubmit}>
-            <Field label="First name" required>
+            <FormControl isRequired>
+                <FormLabel>First name</FormLabel>
                 <Input placeholder="John" {...register("first_name")} />
-            </Field>
+            </FormControl>
 
-            <Field label="Last name" required>
+            <FormControl isRequired>
+                <FormLabel>Last name</FormLabel>
                 <Input placeholder="Doe" {...register("last_name")} />
-            </Field>
+            </FormControl>
 
-            <Field label="Email" required>
+            <FormControl isRequired>
+                <FormLabel>Email</FormLabel>
                 <Input
                     placeholder="john_doe@email.com"
                     type="email"
                     {...register("email")}
                 />
-            </Field>
+            </FormControl>
 
-            <Field label="Username" required>
+            <FormControl isRequired>
+                <FormLabel>Username</FormLabel>
                 <Input placeholder="MightyJoe" {...register("username")} />
-            </Field>
+            </FormControl>
 
-            <Field label="Password" required>
-                <PasswordInput
+            <FormControl isRequired>
+                <FormLabel>Password</FormLabel>
+                <Input
                     placeholder="**********"
                     type="password"
                     {...register("password")}
                 />
-            </Field>
+            </FormControl>
 
-            <Field label="Repeat password" required>
-                <PasswordInput
+            <FormControl isRequired>
+                <FormLabel>Repeat password</FormLabel>
+                <Input
                     placeholder="**********"
                     type="password"
                     {...register("repeat_password")}
                 />
-            </Field>
+            </FormControl>
 
             {!doPasswordsMatch && (
                 <Text color={"red"}>Passwords must match</Text>
