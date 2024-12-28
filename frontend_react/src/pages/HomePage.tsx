@@ -1,3 +1,4 @@
+import CampaignGrid from "@/components/main/CampaignGrid";
 import useCampaigns from "@/hooks/useCampaigns";
 import useManuals from "@/hooks/useManuals";
 import usePlayers from "@/hooks/usePlayers";
@@ -28,7 +29,9 @@ const HomePage = () => {
                 <Show above="lg">
                     <GridItem area="sidebar">sidebar</GridItem>
                 </Show>
-                <GridItem area="main">main</GridItem>
+                <GridItem area="main">
+                    <CampaignGrid />
+                </GridItem>
             </Grid>
         </>
     );
