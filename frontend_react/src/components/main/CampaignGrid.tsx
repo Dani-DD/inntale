@@ -5,22 +5,20 @@ import CampaignCard from "./CampaignCard";
 const CampaignGrid = () => {
     const { campaigns, error, isLoading } = useCampaigns();
 
-    return (
-        <>
-            {/*Handle errors*/}
-            {error && <Text>{error}</Text>}
+    if (isLoading) {
+        return <Spinner />;
+    }
 
-            <SimpleGrid
-                columns={{ sm: 1, md: 2, lg: 3 }}
-                spacing="10"
-                padding="10"
-            >
-                {isLoading && <Spinner />}
-                {campaigns.map((campaign) => (
-                    <CampaignCard campaign={campaign} key={campaign.id} />
-                ))}
-            </SimpleGrid>
-        </>
+    if (error) {
+        return <Text>{error}</Text>;
+    }
+
+    return (
+        <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="10" padding="10">
+            {campaigns.map((campaign) => (
+                <CampaignCard campaign={campaign} key={campaign.id} />
+            ))}
+        </SimpleGrid>
     );
 };
 

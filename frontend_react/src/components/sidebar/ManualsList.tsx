@@ -6,6 +6,14 @@ import { titleCase } from "@/utils/utils";
 const ManualsList = () => {
     const { manuals, error, isLoading } = useManuals();
 
+    if (isLoading) {
+        return <Spinner />;
+    }
+
+    if (error) {
+        return <Text>{error}</Text>;
+    }
+
     /**
      * The ExpandableList component needs an array of ListElement objects,
      * so we convert the "manuals" variable (an array of Manual objects) into it.
@@ -17,13 +25,7 @@ const ManualsList = () => {
         };
     });
 
-    return (
-        <>
-            {error && <Text>{error}</Text>}
-            {isLoading && <Spinner />}
-            <ExpandableList list={manualsList} />
-        </>
-    );
+    return <ExpandableList list={manualsList} />;
 };
 
 export default ManualsList;

@@ -6,6 +6,14 @@ import usePlayers from "@/hooks/usePlayers";
 const PlayersList = () => {
     const { players, error, isLoading } = usePlayers();
 
+    if (isLoading) {
+        return <Spinner />;
+    }
+
+    if (error) {
+        return <Text>{error}</Text>;
+    }
+
     /**
      * The ExpandableList component needs an array of ListElement objects,
      * so we convert the "players" variable (an array of Player objects) into it.
@@ -17,13 +25,7 @@ const PlayersList = () => {
         };
     });
 
-    return (
-        <>
-            {error && <Text>{error}</Text>}
-            {isLoading && <Spinner />}
-            <ExpandableList list={playersList} />
-        </>
-    );
+    return <ExpandableList list={playersList} />;
 };
 
 export default PlayersList;
