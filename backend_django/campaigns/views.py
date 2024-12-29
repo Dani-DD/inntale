@@ -6,74 +6,57 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.viewsets import GenericViewSet
 from .models import Campaign, Manual, Cast, Player
 from .serializers import CampaignSerializer, ManualSerializer, PlayerSerializer
 
 
-# Create your views here.
-@api_view(["GET"])
-def campaign_list(request: Request):
-    if request.method == "GET":
-        queryset = Campaign.objects.select_related("manual").prefetch_related(
+# VIEWSETS
+class CampaignViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    def get_queryset(self):
+        return Campaign.objects.select_related("manual").prefetch_related(
             Prefetch("campaign_cast", queryset=Cast.objects.select_related("player"))
         )
-        serializer = CampaignSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def get_object(self):
+        lookup = self.kwargs["pk"]
+        if lookup.isdigit():
+            return get_object_or_404(Campaign, id=lookup)
+        else:
+            return get_object_or_404(Campaign, slug=lookup)
+
+    serializer_class = CampaignSerializer
 
 
-@api_view(["GET"])
-def campaign_detail(request: Request, identifier: str):
-    try:
-        pk = int(identifier)
-        campaign = get_object_or_404(Campaign, pk=pk)
-    except ValueError:
-        campaign = get_object_or_404(Campaign, slug=identifier)
+class ManualViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    def get_queryset(self):
+        return Manual.objects.total_use().all()
 
-    if request.method == "GET":
-        serializer = CampaignSerializer(campaign)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get_object(self):
+        queryset = self.get_queryset()
+        lookup = self.kwargs["pk"]
+        if lookup.isdigit():
+            return get_object_or_404(queryset, id=lookup)
+        else:
+            return get_object_or_404(queryset, slug=lookup)
 
-
-@api_view(["GET"])
-def manual_list(request: Request):
-    if request.method == "GET":
-        queryset = Manual.objects.total_use().all()
-        serializer = ManualSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    serializer_class = ManualSerializer
 
 
-@api_view(["GET"])
-def manual_detail(request: Request, identifier):
-    try:
-        pk = int(identifier)
-        manual = get_object_or_404(Manual, pk=pk)
-    except ValueError:
-        manual = get_object_or_404(Manual, slug=identifier)
+class PlayerViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    def get_queryset(self):
+        return Player.objects.appearances().all()
 
-    if request.method == "GET":
-        serializer = ManualSerializer(manual)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get_object(self):
+        queryset = self.get_queryset()
+        lookup = self.kwargs["pk"]
+        if lookup.isdigit():
+            return get_object_or_404(queryset, id=lookup)
+        else:
+            return get_object_or_404(queryset, slug=lookup)
 
-
-@api_view(["GET"])
-def player_list(request: Request):
-    if request.method == "GET":
-        queryset = Player.objects.appearances().all()
-        serializer = PlayerSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-@api_view(["GET"])
-def player_detail(request: Request, identifier: str):
-    try:
-        pk = int(identifier)
-        player = get_object_or_404(Player, pk=pk)
-    except ValueError:
-        player = get_object_or_404(Player, slug=identifier)
-
-    if request.method == "GET":
-        serializer = PlayerSerializer(player)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    serializer_class = PlayerSerializer
 
 
 # TESTING VIEWS
