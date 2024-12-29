@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@/contexts/authContext";
 import UserPage from "@/pages/UserPage";
 import PrivatePage from "@/pages/PrivatePage";
+import Test from "./Test";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
                 element: <PrivatePage />,
             },
         ],
+    },
+    {
+        path: "test/",
+        element: <Test />,
     },
 ]);
 
