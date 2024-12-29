@@ -9,7 +9,7 @@ from .models import Campaign, Manual, Cast, Player
 class CampaignCastSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cast
-        fields = ["player", "character"]
+        fields = ["id", "player", "character"]
 
     player = serializers.StringRelatedField()
 
