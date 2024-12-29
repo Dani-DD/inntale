@@ -10,7 +10,7 @@ const ManualsList = () => {
      * The ExpandableList component needs an array of ListElement objects,
      * so we convert the "manuals" variable (an array of Manual objects) into it.
      */
-    const manualList: ListElement[] = manuals.map((manual) => {
+    const manualsList: ListElement[] = manuals.map((manual) => {
         return {
             name: titleCase(manual.name),
             tag: manual.total_use,
@@ -21,7 +21,7 @@ const ManualsList = () => {
         <>
             {error && <Text>{error}</Text>}
             {isLoading && <Spinner />}
-            <ExpandableList list={manualList} />
+            <ExpandableList list={manualsList} />
         </>
     );
 };
