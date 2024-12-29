@@ -1,16 +1,9 @@
 import CampaignGrid from "@/components/main/CampaignGrid";
 import ManualsList from "@/components/sidebar/ManualsList";
-import useCampaigns from "@/hooks/useCampaigns";
-import usePlayers from "@/hooks/usePlayers";
+import PlayersList from "@/components/sidebar/PlayersList";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 
 const HomePage = () => {
-    const { campaigns } = useCampaigns();
-    const { players } = usePlayers();
-
-    console.log(campaigns);
-    console.log(players);
-
     return (
         <>
             <Grid
@@ -27,6 +20,7 @@ const HomePage = () => {
                 <Show above="lg">
                     <GridItem area="sidebar">
                         <ManualsList />
+                        <PlayersList />
                     </GridItem>
                 </Show>
                 <GridItem area="main">
