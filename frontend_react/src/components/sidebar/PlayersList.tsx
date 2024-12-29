@@ -20,6 +20,7 @@ const PlayersList = () => {
      */
     const playersList: ListElement[] = players.map((player) => {
         return {
+            id: `player_${player.id}`,
             name: titleCase(`${player.first_name} ${player.last_name}`),
             tag: player.appearances,
         };

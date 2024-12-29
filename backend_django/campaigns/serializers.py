@@ -52,7 +52,7 @@ class PlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Player
-        fields = ["nickname", "first_name", "last_name", "appearances"]
+        fields = ["id", "nickname", "first_name", "last_name", "appearances"]
         read_only_fields = ["slug"]
 
     def get_appearances(self, player: Player):

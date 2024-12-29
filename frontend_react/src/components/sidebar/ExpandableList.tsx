@@ -5,6 +5,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 
 export interface ListElement {
+    id: string;
     name: string;
     tag: number;
 }
@@ -36,7 +37,7 @@ const ExpandableList = ({ list }: Props) => {
         <Stack>
             {/* list's elements */}
             {list.slice(0, lastElement).map((listElement) => (
-                <FilteringButton tag={listElement.tag}>
+                <FilteringButton tag={listElement.tag} key={listElement.id}>
                     {listElement.name}
                 </FilteringButton>
             ))}

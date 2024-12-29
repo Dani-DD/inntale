@@ -20,6 +20,7 @@ const ManualsList = () => {
      */
     const manualsList: ListElement[] = manuals.map((manual) => {
         return {
+            id: `manual_${manual.id}`,
             name: titleCase(manual.name),
             tag: manual.total_use,
         };
