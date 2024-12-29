@@ -4,8 +4,13 @@ import { useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 
+export interface ListElement {
+    name: string;
+    tag: number;
+}
+
 interface Props {
-    list: string[];
+    list: ListElement[];
 }
 
 const ExpandableList = ({ list }: Props) => {
@@ -30,12 +35,13 @@ const ExpandableList = ({ list }: Props) => {
     return (
         <Stack>
             {/* list's elements */}
-            {list.slice(0, lastElement).map((character) => (
-                <FilteringButton>{character}</FilteringButton>
+            {list.slice(0, lastElement).map((listElement) => (
+                <FilteringButton tag={listElement.tag}>
+                    {listElement.name}
+                </FilteringButton>
             ))}
             {/* button to toggle list's status */}
             <Button
-                width={"100px"}
                 size="md"
                 border="1px"
                 padding={"7px 15px"}

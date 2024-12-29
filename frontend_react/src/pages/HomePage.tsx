@@ -1,20 +1,14 @@
 import CampaignGrid from "@/components/main/CampaignGrid";
-import ExpandableList from "@/components/sidebar/ExpandableList";
+import ManualsList from "@/components/sidebar/ManualsList";
 import useCampaigns from "@/hooks/useCampaigns";
-import useManuals from "@/hooks/useManuals";
 import usePlayers from "@/hooks/usePlayers";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 
-// Testing
-const list = ["Dexter", "Debra", "Lundy", "Doakes", "Henry", "Rita", "Brian"];
-
 const HomePage = () => {
     const { campaigns } = useCampaigns();
-    const { manuals } = useManuals();
     const { players } = usePlayers();
 
     console.log(campaigns);
-    console.log(manuals);
     console.log(players);
 
     return (
@@ -26,13 +20,13 @@ const HomePage = () => {
                 }}
                 templateColumns={{
                     base: "1fr",
-                    lg: "200px 1fr",
+                    lg: "250px 1fr",
                 }}
             >
                 <GridItem area="nav">navbar</GridItem>
                 <Show above="lg">
                     <GridItem area="sidebar">
-                        <ExpandableList list={list} />
+                        <ManualsList />
                     </GridItem>
                 </Show>
                 <GridItem area="main">
