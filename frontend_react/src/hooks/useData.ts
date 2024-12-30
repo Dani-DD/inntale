@@ -1,7 +1,8 @@
+import { Filters } from "@/interfaces/Filters";
 import axios, { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 
-const useData = <T>(endpoint: string) => {
+const useData = <T>(endpoint: string, filters?: Filters) => {
     const [fetchedData, setFetchedData] = useState<T[]>([]);
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -11,7 +12,13 @@ const useData = <T>(endpoint: string) => {
         const controller = new AbortController();
 
         axios
-            .get<T[]>(endpoint, { signal: controller.signal })
+            .get<T[]>(endpoint, {
+                signal: controller.signal,
+                params: {
+                    manual: filters?.selected_manual,
+                    campaign_cast__player: filters?.selected_player,
+                },
+            })
             .then((response) => {
                 setIsLoading(false);
                 setFetchedData(response.data);

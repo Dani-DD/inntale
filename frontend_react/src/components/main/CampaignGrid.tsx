@@ -1,9 +1,15 @@
 import useCampaigns from "@/hooks/useCampaigns";
 import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import CampaignCard from "./CampaignCard";
+import { Filters } from "@/interfaces/Filters";
+
+const testingFilters: Filters = {
+    selected_manual: 6,
+    selected_player: 19,
+};
 
 const CampaignGrid = () => {
-    const { campaigns, error, isLoading } = useCampaigns();
+    const { campaigns, error, isLoading } = useCampaigns(testingFilters);
 
     if (isLoading) {
         return <Spinner />;
