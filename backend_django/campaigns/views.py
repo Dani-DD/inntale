@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
 from django.db.models.aggregates import Count
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -27,6 +28,18 @@ class CampaignViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
             return get_object_or_404(Campaign, slug=lookup)
 
     serializer_class = CampaignSerializer
+
+    # Filtering
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["manual", "campaign_cast__player"]
+
+    """
+    
+    To enable filtering, go to your ViewSet and override the filter_backends and filterset_fields:
+the first one is the attribute that indicates the list of classes that you want to use to perform the filtering. In this case, we'll use the DjangoFilterBackend class.
+the second one is the attribute that indicates the list of fields we want to filter.
+
+    """
 
 
 class ManualViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
