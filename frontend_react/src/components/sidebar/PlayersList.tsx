@@ -28,6 +28,15 @@ const PlayersList = () => {
         };
     });
 
+    /**
+     * The first element of the list will be used to built a button that cleans up the selected filter
+     */
+    playersList.unshift({
+        elementId: undefined,
+        name: "All players",
+        listType: "Player",
+    });
+
     return <ExpandableList list={playersList} />;
 };
 

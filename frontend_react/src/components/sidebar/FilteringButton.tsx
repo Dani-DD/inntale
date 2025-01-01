@@ -43,7 +43,10 @@ const FilteringButton = ({ buttonContent }: Props) => {
                 onClick={handleClick}
             >
                 {buttonContent.name}
-                <Tag marginLeft={"5px"}>{buttonContent.tag}</Tag>
+
+                {buttonContent.tag !== undefined && (
+                    <Tag marginLeft={"5px"}>{buttonContent.tag}</Tag>
+                )}
             </Button>
         </>
     );

@@ -8,8 +8,8 @@ export interface Filters {
 
 interface FiltersStore {
     filters: Filters;
-    setSelectedManual: (chosenId: number) => void;
-    setSelectedPlayer: (chosenId: number) => void;
+    setSelectedManual: (chosenId: number | undefined) => void;
+    setSelectedPlayer: (chosenId: number | undefined) => void;
 }
 
 // We create a custom hook that returns the store object

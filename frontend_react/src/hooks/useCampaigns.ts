@@ -1,6 +1,6 @@
 import { Campaign } from "@/interfaces/Campaign";
 import useData from "./useData";
-import { Filters } from "@/interfaces/Filters";
+import { Filters } from "@/stores/FiltersStore";
 
 const useCampaigns = (filters?: Filters) => {
     const {

@@ -1,6 +1,6 @@
 export interface ListElement {
-    elementId: number;
+    elementId?: number;
     name: string;
-    tag: number;
+    tag?: number;
     listType: "Manual" | "Player";
 }

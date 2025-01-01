@@ -28,6 +28,16 @@ const ManualsList = () => {
         };
     });
 
+    /**
+     * The first element of the list will be used to built a button that cleans up the selected filter
+     */
+    manualsList.unshift({
+        elementId: undefined,
+        name: "All manuals",
+        tag: undefined,
+        listType: "Manual",
+    });
+
     return <ExpandableList list={manualsList} />;
 };
 
