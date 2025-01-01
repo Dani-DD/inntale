@@ -3,23 +3,23 @@ import FilteringButton from "./FilteringButton";
 import { useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
+import { ListElement } from "@/interfaces/ListElement";
 
-export interface ListElement {
-    id: string;
-    name: string;
-    tag: number;
-}
+/**
+ * This component represents an expandable/collapsable list.
+ * The last element of the list is the button that set the list's status (expanded or collapsed).
+ * It needs the list to render.
+ * In this case, due to project requirements (see FilteringButton component), each element of the list
+ * is an object described in the ListElement interface.
+ *
+ * This object is constructed and returned by the parent component.
+ */
 
 interface Props {
     list: ListElement[];
 }
 
 const ExpandableList = ({ list }: Props) => {
-    /**
-     * This component represents an expandable/collapsable list.
-     * The last element of the list is the button that set the list's status.
-     */
-
     const [showAll, setShowAll] = useState<boolean>(false);
 
     // Initial values: the list is collapsed by default.
@@ -37,9 +37,14 @@ const ExpandableList = ({ list }: Props) => {
         <Stack>
             {/* list's elements */}
             {list.slice(0, lastElement).map((listElement) => (
-                <FilteringButton tag={listElement.tag} key={listElement.id}>
-                    {listElement.name}
-                </FilteringButton>
+                <FilteringButton
+                    buttonContent={listElement}
+                    key={
+                        listElement.listType === "Manual"
+                            ? `manual_${listElement.elementId}`
+                            : `player_${listElement.elementId}`
+                    }
+                />
             ))}
             {/* button to toggle list's status */}
             <Button

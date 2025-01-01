@@ -1,7 +1,8 @@
 import { Spinner, Text } from "@chakra-ui/react";
-import ExpandableList, { ListElement } from "./ExpandableList";
+import ExpandableList from "./ExpandableList";
 import { titleCase } from "@/utils/utils";
 import usePlayers from "@/hooks/usePlayers";
+import { ListElement } from "@/interfaces/ListElement";
 
 const PlayersList = () => {
     const { players, error, isLoading } = usePlayers();
@@ -20,9 +21,10 @@ const PlayersList = () => {
      */
     const playersList: ListElement[] = players.map((player) => {
         return {
-            id: `player_${player.id}`,
+            elementId: player.id,
             name: titleCase(`${player.first_name} ${player.last_name}`),
             tag: player.appearances,
+            listType: "Player",
         };
     });
 

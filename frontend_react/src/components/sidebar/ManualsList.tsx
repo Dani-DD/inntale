@@ -1,7 +1,8 @@
 import useManuals from "@/hooks/useManuals";
 import { Spinner, Text } from "@chakra-ui/react";
-import ExpandableList, { ListElement } from "./ExpandableList";
+import ExpandableList from "./ExpandableList";
 import { titleCase } from "@/utils/utils";
+import { ListElement } from "@/interfaces/ListElement";
 
 const ManualsList = () => {
     const { manuals, error, isLoading } = useManuals();
@@ -20,9 +21,10 @@ const ManualsList = () => {
      */
     const manualsList: ListElement[] = manuals.map((manual) => {
         return {
-            id: `manual_${manual.id}`,
+            elementId: manual.id,
             name: titleCase(manual.name),
             tag: manual.total_use,
+            listType: "Manual",
         };
     });
 
