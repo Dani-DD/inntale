@@ -1,5 +1,5 @@
 import { ListElement } from "@/interfaces/ListElement";
-import useTestStore from "@/stores/test";
+import useFiltersStore from "@/stores/FiltersStore";
 import { Button, Tag } from "@chakra-ui/react";
 
 /**
@@ -16,18 +16,18 @@ interface Props {
 }
 
 const FilteringButton = ({ buttonContent }: Props) => {
-    const { setSelectedId } = useTestStore();
+    const setSelectedManual = useFiltersStore((s) => s.setSelectedManual);
+    const setSelectedPlayer = useFiltersStore((s) => s.setSelectedPlayer);
 
     // When the user click on the button, we change the state's value
     const handleClick = () => {
-        setSelectedId(buttonContent.elementId);
         switch (buttonContent.listType) {
             case "Manual":
-                console.log("A manual has been selected.");
+                setSelectedManual(buttonContent.elementId);
                 break;
 
             case "Player":
-                console.log("A player has been selected.");
+                setSelectedPlayer(buttonContent.elementId);
                 break;
         }
     };

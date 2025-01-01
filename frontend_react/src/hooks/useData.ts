@@ -1,4 +1,4 @@
-import { Filters } from "@/interfaces/Filters";
+import { Filters } from "@/stores/FiltersStore";
 import axios, { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 
@@ -6,6 +6,8 @@ const useData = <T>(endpoint: string, filters?: Filters) => {
     const [fetchedData, setFetchedData] = useState<T[]>([]);
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    console.log(filters);
 
     // Fetch data
     useEffect(() => {
@@ -30,7 +32,7 @@ const useData = <T>(endpoint: string, filters?: Filters) => {
             });
 
         return () => controller.abort();
-    }, []);
+    }, [filters]);
 
     return { fetchedData, error, isLoading };
 };
