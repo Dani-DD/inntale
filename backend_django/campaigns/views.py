@@ -1,10 +1,9 @@
 from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
-from django.db.models.aggregates import Count
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
+from rest_framework.filters import SearchFilter
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
@@ -30,16 +29,14 @@ class CampaignViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     serializer_class = CampaignSerializer
 
     # Filtering
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ["manual", "campaign_cast__player"]
-
-    """
-    
-    To enable filtering, go to your ViewSet and override the filter_backends and filterset_fields:
-the first one is the attribute that indicates the list of classes that you want to use to perform the filtering. In this case, we'll use the DjangoFilterBackend class.
-the second one is the attribute that indicates the list of fields we want to filter.
-
-    """
+    search_fields = [
+        "manual__name",
+        "campaign_cast__player__nickname",
+        "campaign_cast__player__first_name",
+        "campaign_cast__player__last_name",
+    ]
 
 
 class ManualViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
@@ -74,6 +71,14 @@ class PlayerViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
 
 # TESTING VIEWS
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
 def test_view(request: Request):
-    return Response("This is a protected endpoint.")
+    if request.method == "GET":
+        search_param = request.query_params.get("search", "")
+
+        if search_param:
+            queryset = Campaign.objects.filter(manual__name__icontains=search_param)
+        else:
+            queryset = Campaign.objects.all()
+
+        serializer = CampaignSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
