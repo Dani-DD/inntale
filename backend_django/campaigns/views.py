@@ -38,7 +38,7 @@ class CampaignViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
         "campaign_cast__player__first_name",
         "campaign_cast__player__last_name",
     ]
-    ordering_fields = ["release_date"]
+    ordering_fields = ["name", "release_date", "season"]
 
 
 class ManualViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
