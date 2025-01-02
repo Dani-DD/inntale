@@ -3,7 +3,7 @@ from django.db.models import Prefetch
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
@@ -28,8 +28,8 @@ class CampaignViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
 
     serializer_class = CampaignSerializer
 
-    # Filtering
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    # Filtering, searching and ordering
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ["manual", "campaign_cast__player"]
     search_fields = [
         "name",  # campaign's name
@@ -38,6 +38,7 @@ class CampaignViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
         "campaign_cast__player__first_name",
         "campaign_cast__player__last_name",
     ]
+    ordering_fields = ["release_date"]
 
 
 class ManualViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
@@ -74,12 +75,19 @@ class PlayerViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
 @api_view(["GET"])
 def test_view(request: Request):
     if request.method == "GET":
-        search_param = request.query_params.get("search", "")
+        ordering_param = request.query_params.get("ordering", "")
 
-        if search_param:
-            queryset = Campaign.objects.filter(manual__name__icontains=search_param)
-        else:
+        # No ordering param
+        if not ordering_param:
             queryset = Campaign.objects.all()
+
+        # Ascending order
+        if ordering_param == "release_date":
+            queryset = Campaign.objects.order_by("release_date")
+
+        # Descending order
+        if ordering_param == "-release_date":
+            queryset = Campaign.objects.order_by("-release_date")
 
         serializer = CampaignSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
