@@ -1,6 +1,6 @@
 ManualsList -> ExpandableList -> FilteringButton
 PlayersList ->
 
-ExpandableList: renders a list.
+ExpandableList: renders an expandable/collapsable list.
 ManualsList/PlayersList: build the list for ExpandableList.
 FilteringButton: turn each element of the list into a button for filtering campaigns.

@@ -1,0 +1,1 @@
+routes.tsx: AuthProvider -> authContext.tsx: Layout -> layout.tsx: Navbar + Outlet (AuthProvider's children in routes.tsx)
