@@ -8,22 +8,21 @@ const HomePage = () => {
         <>
             <Grid
                 templateAreas={{
-                    base: `"nav" "main"`,
-                    lg: `"nav nav" "sidebar main"`,
+                    base: `"main"`,
+                    lg: `"sidebar main"`,
                 }}
                 templateColumns={{
                     base: "1fr",
                     lg: "250px 1fr",
                 }}
             >
-                <GridItem area="nav">navbar</GridItem>
                 <Show above="lg">
-                    <GridItem area="sidebar">
+                    <GridItem area="sidebar" border="2px solid black">
                         <ManualsList />
                         <PlayersList />
                     </GridItem>
                 </Show>
-                <GridItem area="main">
+                <GridItem area="main" border="2px solid black">
                     <CampaignGrid />
                 </GridItem>
             </Grid>
