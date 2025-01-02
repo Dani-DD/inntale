@@ -32,6 +32,7 @@ class CampaignViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ["manual", "campaign_cast__player"]
     search_fields = [
+        "name",  # campaign's name
         "manual__name",
         "campaign_cast__player__nickname",
         "campaign_cast__player__first_name",
