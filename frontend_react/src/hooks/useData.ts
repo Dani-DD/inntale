@@ -19,6 +19,7 @@ const useData = <T>(endpoint: string, filters?: Filters) => {
                 params: {
                     manual: filters?.selected_manual,
                     campaign_cast__player: filters?.selected_player,
+                    search: filters?.search,
                 },
             })
             .then((response) => {

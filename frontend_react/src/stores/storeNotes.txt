@@ -1,0 +1,5 @@
+ManualsList -> FilteringButton -> can update the store by calling useFiltersStore -> useData: axios.get(<endpoint>, AxiosRequestConfig)
+PlayersList -> 
+
+SearchBox -> can update the store by calling useFiltersStore -> useData: axios.get(<endpoint>, AxiosRequestConfig)
+
