@@ -1,6 +1,7 @@
 import { HStack, Image } from "@chakra-ui/react";
 import logoLaptop from "../../assets/inntale_logo2.png";
 import { NavLink, Link } from "react-router-dom";
+import SearchBox from "./SearchBox";
 
 const NavbarLaptop = () => {
     return (
@@ -13,6 +14,7 @@ const NavbarLaptop = () => {
                     objectFit={"contain"}
                 />
             </Link>
+            <SearchBox />
             <HStack height="100%" spacing="35px" padding="15px">
                 <HStack spacing="10px">
                     <NavLink to="/login">Login</NavLink>

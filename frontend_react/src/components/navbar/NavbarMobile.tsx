@@ -1,6 +1,7 @@
 import { Link as LinkChakra, Image, HStack, VStack } from "@chakra-ui/react";
 import logoMobile from "../../assets/inntale_transparent_logo.png";
 import { Link } from "react-router-dom";
+import SearchBox from "./SearchBox";
 
 const NavbarMobile = () => {
     return (
@@ -12,6 +13,7 @@ const NavbarMobile = () => {
                 </Link>
                 <LinkChakra marginRight="10px">Register</LinkChakra>
             </HStack>
+            <SearchBox width="100%" />
         </VStack>
     );
 };
