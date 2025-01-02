@@ -1,4 +1,5 @@
 import CampaignGrid from "@/components/main/CampaignGrid";
+import SortSelector from "@/components/main/SortSelector";
 import ManualsList from "@/components/sidebar/ManualsList";
 import PlayersList from "@/components/sidebar/PlayersList";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
@@ -23,6 +24,7 @@ const HomePage = () => {
                     </GridItem>
                 </Show>
                 <GridItem area="main" border="2px solid black">
+                    <SortSelector />
                     <CampaignGrid />
                 </GridItem>
             </Grid>

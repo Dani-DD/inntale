@@ -20,6 +20,7 @@ const useData = <T>(endpoint: string, filters?: Filters) => {
                     manual: filters?.selected_manual,
                     campaign_cast__player: filters?.selected_player,
                     search: filters?.search,
+                    ordering: filters?.ordering,
                 },
             })
             .then((response) => {

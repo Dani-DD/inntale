@@ -2,4 +2,4 @@ ManualsList -> FilteringButton -> can update the store by calling useFiltersStor
 PlayersList -> 
 
 SearchBox -> can update the store by calling useFiltersStore -> useData: axios.get(<endpoint>, AxiosRequestConfig)
-
+SortSelector -> can update the store by calling useFiltersStore -> useData: axios.get(<endpoint>, AxiosRequestConfig)
