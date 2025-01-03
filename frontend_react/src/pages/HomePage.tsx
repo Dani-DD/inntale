@@ -1,4 +1,5 @@
 import CampaignGrid from "@/components/main/CampaignGrid";
+import DynamicHeading from "@/components/main/DynamicHeading";
 import SortSelector from "@/components/main/SortSelector";
 import ManualsList from "@/components/sidebar/ManualsList";
 import PlayersList from "@/components/sidebar/PlayersList";
@@ -26,6 +27,7 @@ const HomePage = () => {
                     </GridItem>
                 </Show>
                 <GridItem area="main" border="2px solid black">
+                    <DynamicHeading />
                     <SortSelector orderBy={ordering} />
                     <CampaignGrid />
                 </GridItem>
