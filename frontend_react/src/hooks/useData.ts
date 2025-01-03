@@ -7,8 +7,6 @@ const useData = <T>(endpoint: string, filters?: Filters) => {
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    console.log(filters);
-
     // Fetch data
     useEffect(() => {
         const controller = new AbortController();
