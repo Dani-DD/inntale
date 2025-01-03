@@ -56,7 +56,10 @@ const SortSelector = ({ orderBy }: Props) => {
             </MenuButton>
             <MenuList>
                 {orderingOptions.map((option) => (
-                    <MenuItem onClick={() => setOrdering(option.orderingParam)}>
+                    <MenuItem
+                        onClick={() => setOrdering(option.orderingParam)}
+                        key={option.label}
+                    >
                         {option.label}
                     </MenuItem>
                 ))}
