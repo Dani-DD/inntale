@@ -131,7 +131,7 @@ class ManualAdmin(admin.ModelAdmin):
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ["full_name", "appearances"]
+    list_display = ["full_name", "appearances", "profile_image"]
     ordering = ["first_name", "last_name"]
     list_filter = ["campaigns_played__campaign"]
 
@@ -145,6 +145,17 @@ class PlayerAdmin(admin.ModelAdmin):
     @admin.display(ordering="appearances")
     def appearances(self, player: Player):
         return player.appearances
+
+    def profile_image(self, player: Player):
+        # First we have to check if an image exists
+        if player.profile_pic:
+            return format_html(
+                f'<img src="{player.profile_pic.url}" class="thumbnail" />'
+            )  # url is a property of ImageField
+        return ""
+
+    class Media:
+        css = {"all": ["campaigns_style.css"]}
 
 
 admin.site.register(Cast)
