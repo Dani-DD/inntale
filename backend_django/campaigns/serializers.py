@@ -7,11 +7,13 @@ from .models import Campaign, Manual, Cast, Player
 
 
 class CampaignCastSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Cast
-        fields = ["id", "player", "character"]
+        fields = ["id", "player", "character", "profile_pic"]
 
     player = serializers.StringRelatedField()
+    profile_pic = serializers.ImageField(source="player.profile_pic")
 
 
 class CampaignSerializer(serializers.ModelSerializer):
@@ -52,7 +54,14 @@ class PlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Player
-        fields = ["id", "nickname", "first_name", "last_name", "appearances"]
+        fields = [
+            "id",
+            "nickname",
+            "first_name",
+            "last_name",
+            "appearances",
+            "profile_pic",
+        ]
         read_only_fields = ["slug"]
 
     def get_appearances(self, player: Player):
