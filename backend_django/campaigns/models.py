@@ -66,6 +66,7 @@ class Player(models.Model):
     nickname = models.CharField(max_length=64, blank=True)
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
+    profile_pic = models.ImageField(blank=True, null=True)
     slug = models.SlugField(unique=True)
     # campaigns_played as reverse ForeignKey from Cast model
     objects = PlayerManager()
