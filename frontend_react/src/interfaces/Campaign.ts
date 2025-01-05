@@ -8,5 +8,6 @@ export interface Campaign {
     is_edited: boolean;
     manual: string;
     youtube_link: string;
+    thumbnail: string;
     campaign_cast: Cast[];
 }
