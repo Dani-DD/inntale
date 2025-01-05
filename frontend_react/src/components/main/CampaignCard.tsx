@@ -14,6 +14,7 @@ import Label from "./Label";
 import CastAccordion from "./CastAccordion";
 import { titleCase } from "@/utils/utils";
 import YouTubeButtonLink from "./YouTubeButtonLink";
+import { blue_inntale, gold_inntale } from "@/utils/colors";
 
 interface Props {
     campaign: Campaign;
@@ -25,7 +26,13 @@ const CampaignCard = ({ campaign }: Props) => {
         : { text: "Live", icon: FaTwitch, color: "purple" };
 
     return (
-        <Card border="solid" textAlign="center" size="sm">
+        <Card
+            border="solid"
+            textAlign="center"
+            size="sm"
+            backgroundColor={blue_inntale}
+            borderColor={gold_inntale}
+        >
             <Image
                 aspectRatio={"16/9"}
                 src={

@@ -17,7 +17,12 @@ const CampaignGrid = () => {
     }
 
     return (
-        <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="10" padding="10">
+        <SimpleGrid
+            columns={{ sm: 1, md: 2, lg: 3 }}
+            spacing="10"
+            padding="10"
+            border="2px solid red"
+        >
             {campaigns.map((campaign) => (
                 <CampaignCard campaign={campaign} key={campaign.id} />
             ))}
