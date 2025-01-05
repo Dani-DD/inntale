@@ -32,6 +32,7 @@ class CampaignSerializer(serializers.ModelSerializer):
             "manual",
             "youtube_link",
             "release_date",
+            "thumbnail",
             "campaign_cast",
         ]
         read_only_fields = ["slug"]

@@ -1,6 +1,6 @@
 Things to do:
-1) switch from function based view to ViewSets
-
-2) implement custom action in admin.py to copy a campaign
-
+1) Establish the size of campaign's thumbnails
+2) test if "copy campaigns" in CampaignAdmin still works with the new field (thumbnail = ImageField)
+3) create a Image model to avoid duplicate images?
 ---------------------------------------------
+

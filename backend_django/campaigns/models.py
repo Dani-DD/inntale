@@ -14,6 +14,7 @@ class Campaign(models.Model):
     )
     youtube_link = models.TextField()
     release_date = models.DateField(null=True, blank=True)
+    thumbnail = models.ImageField(null=True, blank=True, upload_to="campaigns/")
     # "campaign_cast" as reverse ForeignKey from Cast model
 
     class Meta:
