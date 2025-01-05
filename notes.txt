@@ -1,3 +1,4 @@
 Things to do:
 1) test if "copy campaigns" in CampaignAdmin still works with the new field (thumbnail = ImageField)
+2) show total number of manuals and players
 ---------------------------------------------
