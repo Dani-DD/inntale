@@ -1,5 +1,9 @@
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
 
+/**
+ * This component renders the player's profile picture with its name and the character who plays.
+ */
+
 interface Props {
     profile_pic: string;
     player: string;
