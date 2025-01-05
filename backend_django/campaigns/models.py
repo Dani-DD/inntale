@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.aggregates import Count
 from django.utils.text import slugify
+import os
 
 
 # Create your models here.
@@ -20,10 +21,26 @@ class Campaign(models.Model):
     class Meta:
         ordering = ["name", "season"]
 
-    def save(self):
+    def save(self, *args, **kwargs):
+        # Autocreate the slug field
         if not self.slug:
             self.slug = slugify(f"{self.name} s{self.season}")
-        return super().save()
+
+        # Avoid duplicating existing images
+        if self.thumbnail:
+            # Get the image chosen for this record
+            image_name = os.path.basename(self.thumbnail.name)
+
+            # Let's check if already exist a record that use that image
+            existing_record = Campaign.objects.filter(
+                thumbnail__endswith=image_name
+            ).first()
+
+            # If so, let's use that image
+            if existing_record:
+                self.thumbnail = existing_record.thumbnail
+
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} s{self.season}"

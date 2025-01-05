@@ -1,6 +1,3 @@
 Things to do:
-1) Establish the size of campaign's thumbnails
-2) test if "copy campaigns" in CampaignAdmin still works with the new field (thumbnail = ImageField)
-3) create a Image model to avoid duplicate images?
+1) test if "copy campaigns" in CampaignAdmin still works with the new field (thumbnail = ImageField)
 ---------------------------------------------
-
