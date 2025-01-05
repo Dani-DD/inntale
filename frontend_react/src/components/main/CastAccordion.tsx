@@ -7,9 +7,8 @@ import {
     AccordionItem,
     AccordionPanel,
     Heading,
-    ListItem,
-    UnorderedList,
 } from "@chakra-ui/react";
+import PlayerCredit from "./PlayerCredit";
 
 interface Props {
     cast: Cast[];
@@ -33,14 +32,14 @@ const CastAccordion = ({ cast }: Props) => {
                     <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel pb={4}>
-                    <UnorderedList styleType="none" margin={0} paddingLeft={0}>
-                        {cast.map((cast_member) => (
-                            <ListItem key={cast_member.id}>
-                                {titleCase(cast_member.player)} as{" "}
-                                {titleCase(cast_member.character)}
-                            </ListItem>
-                        ))}
-                    </UnorderedList>
+                    {cast.map((cast_member) => (
+                        <PlayerCredit
+                            key={cast_member.id}
+                            profile_pic={cast_member.profile_pic}
+                            player={titleCase(cast_member.player)}
+                            character={titleCase(cast_member.character)}
+                        />
+                    ))}
                 </AccordionPanel>
             </AccordionItem>
         </Accordion>
