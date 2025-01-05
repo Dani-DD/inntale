@@ -10,8 +10,10 @@ const PlayerCredit = ({ profile_pic, player, character }: Props) => {
     return (
         <Flex>
             <Avatar src={profile_pic} name={player} />
-            <Box ml="3" marginBottom={"7px"}>
-                <Text fontWeight="bold">{player}</Text>
+            <Box ml="3" marginBottom={"20px"}>
+                <Text fontWeight="bold" textAlign="left">
+                    {player}
+                </Text>
                 <Text fontSize="sm" textAlign="left">
                     as {character}
                 </Text>
