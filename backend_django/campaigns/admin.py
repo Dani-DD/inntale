@@ -43,6 +43,7 @@ class CampaignAdmin(admin.ModelAdmin):
         "show_youtube_link",
         "release_date",
         "slug",
+        "campaign_thumbnail",
     ]
     list_select_related = ["manual"]
     list_filter = [
@@ -109,6 +110,17 @@ class CampaignAdmin(admin.ModelAdmin):
                 messages.ERROR,
             )
 
+    @admin.display(description="thumbnail")
+    def campaign_thumbnail(self, campaign: Campaign):
+        if campaign.thumbnail:
+            return format_html(
+                f'<img src="{campaign.thumbnail.url}" class="campaign-thumbnail"/>'
+            )
+        return ""
+
+    class Media:
+        css = {"all": ["campaigns_style.css"]}
+
 
 @admin.register(Manual)
 class ManualAdmin(admin.ModelAdmin):
@@ -150,7 +162,7 @@ class PlayerAdmin(admin.ModelAdmin):
         # First we have to check if an image exists
         if player.profile_pic:
             return format_html(
-                f'<img src="{player.profile_pic.url}" class="thumbnail" />'
+                f'<img src="{player.profile_pic.url}" class="player-thumbnail" />'
             )  # url is a property of ImageField
         return ""
 
