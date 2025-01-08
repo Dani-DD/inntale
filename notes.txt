@@ -3,4 +3,10 @@ Things to do:
 2) show total number of manuals and players
 3) implement like button?
 4) implement playlist?
+5) implement skeletons
+6) working on automated test
+7) working on performance test
+8) working on background tasks
+9) working on sendig email
 ---------------------------------------------
+
