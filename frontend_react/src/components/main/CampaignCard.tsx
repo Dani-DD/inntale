@@ -14,7 +14,8 @@ import Label from "./Label";
 import CastAccordion from "./CastAccordion";
 import { titleCase } from "@/utils/utils";
 import YouTubeButtonLink from "./YouTubeButtonLink";
-import { blue_inntale, gold_inntale } from "@/utils/colors";
+import { gold_inntale } from "@/utils/colors";
+import { campaignCardBackgroundColor } from "@/utils/applyingColorsToComponents";
 
 interface Props {
     campaign: Campaign;
@@ -30,7 +31,7 @@ const CampaignCard = ({ campaign }: Props) => {
             border="solid"
             textAlign="center"
             size="sm"
-            backgroundColor={blue_inntale}
+            backgroundColor={campaignCardBackgroundColor}
             borderColor={gold_inntale}
         >
             <Image

@@ -1,12 +1,13 @@
-import PlayerCredit from "./main/PlayerCredit";
+import { Circle, HStack, Text } from "@chakra-ui/react";
 
 const Test = () => {
     return (
-        <PlayerCredit
-            profile_pic={""}
-            player={"Andrea Guagnini"}
-            character={"Rendar"}
-        />
+        <HStack>
+            <Circle size="30px" bg="tomato" color="white" fontSize={"lg"}>
+                4
+            </Circle>
+            <Text>Andrea Guagnini</Text>
+        </HStack>
     );
 };
 

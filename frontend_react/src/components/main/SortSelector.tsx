@@ -1,5 +1,16 @@
 import useFiltersStore from "@/stores/FiltersStore";
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+    sortSelectorBackgroundColor,
+    sortSelectorBorderWidth,
+} from "@/utils/applyingColorsToComponents";
+import {
+    Box,
+    Button,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+} from "@chakra-ui/react";
 import { SlArrowDown } from "react-icons/sl";
 
 /**
@@ -50,21 +61,27 @@ const SortSelector = ({ orderBy }: Props) => {
     )?.label;
 
     return (
-        <Menu>
-            <MenuButton as={Button} rightIcon={<SlArrowDown />}>
-                {`Sort by ${selectedOrder ? selectedOrder : ""}`}
-            </MenuButton>
-            <MenuList>
-                {orderingOptions.map((option) => (
-                    <MenuItem
-                        onClick={() => setOrdering(option.orderingParam)}
-                        key={option.label}
-                    >
-                        {option.label}
-                    </MenuItem>
-                ))}
-            </MenuList>
-        </Menu>
+        <Box
+            backgroundColor={sortSelectorBackgroundColor}
+            borderWidth={sortSelectorBorderWidth}
+            borderColor={"black"}
+        >
+            <Menu>
+                <MenuButton as={Button} rightIcon={<SlArrowDown />}>
+                    {`Sort by ${selectedOrder ? selectedOrder : ""}`}
+                </MenuButton>
+                <MenuList>
+                    {orderingOptions.map((option) => (
+                        <MenuItem
+                            onClick={() => setOrdering(option.orderingParam)}
+                            key={option.label}
+                        >
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </MenuList>
+            </Menu>
+        </Box>
     );
 };
 

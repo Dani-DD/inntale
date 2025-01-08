@@ -4,6 +4,11 @@ import SortSelector from "@/components/main/SortSelector";
 import ManualsList from "@/components/sidebar/ManualsList";
 import PlayersList from "@/components/sidebar/PlayersList";
 import useFiltersStore from "@/stores/FiltersStore";
+import {
+    mainBackgroundColor,
+    mainBorderWidth,
+    sidebarBackgroundColor,
+} from "@/utils/applyingColorsToComponents";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 
 const HomePage = () => {
@@ -21,12 +26,23 @@ const HomePage = () => {
                 }}
             >
                 <Show above="lg">
-                    <GridItem area="sidebar" border="2px solid black">
+                    <GridItem
+                        area="sidebar"
+                        backgroundColor={sidebarBackgroundColor}
+                        paddingLeft="5"
+                        paddingTop="5"
+                    >
                         <ManualsList />
                         <PlayersList />
                     </GridItem>
                 </Show>
-                <GridItem area="main" border="2px solid black">
+                <GridItem
+                    area="main"
+                    backgroundColor={mainBackgroundColor}
+                    borderWidth={mainBorderWidth}
+                    borderColor={"black"}
+                    paddingLeft="10"
+                >
                     <DynamicHeading />
                     <SortSelector orderBy={ordering} />
                     <CampaignGrid />

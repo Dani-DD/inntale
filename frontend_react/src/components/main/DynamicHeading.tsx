@@ -1,8 +1,12 @@
 import useManuals from "@/hooks/useManuals";
 import usePlayers from "@/hooks/usePlayers";
 import useFiltersStore from "@/stores/FiltersStore";
+import {
+    dynamicHeadingBackgroundColor,
+    dynamicHeadingBorderWidth,
+} from "@/utils/applyingColorsToComponents";
 import { titleCase } from "@/utils/utils";
-import { Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 
 /**
  * This component renders a dynamic heading that change with the selected filter.
@@ -46,12 +50,17 @@ const DynamicHeading = () => {
     }
 
     return (
-        <>
-            <Heading as="h1" paddingLeft="10">
-                {headingText}
-            </Heading>
-            {filters.search && <Text>Searching: {filters.search}</Text>}
-        </>
+        <Box
+            backgroundColor={dynamicHeadingBackgroundColor}
+            borderWidth={dynamicHeadingBorderWidth}
+            borderColor={"black"}
+            marginBottom={"4"}
+        >
+            <Heading as="h1">{headingText}</Heading>
+            {filters.search && (
+                <Text marginTop={"2"}>Searching: {filters.search}</Text>
+            )}
+        </Box>
     );
 };
 

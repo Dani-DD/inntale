@@ -1,6 +1,7 @@
 import { ListElement } from "@/interfaces/ListElement";
 import useFiltersStore from "@/stores/FiltersStore";
-import { Button, Tag } from "@chakra-ui/react";
+import { gold_inntale } from "@/utils/colors";
+import { Button, Circle, HStack } from "@chakra-ui/react";
 
 /**
  * This component turns an element of the ExpandableList into a button for filtering the campaigns.
@@ -33,22 +34,30 @@ const FilteringButton = ({ buttonContent }: Props) => {
     };
 
     return (
-        <>
+        <HStack justifyContent={"start"} alignItems={"start"}>
+            {buttonContent.tag !== undefined && (
+                <Circle
+                    size="25px"
+                    bg="white"
+                    color={gold_inntale}
+                    fontSize={"md"}
+                    fontWeight={"bold"}
+                >
+                    {buttonContent.tag}
+                </Circle>
+            )}
             <Button
                 variant="link"
                 size="md"
-                border="1px"
-                padding={"7px 15px"}
+                textAlign={"left"}
                 color={"black"}
+                marginBottom={"8px"}
                 onClick={handleClick}
+                // border="2px solid black"
             >
                 {buttonContent.name}
-
-                {buttonContent.tag !== undefined && (
-                    <Tag marginLeft={"5px"}>{buttonContent.tag}</Tag>
-                )}
             </Button>
-        </>
+        </HStack>
     );
 };
 

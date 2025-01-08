@@ -1,9 +1,10 @@
-import { Button, Stack } from "@chakra-ui/react";
+import { Button, Flex, Stack } from "@chakra-ui/react";
 import FilteringButton from "./FilteringButton";
 import { useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { ListElement } from "@/interfaces/ListElement";
+import { showAllButtonBackgroundColor } from "@/utils/applyingColorsToComponents";
 
 /**
  * This component represents an expandable/collapsable list.
@@ -25,7 +26,7 @@ const ExpandableList = ({ list }: Props) => {
     // Initial values: the list is collapsed by default.
     let buttonText = "show all";
     let buttonIcon = <IoIosArrowDown />;
-    let lastElement = 3;
+    let lastElement = 4;
 
     if (showAll) {
         buttonText = "hide";
@@ -47,16 +48,20 @@ const ExpandableList = ({ list }: Props) => {
                 />
             ))}
             {/* button to toggle list's status */}
-            <Button
-                size="md"
-                border="1px"
-                padding={"7px 15px"}
-                color={"black"}
-                leftIcon={buttonIcon}
-                onClick={() => setShowAll(!showAll)}
-            >
-                {buttonText}
-            </Button>
+            <Flex marginBottom="20px">
+                <Button
+                    size="md"
+                    border="1px"
+                    height={"30px"}
+                    color={"black"}
+                    leftIcon={buttonIcon}
+                    marginBottom="30px"
+                    onClick={() => setShowAll(!showAll)}
+                    backgroundColor={showAllButtonBackgroundColor}
+                >
+                    {buttonText}
+                </Button>
+            </Flex>
         </Stack>
     );
 };

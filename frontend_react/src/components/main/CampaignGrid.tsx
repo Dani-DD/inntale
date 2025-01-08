@@ -2,6 +2,10 @@ import useCampaigns from "@/hooks/useCampaigns";
 import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import CampaignCard from "./CampaignCard";
 import useFiltersStore from "@/stores/FiltersStore";
+import {
+    campaignGridBackgroundColor,
+    campaignGridBorderWidth,
+} from "@/utils/applyingColorsToComponents";
 
 const CampaignGrid = () => {
     const filters = useFiltersStore((s) => s.filters);
@@ -21,7 +25,9 @@ const CampaignGrid = () => {
             columns={{ sm: 1, md: 2, lg: 3 }}
             spacing="10"
             padding="10"
-            border="2px solid red"
+            backgroundColor={campaignGridBackgroundColor}
+            borderWidth={campaignGridBorderWidth}
+            borderColor={"black"}
         >
             {campaigns.map((campaign) => (
                 <CampaignCard campaign={campaign} key={campaign.id} />
