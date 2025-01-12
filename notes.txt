@@ -8,5 +8,7 @@ Things to do:
 7) working on performance test
 8) working on background tasks
 9) working on sendig email
+10) add badges/tags?
 ---------------------------------------------
 
+Remember to always apply the boy scout's rule!!!
