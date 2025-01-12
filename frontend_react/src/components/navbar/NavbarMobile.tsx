@@ -1,20 +1,35 @@
-import { Link as LinkChakra, Image, HStack, VStack } from "@chakra-ui/react";
+import AuthContext from "@/contexts/authContext";
+import { HStack, Image, Box, Text } from "@chakra-ui/react";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
 import logoMobile from "../../assets/inntale_transparent_logo.png";
-import { Link } from "react-router-dom";
 import SearchBox from "./SearchBox";
 
 const NavbarMobile = () => {
+    const { user, logout } = useContext(AuthContext);
+
     return (
-        <VStack padding="5px 25px">
-            <HStack>
-                <LinkChakra>Login</LinkChakra>
+        <Box padding="10px">
+            <HStack justifyContent={"space-around"} marginBottom="10px">
                 <Link to="/">
                     <Image src={logoMobile} alt="InnTale logo" width="100px" />
                 </Link>
-                <LinkChakra marginRight="10px">Register</LinkChakra>
+                {user ? (
+                    <>
+                        <Text>{user.username}</Text>
+                        <Link to="/login" onClick={() => logout()}>
+                            Logout
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <NavLink to="/login">Login</NavLink>
+                        <NavLink to="/registration">Register</NavLink>
+                    </>
+                )}
             </HStack>
             <SearchBox width="100%" />
-        </VStack>
+        </Box>
     );
 };
 
