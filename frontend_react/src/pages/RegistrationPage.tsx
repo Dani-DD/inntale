@@ -1,8 +1,24 @@
 import AuthContext from "@/contexts/authContext";
 import { RegistrationForm } from "@/interfaces/allIntefaces";
-import { Button, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
+import { blue_inntale } from "@/utils/colors";
+import {
+    Box,
+    Button,
+    FormControl,
+    FormLabel,
+    Input,
+    Text,
+} from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+
+// This is the structure of the TS object mapped to a Chakra UI's form
+interface ChakraRegistrationFormElement {
+    label: string;
+    placeholder: string;
+    type: string;
+    registerName: keyof RegistrationForm;
+}
 
 const RegistrationPage = () => {
     const { registration } = useContext(AuthContext);
@@ -22,56 +38,78 @@ const RegistrationPage = () => {
         }
     });
 
+    // This array will be used to contruct the form by calling the map method that will convert every object
+    // into a Chakra UI's FormControl element
+    const formStructure: ChakraRegistrationFormElement[] = [
+        {
+            label: "First name",
+            placeholder: "John",
+            type: "text",
+            registerName: "first_name",
+        },
+        {
+            label: "Last name",
+            placeholder: "Doe",
+            type: "text",
+            registerName: "last_name",
+        },
+        {
+            label: "Email",
+            placeholder: "john_doe@email.com",
+            type: "email",
+            registerName: "email",
+        },
+        {
+            label: "Username",
+            placeholder: "MightyJoe",
+            type: "text",
+            registerName: "username",
+        },
+        {
+            label: "Password",
+            placeholder: "**********",
+            type: "password",
+            registerName: "password",
+        },
+        {
+            label: "Repeat password",
+            placeholder: "**********",
+            type: "password",
+            registerName: "repeat_password",
+        },
+    ];
+
+    const chakraRegistrationForm = formStructure.map((formElement) => (
+        <FormControl isRequired>
+            <FormLabel>{formElement.label}</FormLabel>
+            <Input
+                placeholder={formElement.placeholder}
+                type={formElement.type}
+                variant="filled"
+                marginBottom="20px"
+                {...register(formElement.registerName)}
+            />
+        </FormControl>
+    ));
+
     return (
-        <form method="POST" onSubmit={onSubmit}>
-            <FormControl isRequired>
-                <FormLabel>First name</FormLabel>
-                <Input placeholder="John" {...register("first_name")} />
-            </FormControl>
+        // Container to provide a background color
+        <Box backgroundColor={blue_inntale} paddingTop={"25px"}>
+            {/* Container to provide a max size to the form */}
+            <Box maxWidth={"500px"} marginLeft="auto" marginRight="auto">
+                <form method="POST" onSubmit={onSubmit}>
+                    {chakraRegistrationForm}
 
-            <FormControl isRequired>
-                <FormLabel>Last name</FormLabel>
-                <Input placeholder="Doe" {...register("last_name")} />
-            </FormControl>
+                    {!doPasswordsMatch && (
+                        <Text color={"red"}>Passwords must match</Text>
+                    )}
 
-            <FormControl isRequired>
-                <FormLabel>Email</FormLabel>
-                <Input
-                    placeholder="john_doe@email.com"
-                    type="email"
-                    {...register("email")}
-                />
-            </FormControl>
-
-            <FormControl isRequired>
-                <FormLabel>Username</FormLabel>
-                <Input placeholder="MightyJoe" {...register("username")} />
-            </FormControl>
-
-            <FormControl isRequired>
-                <FormLabel>Password</FormLabel>
-                <Input
-                    placeholder="**********"
-                    type="password"
-                    {...register("password")}
-                />
-            </FormControl>
-
-            <FormControl isRequired>
-                <FormLabel>Repeat password</FormLabel>
-                <Input
-                    placeholder="**********"
-                    type="password"
-                    {...register("repeat_password")}
-                />
-            </FormControl>
-
-            {!doPasswordsMatch && (
-                <Text color={"red"}>Passwords must match</Text>
-            )}
-
-            <Button type="submit">Submit</Button>
-        </form>
+                    <Button type="submit" marginBottom="80px">
+                        Submit
+                    </Button>
+                </form>
+            </Box>
+        </Box>
     );
 };
 
