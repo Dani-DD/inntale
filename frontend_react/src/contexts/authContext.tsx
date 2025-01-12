@@ -47,8 +47,8 @@ export const AuthProvider = () => {
                 .post("http://127.0.0.1:8000/auth/users/", userInputs)
                 .then(() => {
                     console.log("New user created.");
-                    console.log("Redirecting to the homepage.");
-                    navigate("/");
+                    console.log("Redirecting to the login page.");
+                    navigate("/login");
                 })
                 .catch((error: Error) => console.log(error.message));
         },
