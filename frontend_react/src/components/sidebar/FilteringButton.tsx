@@ -54,6 +54,9 @@ const FilteringButton = ({ buttonContent }: Props) => {
                 marginBottom={"8px"}
                 onClick={handleClick}
                 // border="2px solid black"
+                _hover={{
+                    color: "white",
+                }}
             >
                 {buttonContent.name}
             </Button>

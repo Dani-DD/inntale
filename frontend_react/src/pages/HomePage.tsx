@@ -30,7 +30,7 @@ const HomePage = () => {
                         area="sidebar"
                         backgroundColor={sidebarBackgroundColor}
                         paddingLeft="5"
-                        paddingTop="5"
+                        paddingTop="150px"
                     >
                         <ManualsList />
                         <PlayersList />
@@ -40,7 +40,6 @@ const HomePage = () => {
                     area="main"
                     backgroundColor={mainBackgroundColor}
                     borderWidth={mainBorderWidth}
-                    borderColor={"black"}
                     paddingLeft="10"
                 >
                     <DynamicHeading />

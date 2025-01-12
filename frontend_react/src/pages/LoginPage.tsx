@@ -49,7 +49,7 @@ const LoginPage = () => {
     ));
 
     return (
-        <Box backgroundColor={blue_inntale} paddingTop={"25px"}>
+        <Box backgroundColor={blue_inntale} padding="30px" paddingTop={"25px"}>
             <Box maxWidth={"500px"} marginLeft="auto" marginRight="auto">
                 <form method="POST" onSubmit={onSubmit}>
                     {chakraLoginForm}

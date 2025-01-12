@@ -84,6 +84,7 @@ const RegistrationPage = () => {
             <FormLabel>{formElement.label}</FormLabel>
             <Input
                 placeholder={formElement.placeholder}
+                _placeholder={{ opacity: 1, color: "gray.500" }}
                 type={formElement.type}
                 variant="filled"
                 marginBottom="20px"
@@ -94,7 +95,7 @@ const RegistrationPage = () => {
 
     return (
         // Container to provide a background color
-        <Box backgroundColor={blue_inntale} paddingTop={"25px"}>
+        <Box backgroundColor={blue_inntale} padding="30px" paddingTop={"25px"}>
             {/* Container to provide a max size to the form */}
             <Box maxWidth={"500px"} marginLeft="auto" marginRight="auto">
                 <form method="POST" onSubmit={onSubmit}>
@@ -104,7 +105,7 @@ const RegistrationPage = () => {
                         <Text color={"red"}>Passwords must match</Text>
                     )}
 
-                    <Button type="submit" marginBottom="80px">
+                    <Button type="submit" marginTop="20px" marginBottom="80px">
                         Submit
                     </Button>
                 </form>

@@ -15,8 +15,13 @@ const NavbarLaptop = () => {
                 />
             </Link>
             <SearchBox />
-            <HStack height="100%" spacing="35px" padding="15px">
-                <HStack spacing="10px">
+            <HStack
+                height="100%"
+                spacing="35px"
+                padding="15px"
+                border="2px solid red"
+            >
+                <HStack spacing="10px" border="2px solid green">
                     <NavLink to="/login">Login</NavLink>
                     <NavLink to="/registration">Register</NavLink>
                 </HStack>

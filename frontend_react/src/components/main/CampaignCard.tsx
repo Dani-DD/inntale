@@ -71,11 +71,6 @@ const CampaignCard = ({ campaign }: Props) => {
                     width="140px"
                 />
             </CardFooter>
-            {/*
-            <CampaignCardFooter
-                youtubeLink={campaign.youtube_link}
-                slugField={campaign.slug}
-            /> */}
         </Card>
     );
 };
