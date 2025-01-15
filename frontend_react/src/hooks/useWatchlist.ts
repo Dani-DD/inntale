@@ -6,11 +6,7 @@ const useWatchlist = () => {
         fetchedData: watchlist,
         isLoading,
         error,
-    } = useData<WatchlistItem>(
-        "http://127.0.0.1:8000/root/watchlist/",
-        {},
-        true
-    );
+    } = useData<WatchlistItem>("http://127.0.0.1:8000/root/watchlist/", true);
 
     return { watchlist, isLoading, error };
 };

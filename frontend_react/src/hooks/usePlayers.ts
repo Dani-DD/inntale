@@ -6,7 +6,7 @@ const usePlayers = () => {
         fetchedData: players,
         error,
         isLoading,
-    } = useData<Player>("http://127.0.0.1:8000/root/players/");
+    } = useData<Player>("http://127.0.0.1:8000/root/players/", false);
 
     return { players, error, isLoading };
 };

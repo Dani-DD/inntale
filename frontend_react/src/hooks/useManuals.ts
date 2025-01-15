@@ -6,7 +6,7 @@ const useManuals = () => {
         fetchedData: manuals,
         error,
         isLoading,
-    } = useData<Manual>("http://127.0.0.1:8000/root/manuals/");
+    } = useData<Manual>("http://127.0.0.1:8000/root/manuals/", false);
 
     return { manuals, error, isLoading };
 };

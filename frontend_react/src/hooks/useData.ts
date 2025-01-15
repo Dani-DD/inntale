@@ -5,8 +5,8 @@ import usePrivateAxios from "./usePrivateAxios";
 
 const useData = <T>(
     endpoint: string,
-    filters?: Filters,
-    isEndpointProtected = false
+    isEndpointProtected: boolean,
+    filters?: Filters
 ) => {
     const [fetchedData, setFetchedData] = useState<T[]>([]);
     const [error, setError] = useState<string>("");

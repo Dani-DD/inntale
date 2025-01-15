@@ -7,7 +7,11 @@ const useCampaigns = (filters?: Filters) => {
         fetchedData: campaigns,
         error,
         isLoading,
-    } = useData<Campaign>("http://127.0.0.1:8000/root/campaigns/", filters);
+    } = useData<Campaign>(
+        "http://127.0.0.1:8000/root/campaigns/",
+        false,
+        filters
+    );
 
     return { campaigns, error, isLoading };
 };
