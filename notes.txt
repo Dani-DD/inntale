@@ -162,3 +162,18 @@ Please note that the get_serializer_class method can't have dead conditional bra
                 return WatchlistStaffSerializer
         
         # the if-else clause is still open
+
+Why have I overrided the serializer's save method to set the user instead using a computed field like the following?
+
+class WatchlistUserSerializer(...):
+    user = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Watchlist
+        fields = ["id", "user", "campaign"]
+
+    def get_user(self, user: User):
+        return self.context["user_id"]
+
+This won't work because the computed methods are mainly used for representing data, not for setting it during creation. 
+They're useful for customizing how the user field is displayed in the API responses but doesn’t set the value when a new instance is created.
