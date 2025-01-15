@@ -1,17 +1,27 @@
 import { Filters } from "@/stores/FiltersStore";
 import axios, { CanceledError } from "axios";
 import { useEffect, useState } from "react";
+import usePrivateAxios from "./usePrivateAxios";
 
-const useData = <T>(endpoint: string, filters?: Filters) => {
+const useData = <T>(
+    endpoint: string,
+    filters?: Filters,
+    isEndpointProtected = false
+) => {
     const [fetchedData, setFetchedData] = useState<T[]>([]);
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    let axiosObject = usePrivateAxios();
+    if (!isEndpointProtected) {
+        axiosObject = axios;
+    }
 
     // Fetch data
     useEffect(() => {
         const controller = new AbortController();
 
-        axios
+        axiosObject
             .get<T[]>(endpoint, {
                 signal: controller.signal,
                 params: {

@@ -15,14 +15,14 @@ const BASE_URL = "http://127.0.0.1:8000/";
 const usePrivateAxios = () => {
     const { tokens, setTokens, setUser } = useContext(AuthContext);
 
-    const customAxiosInstance = axios.create({
+    const axiosForProtectedEndpoints = axios.create({
         baseURL: BASE_URL,
         headers: {
             Authorization: `JWT ${tokens?.access}`,
         },
     });
 
-    customAxiosInstance.interceptors.request.use(async (request) => {
+    axiosForProtectedEndpoints.interceptors.request.use(async (request) => {
         // Check if access token is expired
         const decodedAccessToken: DecodedToken = jwtDecode(tokens!.access);
         const isExpired = dayjs.unix(decodedAccessToken.exp).diff(dayjs()) < 1;
@@ -62,7 +62,7 @@ const usePrivateAxios = () => {
         return request;
     });
 
-    return customAxiosInstance;
+    return axiosForProtectedEndpoints;
 };
 
 export default usePrivateAxios;
