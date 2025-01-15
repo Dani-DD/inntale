@@ -1,5 +1,6 @@
 import { Campaign } from "@/interfaces/Campaign";
 import {
+    Button,
     Card,
     CardBody,
     CardFooter,
@@ -8,6 +9,7 @@ import {
     Image,
     Stack,
     Text,
+    VStack,
 } from "@chakra-ui/react";
 import { FaTwitch, FaYoutube } from "react-icons/fa";
 import Label from "./Label";
@@ -16,12 +18,16 @@ import { titleCase } from "@/utils/utils";
 import YouTubeButtonLink from "./YouTubeButtonLink";
 import { gold_inntale } from "@/utils/colors";
 import { campaignCardBackgroundColor } from "@/utils/applyingColorsToComponents";
+import { useContext } from "react";
+import AuthContext from "@/contexts/authContext";
 
 interface Props {
     campaign: Campaign;
 }
 
 const CampaignCard = ({ campaign }: Props) => {
+    const { user } = useContext(AuthContext);
+
     const labelProps = campaign.is_edited
         ? { text: "Edited", icon: FaYoutube, color: "red" }
         : { text: "Live", icon: FaTwitch, color: "purple" };
@@ -64,12 +70,16 @@ const CampaignCard = ({ campaign }: Props) => {
                 <CastAccordion cast={campaign.campaign_cast} />
             </CardBody>
             <CardFooter justifyContent={"center"}>
-                <YouTubeButtonLink
-                    youtube_link={campaign.youtube_link}
-                    text={"Watch here"}
-                    new_page={true}
-                    width="140px"
-                />
+                <VStack justifyContent={"stretch"} alignItems={"stretch"}>
+                    <YouTubeButtonLink
+                        youtube_link={campaign.youtube_link}
+                        text={"Watch here"}
+                        new_page={true}
+                    />
+                    {user && (
+                        <Button colorScheme="blue">Add to watchlist</Button>
+                    )}
+                </VStack>
             </CardFooter>
         </Card>
     );
