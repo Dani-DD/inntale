@@ -20,6 +20,7 @@ import { gold_inntale } from "@/utils/colors";
 import { campaignCardBackgroundColor } from "@/utils/applyingColorsToComponents";
 import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
+import axios from "axios";
 
 interface Props {
     campaign: Campaign;
@@ -77,7 +78,29 @@ const CampaignCard = ({ campaign }: Props) => {
                         new_page={true}
                     />
                     {user && (
-                        <Button colorScheme="blue">Add to watchlist</Button>
+                        <Button
+                            colorScheme="blue"
+                            onClick={() => {
+                                const watchlist = {
+                                    campaign: campaign.id,
+                                };
+                                console.log(watchlist);
+
+                                axios
+                                    .post(
+                                        "http://127.0.0.1:8000/root/watchlist/",
+                                        watchlist
+                                    )
+                                    .then((response) =>
+                                        console.log(response.data)
+                                    )
+                                    .catch((error: Error) =>
+                                        console.log(error.message)
+                                    );
+                            }}
+                        >
+                            Add to watchlist
+                        </Button>
                     )}
                 </VStack>
             </CardFooter>
