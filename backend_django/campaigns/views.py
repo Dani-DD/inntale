@@ -1,19 +1,55 @@
-from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
-from .models import Campaign, Manual, Cast, Player
-from .serializers import CampaignSerializer, ManualSerializer, PlayerSerializer
+from .models import Campaign, Manual, Cast, Player, Watchlist
+from .serializers import (
+    CampaignSerializer,
+    ManualSerializer,
+    PlayerSerializer,
+    WatchlistStaffSerializer,
+    WatchlistUserSerializer,
+)
+
+
+# WORKING ON
+class WatchlistViewSet(ListModelMixin, CreateModelMixin, GenericViewSet):
+
+    # LIST
+    def get_queryset(self):
+        queryset = Watchlist.objects.select_related("campaign")
+
+        # staff members can see all the watchlists
+        if self.request.user.is_staff:
+            return queryset
+
+        # logged users can see only their watchlists
+        return queryset.filter(user=self.request.user.id)
+
+    # CREATE
+    # Pass to the serializer the information about the user id
+    def get_serializer_context(self):
+        return {"user_id": self.request.user.id}
+
+    def get_serializer_class(self, *args, **kwargs):
+        if self.request.method == "POST":
+            if self.request.user.is_staff:
+                return WatchlistStaffSerializer
+        return WatchlistUserSerializer
+
+    permission_classes = [IsAuthenticated]
 
 
 # VIEWSETS
 class CampaignViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+
     def get_queryset(self):
         return Campaign.objects.select_related("manual").prefetch_related(
             Prefetch("campaign_cast", queryset=Cast.objects.select_related("player"))

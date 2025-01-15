@@ -9,6 +9,156 @@ Things to do:
 8) working on background tasks
 9) working on sendig email
 10) add badges/tags?
+11) implement comments only to train nested routers.
 ---------------------------------------------
 
 Remember to always apply the boy scout's rule!!!
+
+----------------------
+
+// WATCHLIST SERIALIZER
+{
+    id: ...
+    user_id: ...
+    campaign_id: ... 
+}
+
+
+WATCHLIST
+What actions someone can do?
+- get all watchlist instances -> staff members can get all, while logged users can get only instances with their id.
+                              -> anonymous users can't 
+- get a particular instance -> this operation doesn't have any sense
+- create (post) a watchlist instance -> logged users can't choose the user_id, while staff can
+- update/patch a watchlist instance -> only for staff members
+- delete a watchlist instance -> staff members cab delete any watchlist instance, while logged users only the ones with their id.
+                              -> anonymous users can't
+
+Anonymous users can't perform any operation.
+
+Supported operations: ListModelMixin, CreateModelMixin, UpdateModelMixin, PatchModelMixin, DeleteModelMixin
+
+--------------------------------------
+--------------------------------------
+--------------------------------------
+
+Let's considering the following example.
+We have a list of Inntale's campaigns (handled with the Campaign model).
+We want to give users the possibility to create their own watchlist.
+To handle watchlists, we use a Watchlist table (Watchlist model) that associates a user with a campaign:
+
+class Watchlist(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_watchlist"
+    )
+    campaign = models.ForeignKey(
+        "Campaign", on_delete=models.CASCADE, related_name="in_watchlist"
+    )
+
+For example:
+- Barbero -> Navigavia s1
+- Barbero -> Navigavia s2
+- ProjectLeader -> Luxastra s3
+- Ugo -> Luxastra s1
+- Mauro -> Police Vanguard s1
+- ecc.
+
+CUSTOMIZING READ OPERATIONS
+class WatchlistViewSet(mixins.ListModelMixin, viewset.GenericViewSet):
+    queryset = Watchlist.objects.all()
+    serializer_class = WatchlistSerializer
+
+Let's add some spicy.
+Let's suppose we have three type of users:
+- anonymous users -> they can't see any watchlist
+- authenticated users -> they can see only their own watchlists
+- staff members -> they can see ALL the watchlists (due to administration reasons)
+
+We can customize the way with which READ operations are performed by overriding the method responsable for those operations: get_queryset.
+For example:
+
+# Model
+class WatchlistViewSet(mixins.ListModelMixin, viewset.GenericViewSet):
+
+    def get_queryset(self):
+        # staff members can see all the watchlists
+        if self.request.user.is_staff:
+            return Watchlist.objects.all()
+
+        # logged users can see only their watchlists
+        # anonymous users won't see anything
+        return Watchlist.objects.filter(user=self.request.user.id)
+
+        
+CUSTOMIZING POST OPERATIONS
+Both staff members and logged user can create a Watchlist instance, but:
+- staff members, for administration reasons, can select both user and campaign.
+- authenticated users can't choose a value for the "user" field: it will be automatically completed with their own id.
+
+So, staff members can send to the server object like these:
+
+{
+    user: ...
+    campaign: ...
+}
+
+While authenticated users object like these:
+
+{
+    # user property is automatically determinated
+    campaign: ...
+}
+
+How can we customize this behaviour?
+
+We can define two different serializers: one for the staff members and one for authenticated users:
+
+class WatchlistStaffSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Watchlist
+        fields = ["id", "user", "campaign"]
+
+class WatchlistLoggedUsers(serializers.ModelSerializer):
+    class Meta:
+        model = Watchlist
+        fields = ["id", "campaign"]
+
+        def save(self, **kwargs):
+        # As you can see, the id of the user is passed by the viewset throught the context
+        user_id = self.context["user_id"]
+        user = User.objects.get(id=user_id)
+        # The campaign is obtained by the inserted data
+        campaign = self.validated_data["campaign"]
+
+        # Now, we can create the new watchlist
+        new_watchlist = Watchlist.objects.create(user=user, campaign=campaign)
+
+Now, we have to tell to the viewset: "For staff member users, uses the first serializer, while for the authenticated ones uses the second one".
+To do that, we can override the method responsable for the chosen of the serializer: get_serializer_class.
+Here how:
+
+class WatchlistViewSet(ModelViewSet):
+
+    # LIST
+    def get_queryset(self):
+        # ...
+
+    # CREATE
+    # Pass to the serializer the information about the user id
+    def get_serializer_context(self):
+        return {"user_id": self.request.user.id}
+
+    def get_serializer_class(self, *args, **kwargs):
+        if self.request.method == "POST":
+            if self.request.user.is_staff:
+                return WatchlistStaffSerializer
+        return WatchlistUserSerializer
+
+Please note that the get_serializer_class method can't have dead conditional branches:
+
+    def get_serializer_class(self, *args, **kwargs):
+        if self.request.method == "POST":
+            if self.request.user.is_staff:
+                return WatchlistStaffSerializer
+        
+        # the if-else clause is still open

@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register("campaigns", views.CampaignViewSet, basename="campaigns")
 router.register("manuals", views.ManualViewSet, basename="manuals")
 router.register("players", views.PlayerViewSet, basename="players")
+router.register("watchlist", views.WatchlistViewSet, basename="watchlist")
 
 urlpatterns = [
     path("test/", views.test_view, name="test"),

@@ -3,9 +3,32 @@ from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import User
-from .models import Campaign, Manual, Cast, Player
+from .models import Campaign, Manual, Cast, Player, Watchlist
 
 
+# test
+class WatchlistStaffSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Watchlist
+        fields = ["id", "user", "campaign"]
+
+
+class WatchlistUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Watchlist
+        fields = ["id", "campaign"]
+
+    def save(self):
+        # Obtain the id of the user from the context
+        user_id = self.context["user_id"]
+        user = User.objects.get(id=user_id)
+
+        campaign = self.validated_data["campaign"]
+
+        Watchlist.objects.create(user=user, campaign=campaign)
+
+
+# serializers
 class CampaignCastSerializer(serializers.ModelSerializer):
 
     class Meta:
