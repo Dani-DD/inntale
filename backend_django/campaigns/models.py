@@ -1,7 +1,18 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.aggregates import Count
 from django.utils.text import slugify
 import os
+
+
+# Testing
+class Watchlist(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_watchlist"
+    )
+    campaign = models.ForeignKey(
+        "Campaign", on_delete=models.CASCADE, related_name="in_watchlist"
+    )
 
 
 # Create your models here.
@@ -17,6 +28,7 @@ class Campaign(models.Model):
     release_date = models.DateField(null=True, blank=True)
     thumbnail = models.ImageField(null=True, blank=True, upload_to="campaigns/")
     # "campaign_cast" as reverse ForeignKey from Cast model
+    # "in_watchlist" as reverse ForeignKey from Watchlist model
 
     class Meta:
         ordering = ["name", "season"]

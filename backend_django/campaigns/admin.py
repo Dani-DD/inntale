@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.db.models import Count
 from django.utils.html import format_html
 from django.utils.text import slugify
-from .models import Campaign, Manual, Player, Cast
+from .models import Campaign, Manual, Player, Cast, Watchlist
 
 BASE_URL = "http://127.0.0.1:8000/"
 
@@ -168,6 +168,11 @@ class PlayerAdmin(admin.ModelAdmin):
 
     class Media:
         css = {"all": ["campaigns_style.css"]}
+
+
+@admin.register(Watchlist)
+class WatchlistAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "campaign"]
 
 
 admin.site.register(Cast)
