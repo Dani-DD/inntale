@@ -1,4 +1,4 @@
-import { WatchlistItem } from "@/interfaces/WatchlistItem";
+import { GetWatchlistItem } from "@/interfaces/WatchlistItem";
 import useData from "./useData";
 
 const useWatchlist = () => {
@@ -6,7 +6,10 @@ const useWatchlist = () => {
         fetchedData: watchlist,
         isLoading,
         error,
-    } = useData<WatchlistItem>("http://127.0.0.1:8000/root/watchlist/", true);
+    } = useData<GetWatchlistItem>(
+        "http://127.0.0.1:8000/root/watchlist/",
+        true
+    );
 
     return { watchlist, isLoading, error };
 };
