@@ -6,7 +6,12 @@ from rest_framework.decorators import api_view
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin
+from rest_framework.mixins import (
+    ListModelMixin,
+    RetrieveModelMixin,
+    CreateModelMixin,
+    DestroyModelMixin,
+)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 from .models import Campaign, Manual, Cast, Player, Watchlist
@@ -20,7 +25,9 @@ from .serializers import (
 
 
 # WORKING ON
-class WatchlistViewSet(ListModelMixin, CreateModelMixin, GenericViewSet):
+class WatchlistViewSet(
+    ListModelMixin, CreateModelMixin, DestroyModelMixin, GenericViewSet
+):
 
     # LIST
     def get_queryset(self):

@@ -1,4 +1,5 @@
 import AuthContext from "@/contexts/authContext";
+import usePrivateAxios from "@/hooks/usePrivateAxios";
 import useWatchlist from "@/hooks/useWatchlist";
 import { blue_inntale } from "@/utils/colors";
 import {
@@ -12,7 +13,9 @@ import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 
 const UserPage = () => {
+    console.log("Can you see me?");
     const { user } = useContext(AuthContext);
+    const privateAxiosObject = usePrivateAxios();
     const { watchlist } = useWatchlist();
 
     if (!user) {
@@ -34,7 +37,28 @@ const UserPage = () => {
                 {watchlist.map((watchlistItem) => (
                     <>
                         <ListItem>{`${watchlistItem.campaign.name} S${watchlistItem.campaign.season}`}</ListItem>
-                        <Button colorScheme="red">Remove from watchlist</Button>
+                        <Button
+                            colorScheme="red"
+                            onClick={() => {
+                                console.log(
+                                    "You're going to remove this campaign from your watchlst: ",
+                                    watchlistItem.campaign
+                                );
+                                privateAxiosObject
+                                    .delete(
+                                        `root/watchlist/${watchlistItem.id}/`
+                                    )
+                                    .then((response) => {
+                                        console.log(response.data);
+                                        window.location.reload();
+                                    })
+                                    .catch((error: Error) =>
+                                        console.log(error.message)
+                                    );
+                            }}
+                        >
+                            Remove from watchlist
+                        </Button>
                     </>
                 ))}
             </UnorderedList>

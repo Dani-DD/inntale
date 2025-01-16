@@ -10,6 +10,8 @@ Things to do:
 9) working on sendig email
 10) add badges/tags?
 11) implement comments only to train nested routers.
+12) improve styles of the UserPage
+13) use state to handle UI updates instead of windows.location.reload() in UserPage.tsx for http-delete-requests.
 ---------------------------------------------
 
 Remember to always apply the boy scout's rule!!!
