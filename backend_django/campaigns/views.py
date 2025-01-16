@@ -36,7 +36,7 @@ class WatchlistViewSet(ListModelMixin, CreateModelMixin, GenericViewSet):
     # CREATE
     # Pass to the serializer the information about the user id
     def get_serializer_context(self):
-        return {"user_id": self.request.user.id}
+        return {"user_id": self.request.user.id, "request": self.request}
 
     def get_serializer_class(self, *args, **kwargs):
         if self.request.method == "POST":

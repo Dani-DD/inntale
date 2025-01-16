@@ -14,9 +14,16 @@ class WatchlistStaffSerializer(serializers.ModelSerializer):
 
 
 class WatchlistUserSerializer(serializers.ModelSerializer):
+    campaign = serializers.PrimaryKeyRelatedField(queryset=Campaign.objects.all())
+
     class Meta:
         model = Watchlist
         fields = ["id", "campaign"]
+
+    def __init__(self, *args, **kwargs):
+        super(WatchlistUserSerializer, self).__init__(*args, **kwargs)
+        if self.context["request"].method == "GET":
+            self.fields["campaign"] = CampaignSerializer()
 
     def save(self):
         # Obtain the id of the user from the context
