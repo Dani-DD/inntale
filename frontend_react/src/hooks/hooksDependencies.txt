@@ -1,0 +1,6 @@
+useCampaigns -> useData
+useManuals   ->
+usePlayers   ->
+useWatchlist ->
+
+usePrivateAxios -> usePrivateAxios
