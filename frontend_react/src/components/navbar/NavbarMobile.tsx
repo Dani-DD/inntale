@@ -1,5 +1,5 @@
 import AuthContext from "@/contexts/authContext";
-import { HStack, Image, Box, Text } from "@chakra-ui/react";
+import { HStack, Image, Box } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logoMobile from "../../assets/inntale_transparent_logo.png";
@@ -16,10 +16,10 @@ const NavbarMobile = () => {
                 </Link>
                 {user ? (
                     <>
-                        <Text>{user.username}</Text>
-                        <Link to="/login" onClick={() => logout()}>
+                        <NavLink to="/me">{user.username}</NavLink>
+                        <NavLink to="/login" onClick={() => logout()}>
                             Logout
-                        </Link>
+                        </NavLink>
                     </>
                 ) : (
                     <>

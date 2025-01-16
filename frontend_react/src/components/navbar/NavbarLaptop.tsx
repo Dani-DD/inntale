@@ -23,7 +23,7 @@ const NavbarLaptop = () => {
                 <HStack spacing="10px">
                     {user ? (
                         <>
-                            <p>{user.username}</p>
+                            <NavLink to="/me">{user.username}</NavLink>
                             <NavLink to="/login" onClick={() => logout()}>
                                 Logout
                             </NavLink>
