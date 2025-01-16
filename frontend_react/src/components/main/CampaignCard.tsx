@@ -1,4 +1,10 @@
+import AuthContext from "@/contexts/authContext";
+import usePrivateAxios from "@/hooks/usePrivateAxios";
 import { Campaign } from "@/interfaces/Campaign";
+import { PostWatchlistItem } from "@/interfaces/WatchlistItem";
+import { campaignCardBackgroundColor } from "@/utils/applyingColorsToComponents";
+import { gold_inntale } from "@/utils/colors";
+import { titleCase } from "@/utils/utils";
 import {
     Button,
     Card,
@@ -11,16 +17,11 @@ import {
     Text,
     VStack,
 } from "@chakra-ui/react";
-import { FaTwitch, FaYoutube } from "react-icons/fa";
-import Label from "./Label";
-import CastAccordion from "./CastAccordion";
-import { titleCase } from "@/utils/utils";
-import YouTubeButtonLink from "./YouTubeButtonLink";
-import { gold_inntale } from "@/utils/colors";
-import { campaignCardBackgroundColor } from "@/utils/applyingColorsToComponents";
 import { useContext } from "react";
-import AuthContext from "@/contexts/authContext";
-import axios from "axios";
+import { FaTwitch, FaYoutube } from "react-icons/fa";
+import CastAccordion from "./CastAccordion";
+import Label from "./Label";
+import YouTubeButtonLink from "./YouTubeButtonLink";
 
 interface Props {
     campaign: Campaign;
@@ -28,6 +29,7 @@ interface Props {
 
 const CampaignCard = ({ campaign }: Props) => {
     const { user } = useContext(AuthContext);
+    const privateAxiosObject = usePrivateAxios();
 
     const labelProps = campaign.is_edited
         ? { text: "Edited", icon: FaYoutube, color: "red" }
@@ -81,16 +83,13 @@ const CampaignCard = ({ campaign }: Props) => {
                         <Button
                             colorScheme="blue"
                             onClick={() => {
-                                const watchlist = {
+                                const watchlistItem: PostWatchlistItem = {
                                     campaign: campaign.id,
                                 };
-                                console.log(watchlist);
+                                console.log(watchlistItem);
 
-                                axios
-                                    .post(
-                                        "http://127.0.0.1:8000/root/watchlist/",
-                                        watchlist
-                                    )
+                                privateAxiosObject
+                                    .post("root/watchlist/", watchlistItem)
                                     .then((response) =>
                                         console.log(response.data)
                                     )
