@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from datetime import timedelta
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -91,8 +92,12 @@ WSGI_APPLICATION = "inntale.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": config("DATABASE_NAME"),
+        "USER": config("MYSQL_USERNAME"),
+        "PASSWORD": config("MYSQL_PSW"),
+        "HOST": config("MYSQL_HOST"),
+        "PORT": config("MYSQL_HOST_PORT"),
     }
 }
 

@@ -12,6 +12,8 @@ djangorestframework-simplejwt = "*"
 django-debug-toolbar = "*"
 django-filter = "*"
 pillow = "*"
+python-decouple = "*"
+mysqlclient = "*"
 
 [dev-packages]
 pytest = "*"

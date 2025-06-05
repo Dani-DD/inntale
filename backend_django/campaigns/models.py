@@ -120,7 +120,7 @@ class Cast(models.Model):
     player = models.ForeignKey(
         "Player", on_delete=models.PROTECT, related_name="campaigns_played"
     )
-    character = models.CharField(max_length=30)
+    character = models.CharField(max_length=255)
 
     class Meta:
         verbose_name = "Cast"
