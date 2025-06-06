@@ -1,0 +1,20 @@
+# INSTALLING PYTHON
+FROM python:3.12
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# INSTALLING PIPENV
+RUN pip install --upgrade pip
+RUN pip install pipenv
+
+# INSTALLING PROJECT DEPENDENCY
+WORKDIR /app
+COPY Pipfile Pipfile.lock /app/
+RUN pipenv install --system --dev
+
+# COPY ALL THE OTHER PROJECT FILES INTO THE IMAGE'S WORKING DIRECTORY
+COPY . /app/
+
+# RUN THE SERVER
+EXPOSE 8000
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
