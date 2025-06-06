@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1
 RUN pip install --upgrade pip
 RUN pip install pipenv
 
-# INSTALLING PROJECT DEPENDENCY
+# INSTALLING PROJECT DEPENDENCIES
 WORKDIR /app
 COPY Pipfile Pipfile.lock /app/
 RUN pipenv install --system --dev
