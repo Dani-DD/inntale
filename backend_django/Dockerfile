@@ -12,9 +12,14 @@ WORKDIR /app
 COPY Pipfile Pipfile.lock /app/
 RUN pipenv install --system --dev
 
+# APPLYING PERMISSION TO RUN WAIT-FOR-IT.SH AND DOCKER-ENTRYPOINT.SH
+COPY wait-for-it.sh /usr/local/bin/
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # COPY ALL THE OTHER PROJECT FILES INTO THE IMAGE'S WORKING DIRECTORY
 COPY . /app/
 
 # RUN THE SERVER
 EXPOSE 8000
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]

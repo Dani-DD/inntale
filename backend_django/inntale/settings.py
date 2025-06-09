@@ -93,8 +93,8 @@ WSGI_APPLICATION = "inntale.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": config("DATABASE_NAME"),
-        "USER": config("MYSQL_USERNAME"),
+        "NAME": config("MYSQL_DATABASE"),
+        "USER": config("MYSQL_USER"),
         "PASSWORD": config("MYSQL_PSW"),
         "HOST": config("MYSQL_HOST"),
         "PORT": config("MYSQL_HOST_PORT"),
