@@ -1,11 +1,29 @@
+from django import forms
 from django.contrib import admin, messages
 from django.http import HttpRequest
 from django.db.models import Count
 from django.utils.html import format_html
 from django.utils.text import slugify
 from .models import Campaign, Manual, Player, Cast, Watchlist
+from django.db import models
+from django.forms import Textarea
 
 BASE_URL = "http://127.0.0.1:8000/"
+
+
+class SlugAdminModel(admin.ModelAdmin):
+    def get_form(self, request, obj=..., change=..., **kwargs):
+        form = super().get_form(request, obj, change, **kwargs)
+
+        if obj:
+            form.base_fields["slug"].help_text = (
+                "Typically, you do not need to edit this field."
+            )
+
+        else:
+            form.base_fields["slug"].widget = forms.HiddenInput()
+
+        return form
 
 
 class CastInline(admin.TabularInline):
@@ -34,7 +52,7 @@ class FilterCampaignsByYear(admin.SimpleListFilter):
 
 # Register your models here.
 @admin.register(Campaign)
-class CampaignAdmin(admin.ModelAdmin):
+class CampaignAdmin(SlugAdminModel):
     list_display = [
         "titlecase_name",
         "season",
@@ -60,6 +78,19 @@ class CampaignAdmin(admin.ModelAdmin):
     search_help_text = "Filter campaigns by name or player's name"
     actions = ["copy_campaign"]
     inlines = [CastInline]
+    formfield_overrides = {
+        models.TextField: {"widget": Textarea(attrs={"rows": 1, "cols": 40})},
+    }
+    fields = [
+        "name",
+        "season",
+        "manual",
+        "is_edited",
+        "youtube_link",
+        "release_date",
+        "thumbnail",
+        "slug",
+    ]
 
     @admin.display(ordering="name", description="name")
     def titlecase_name(self, campaign: Campaign):
@@ -123,7 +154,7 @@ class CampaignAdmin(admin.ModelAdmin):
 
 
 @admin.register(Manual)
-class ManualAdmin(admin.ModelAdmin):
+class ManualAdmin(SlugAdminModel):
     list_display = ["titlecase_name", "total_use"]
 
     def get_queryset(self, request):
@@ -142,7 +173,7 @@ class ManualAdmin(admin.ModelAdmin):
 
 
 @admin.register(Player)
-class PlayerAdmin(admin.ModelAdmin):
+class PlayerAdmin(SlugAdminModel):
     list_display = ["full_name", "appearances", "profile_image"]
     ordering = ["first_name", "last_name"]
     list_filter = ["campaigns_played__campaign"]

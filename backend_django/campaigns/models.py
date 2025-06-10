@@ -3,27 +3,33 @@ from django.db import models
 from django.db.models.aggregates import Count
 from django.utils.text import slugify
 import os
+from abc import abstractmethod
 
 
-# Testing
-class Watchlist(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="user_watchlist"
-    )
-    campaign = models.ForeignKey(
-        "Campaign", on_delete=models.CASCADE, related_name="in_watchlist"
-    )
+class SlugModel(models.Model):
+    slug = models.SlugField(unique=True, blank=True)
+
+    class Meta:
+        abstract = True
+
+    @abstractmethod
+    def get_slug_source(self):
+        pass
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.get_slug_source)
+        super().save(*args, **kwargs)
 
 
 # Create your models here.
-class Campaign(models.Model):
+class Campaign(SlugModel):
     name = models.TextField()
     season = models.PositiveSmallIntegerField()
-    slug = models.SlugField(unique=True)
-    is_edited = models.BooleanField()
     manual = models.ForeignKey(
         "Manual", on_delete=models.PROTECT, related_name="used_in"
     )
+    is_edited = models.BooleanField()
     youtube_link = models.TextField()
     release_date = models.DateField(null=True, blank=True)
     thumbnail = models.ImageField(null=True, blank=True, upload_to="campaigns/")
@@ -33,11 +39,10 @@ class Campaign(models.Model):
     class Meta:
         ordering = ["name", "season"]
 
-    def save(self, *args, **kwargs):
-        # Autocreate the slug field
-        if not self.slug:
-            self.slug = slugify(f"{self.name} s{self.season}")
+    def get_slug_source(self):
+        return f"{self.name} s{self.season}"
 
+    def save(self, *args, **kwargs):
         # Avoid duplicating existing images
         if self.thumbnail:
             # Get the image chosen for this record
@@ -67,19 +72,16 @@ class ManualManager(models.Manager):
         )
 
 
-class Manual(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
+class Manual(SlugModel):
+    name = models.CharField(max_length=255, unique=True)
     # "used _in" as reverse foreign key from Campaign model
     objects = ManualManager()
 
     def __str__(self):
         return f"{self.name}"
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+    def get_slug_source(self):
+        return self.name
 
     class Meta:
         ordering = ["name"]
@@ -92,12 +94,11 @@ class PlayerManager(models.Manager):
         )
 
 
-class Player(models.Model):
+class Player(SlugModel):
     nickname = models.CharField(max_length=64, blank=True)
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     profile_pic = models.ImageField(blank=True, null=True, upload_to="players/")
-    slug = models.SlugField(unique=True)
     # campaigns_played as reverse ForeignKey from Cast model
     objects = PlayerManager()
 
@@ -107,10 +108,8 @@ class Player(models.Model):
     class Meta:
         ordering = ["first_name", "last_name"]
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(f"{self.first_name} {self.last_name}")
-        return super().save(*args, **kwargs)
+    def get_slug_source(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 class Cast(models.Model):
@@ -129,3 +128,12 @@ class Cast(models.Model):
 
     def __str__(self):
         return f"In {self.campaign.name} s{self.campaign.season}: {self.player.first_name} {self.player.last_name} as {self.character}"
+
+
+class Watchlist(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_watchlist"
+    )
+    campaign = models.ForeignKey(
+        "Campaign", on_delete=models.CASCADE, related_name="in_watchlist"
+    )
