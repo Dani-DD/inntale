@@ -25,3 +25,6 @@ docker-compose.yml
 # Ignore static and media files
 /staticfiles/
 /media/
+
+# React
+node_modules
