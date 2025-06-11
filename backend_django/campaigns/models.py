@@ -1,12 +1,21 @@
+# Django's imports
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.aggregates import Count
 from django.utils.text import slugify
-import os
+
+# Python's imports
 from abc import abstractmethod
+import os
 
 
+# Utilities
 class SlugModel(models.Model):
+    """
+    A lot of models use the same logic for handling the slug field, so I've decide
+    to wrap that logic into a base class.
+    """
+
     slug = models.SlugField(unique=True, blank=True)
 
     class Meta:
@@ -22,12 +31,48 @@ class SlugModel(models.Model):
         super().save(*args, **kwargs)
 
 
+class ManualAndSettingManager(models.Manager):
+    """
+    See ManualAndSetting class
+    """
+
+    def total_use(self, related_name):
+        return (
+            self.get_queryset()
+            .prefetch_related(related_name)
+            .annotate(total_use=Count(related_name))
+        )
+
+
+class ManualAndSetting(SlugModel):
+    """
+    The Manual and Setting models are very similar, so I've wrapped their logic
+    into a base class
+    """
+
+    name = models.CharField(max_length=255, unique=True)
+    objects = ManualAndSettingManager()
+
+    class Meta:
+        ordering = ["name"]
+        abstract = True
+
+    def __str__(self):
+        return f"{self.name}"
+
+    def get_slug_source(self):
+        return self.name
+
+
 # Create your models here.
 class Campaign(SlugModel):
     name = models.TextField()
     season = models.PositiveSmallIntegerField()
     manual = models.ForeignKey(
         "Manual", on_delete=models.PROTECT, related_name="used_in"
+    )
+    setting = models.ForeignKey(
+        "Setting", on_delete=models.DO_NOTHING, related_name="campaigns"
     )
     is_edited = models.BooleanField()
     youtube_link = models.TextField()
@@ -63,28 +108,16 @@ class Campaign(SlugModel):
         return f"{self.name} s{self.season}"
 
 
-class ManualManager(models.Manager):
-    def total_use(self):
-        return (
-            self.get_queryset()
-            .prefetch_related("used_in")
-            .annotate(total_use=Count("used_in"))
-        )
-
-
-class Manual(SlugModel):
-    name = models.CharField(max_length=255, unique=True)
-    # "used _in" as reverse foreign key from Campaign model
-    objects = ManualManager()
-
-    def __str__(self):
-        return f"{self.name}"
-
-    def get_slug_source(self):
-        return self.name
-
+class Manual(ManualAndSetting):
+    # "used_in" as reverse foreign key from Campaign model
     class Meta:
-        ordering = ["name"]
+        abstract = False
+
+
+class Setting(ManualAndSetting):
+    # "campaigns" as reverse foreigk key from Campaign model
+    class Meta:
+        abstract = False
 
 
 class PlayerManager(models.Manager):

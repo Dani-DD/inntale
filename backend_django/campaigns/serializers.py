@@ -1,12 +1,91 @@
+# Django's imports
 from django.contrib.auth.models import User
 from djoser.serializers import UserCreateSerializer
+
+# rest_framework's imports
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from django.contrib.auth.models import User
-from .models import Campaign, Manual, Cast, Player, Watchlist
+
+# App's imports
+from .models import Campaign, Manual, Cast, Player, Watchlist, Setting
 
 
-# test
+# serializers
+class CampaignCastSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Cast
+        fields = ["id", "player", "character", "profile_pic"]
+
+    player = serializers.StringRelatedField()
+    profile_pic = serializers.ImageField(source="player.profile_pic")
+
+
+class CampaignSerializer(serializers.ModelSerializer):
+
+    manual = serializers.StringRelatedField()
+    setting = serializers.StringRelatedField()
+    campaign_cast = CampaignCastSerializer(many=True)
+
+    class Meta:
+        model = Campaign
+        fields = [
+            "id",
+            "name",
+            "season",
+            "manual",
+            "setting",
+            "is_edited",
+            "youtube_link",
+            "release_date",
+            "thumbnail",
+            "slug",
+            "campaign_cast",
+        ]
+        read_only_fields = ["slug"]
+
+
+class ManualAndSettingSerializer(serializers.ModelSerializer):
+    total_use = serializers.SerializerMethodField()
+
+    class Meta:
+        model = None  # This will be set in subclasses
+        fields = ["id", "name", "slug", "total_use"]
+        read_only_fields = ["slug"]
+
+    def get_total_use(self, obj):
+        return obj.total_use
+
+
+class ManualSerializer(ManualAndSettingSerializer):
+    class Meta(ManualAndSettingSerializer.Meta):
+        model = Manual
+
+
+class SettingSerializer(ManualAndSettingSerializer):
+    class Meta(ManualAndSettingSerializer.Meta):
+        model = Setting
+
+
+class PlayerSerializer(serializers.ModelSerializer):
+    appearances = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Player
+        fields = [
+            "id",
+            "nickname",
+            "first_name",
+            "last_name",
+            "appearances",
+            "profile_pic",
+        ]
+        read_only_fields = ["slug"]
+
+    def get_appearances(self, player: Player):
+        return player.appearances
+
+
 class WatchlistStaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Watchlist
@@ -33,70 +112,6 @@ class WatchlistUserSerializer(serializers.ModelSerializer):
         campaign = self.validated_data["campaign"]
 
         Watchlist.objects.create(user=user, campaign=campaign)
-
-
-# serializers
-class CampaignCastSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Cast
-        fields = ["id", "player", "character", "profile_pic"]
-
-    player = serializers.StringRelatedField()
-    profile_pic = serializers.ImageField(source="player.profile_pic")
-
-
-class CampaignSerializer(serializers.ModelSerializer):
-
-    manual = serializers.StringRelatedField()
-    campaign_cast = CampaignCastSerializer(many=True)
-
-    class Meta:
-        model = Campaign
-        fields = [
-            "id",
-            "name",
-            "season",
-            "slug",
-            "is_edited",
-            "manual",
-            "youtube_link",
-            "release_date",
-            "thumbnail",
-            "campaign_cast",
-        ]
-        read_only_fields = ["slug"]
-
-
-class ManualSerializer(serializers.ModelSerializer):
-    total_use = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Manual
-        fields = ["id", "name", "slug", "total_use"]
-        read_only_fields = ["slug"]
-
-    def get_total_use(self, manual: Manual):
-        return manual.total_use
-
-
-class PlayerSerializer(serializers.ModelSerializer):
-    appearances = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Player
-        fields = [
-            "id",
-            "nickname",
-            "first_name",
-            "last_name",
-            "appearances",
-            "profile_pic",
-        ]
-        read_only_fields = ["slug"]
-
-    def get_appearances(self, player: Player):
-        return player.appearances
 
 
 # AUTHENTICATION

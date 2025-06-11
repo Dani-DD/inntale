@@ -167,3 +167,6 @@ SIMPLE_JWT = {
     "TOKEN_OBTAIN_SERIALIZER": "campaigns.serializers.MyTokenObtainPairSerializer",
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=50),
 }
+
+# Debug toolbar
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda request: True}

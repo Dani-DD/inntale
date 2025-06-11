@@ -1,12 +1,19 @@
+# Python's imports
+from abc import abstractmethod
+from typing import Union
+
+# Django's imports
 from django import forms
 from django.contrib import admin, messages
-from django.http import HttpRequest
+from django.db import models
 from django.db.models import Count
+from django.forms import Textarea
+from django.http import HttpRequest
 from django.utils.html import format_html
 from django.utils.text import slugify
-from .models import Campaign, Manual, Player, Cast, Watchlist
-from django.db import models
-from django.forms import Textarea
+
+# App's imports
+from .models import Campaign, Manual, Player, Cast, Watchlist, Setting
 
 BASE_URL = "http://127.0.0.1:8000/"
 
@@ -58,12 +65,13 @@ class CampaignAdmin(SlugAdminModel):
         "season",
         "is_edited",
         "titlecase_manual",
+        "setting",
         "show_youtube_link",
         "release_date",
         "slug",
         "campaign_thumbnail",
     ]
-    list_select_related = ["manual"]
+    list_select_related = ["manual", "setting"]
     list_filter = [
         "manual",
         "is_edited",
@@ -85,6 +93,7 @@ class CampaignAdmin(SlugAdminModel):
         "name",
         "season",
         "manual",
+        "setting",
         "is_edited",
         "youtube_link",
         "release_date",
@@ -153,23 +162,41 @@ class CampaignAdmin(SlugAdminModel):
         css = {"all": ["campaigns_style.css"]}
 
 
-@admin.register(Manual)
-class ManualAdmin(SlugAdminModel):
+class ManualAndSettingAdmin(SlugAdminModel):
+    @abstractmethod
+    def get_related_name(self):
+        pass
+
     list_display = ["titlecase_name", "total_use"]
+    ordering = ["name"]
 
     def get_queryset(self, request):
-        return Manual.objects.total_use().all()
+        return self.model.objects.total_use(related_name=self.get_related_name()).all()
 
     @admin.display(ordering="name", description="name")
-    def titlecase_name(self, manual: Manual):
-        return manual.name.title()
+    def titlecase_name(self, obj: Union[Manual, Setting]):
+        return obj.name.title()
 
     @admin.display(ordering="total_use")
-    def total_use(self, manual: Manual):
+    def total_use(self, obj: Union[Manual, Setting]):
         campaign_admin_url = "admin/campaigns/campaign/"
-        url_query_parameter = "?manual__id__exact="
-        full_url = f"{BASE_URL}{campaign_admin_url}{url_query_parameter}{manual.pk}"
-        return format_html("<a href={}>{}</a>", full_url, manual.total_use)
+        url_query_parameter = (
+            "?manual__id__exact=" if isinstance(obj, Manual) else "?setting__id__exact="
+        )
+        full_url = f"{BASE_URL}{campaign_admin_url}{url_query_parameter}{obj.pk}"
+        return format_html("<a href={}>{}</a>", full_url, obj.total_use)
+
+
+@admin.register(Manual)
+class ManualAdmin(ManualAndSettingAdmin):
+    def get_related_name(self):
+        return "used_in"
+
+
+@admin.register(Setting)
+class SettingAdmin(ManualAndSettingAdmin):
+    def get_related_name(self):
+        return "campaigns"
 
 
 @admin.register(Player)
