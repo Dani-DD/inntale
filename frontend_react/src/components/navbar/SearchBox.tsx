@@ -27,7 +27,7 @@ const SearchBox = ({ width = "50%" }: Props) => {
             <InputGroup>
                 <InputLeftElement children={<BsSearch />} />
                 <Input
-                    placeholder="Search campaign by name, manual or player"
+                    placeholder="Search by name, manual, player or setting"
                     _placeholder={{ color: "black" }}
                     borderRadius={20}
                     {...register("search")}

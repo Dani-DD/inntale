@@ -11,3 +11,5 @@ createRoot(document.getElementById("root")!).render(
         </ChakraProvider>
     </StrictMode>
 );
+
+// main.tsx -> routes.tsx -> AuthProvider (authContext.tsx) -> Layout
