@@ -4,6 +4,7 @@ services:
       context: ./backend_django
     command: wait-for-it.sh database_mysql:3306 -t 0 -- docker-entrypoint.sh
     image: inntale_backend:1.0
+    container_name: inntale_backend
     ports:
       - 8000:8000
     environment:
@@ -23,6 +24,7 @@ services:
       context: ./frontend_react
     command: wait-for-it.sh backend_django:8000 -t 0 -- docker-entrypoint.sh
     image: inntale_frontend:1.0
+    container_name: inntale_frontend
     ports:
       - 5173:5173
     restart: on-failure
@@ -35,6 +37,7 @@ services:
 
   database_mysql:
     image: mysql:8.0
+    container_name: inntale_database
     ports:
       - "3306:3306"
     environment:
