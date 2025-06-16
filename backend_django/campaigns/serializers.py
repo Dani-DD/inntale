@@ -50,7 +50,7 @@ class ManualAndSettingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = None  # This will be set in subclasses
-        fields = ["id", "name", "slug", "total_use"]
+        fields = ["id", "name", "image", "slug", "total_use"]
         read_only_fields = ["slug"]
 
     def get_total_use(self, obj):

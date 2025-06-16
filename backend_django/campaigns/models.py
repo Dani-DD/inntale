@@ -44,26 +44,6 @@ class ManualAndSettingManager(models.Manager):
         )
 
 
-class ManualAndSetting(SlugModel):
-    """
-    The Manual and Setting models are very similar, so I've wrapped their logic
-    into a base class
-    """
-
-    name = models.CharField(max_length=255, unique=True)
-    objects = ManualAndSettingManager()
-
-    class Meta:
-        ordering = ["name"]
-        abstract = True
-
-    def __str__(self):
-        return f"{self.name}"
-
-    def get_slug_source(self):
-        return self.name
-
-
 # Create your models here.
 class Campaign(SlugModel):
     name = models.TextField()
@@ -108,13 +88,36 @@ class Campaign(SlugModel):
         return f"{self.name} s{self.season}"
 
 
+class ManualAndSetting(SlugModel):
+    """
+    The Manual and Setting models are very similar, so I've wrapped their logic
+    into a base class
+    """
+
+    name = models.CharField(max_length=255, unique=True)
+    objects = ManualAndSettingManager()
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return f"{self.name}"
+
+    def get_slug_source(self):
+        return self.name
+
+
 class Manual(ManualAndSetting):
+    image = models.ImageField(upload_to="manuals", blank=True, null=True)
+
     # "used_in" as reverse foreign key from Campaign model
     class Meta:
         abstract = False
 
 
 class Setting(ManualAndSetting):
+    image = models.ImageField(upload_to="settings", blank=True, null=True)
+
     # "campaigns" as reverse foreigk key from Campaign model
     class Meta:
         abstract = False

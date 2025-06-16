@@ -167,7 +167,7 @@ class ManualAndSettingAdmin(SlugAdminModel):
     def get_related_name(self):
         pass
 
-    list_display = ["titlecase_name", "total_use"]
+    list_display = ["titlecase_name", "total_use", "icon"]
     ordering = ["name"]
 
     def get_queryset(self, request):
@@ -185,6 +185,15 @@ class ManualAndSettingAdmin(SlugAdminModel):
         )
         full_url = f"{BASE_URL}{campaign_admin_url}{url_query_parameter}{obj.pk}"
         return format_html("<a href={}>{}</a>", full_url, obj.total_use)
+
+    @admin.display(description="icon")
+    def icon(self, obj: Union[Manual, Setting]):
+        if obj.image:
+            return format_html(f'<img src="{obj.image.url}" class="icon" />')
+        return ""
+
+    class Media:
+        css = {"all": ["campaigns_style.css"]}
 
 
 @admin.register(Manual)
