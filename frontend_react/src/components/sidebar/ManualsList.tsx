@@ -2,7 +2,7 @@ import useManuals from "@/hooks/useManuals";
 import { Spinner, Text } from "@chakra-ui/react";
 import ExpandableList from "./ExpandableList";
 import { titleCase } from "@/utils/utils";
-import { ListElement } from "@/interfaces/ListElement";
+import { ListItem } from "@/interfaces/ListItem";
 
 const ManualsList = () => {
     const { manuals, error, isLoading } = useManuals();
@@ -16,15 +16,16 @@ const ManualsList = () => {
     }
 
     /**
-     * The ExpandableList component needs an array of ListElement objects,
+     * The ExpandableList component needs an array of ListItem objects,
      * so we convert the "manuals" variable (an array of Manual objects) into it.
      */
-    const manualsList: ListElement[] = manuals.map((manual) => {
+    const manualsList: ListItem[] = manuals.map((manual) => {
         return {
-            elementId: manual.id,
+            id: manual.id,
+            logo: manual.image,
             name: titleCase(manual.name),
-            tag: manual.total_use,
-            listType: "Manual",
+            counter: manual.total_use,
+            itemType: "Manual",
         };
     });
 
@@ -32,13 +33,13 @@ const ManualsList = () => {
      * The first element of the list will be used to built a button that cleans up the selected filter
      */
     manualsList.unshift({
-        elementId: undefined,
+        id: undefined,
         name: "All manuals",
-        tag: undefined,
-        listType: "Manual",
+        counter: undefined,
+        itemType: "Manual",
     });
 
-    return <ExpandableList list={manualsList} />;
+    return <ExpandableList list={manualsList} header="Manuals" />;
 };
 
 export default ManualsList;

@@ -1,10 +1,10 @@
-import { Button, Flex, Stack } from "@chakra-ui/react";
+import { Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import FilteringButton from "./FilteringButton";
 import { useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
-import { ListElement } from "@/interfaces/ListElement";
-import { showAllButtonBackgroundColor } from "@/utils/applyingColorsToComponents";
+import { ListItem } from "@/interfaces/ListItem";
+import { showAllButtonBackgroundColor } from "@/utils/applyingStylesToComponents";
 
 /**
  * This component represents an expandable/collapsable list.
@@ -17,33 +17,35 @@ import { showAllButtonBackgroundColor } from "@/utils/applyingColorsToComponents
  */
 
 interface Props {
-    list: ListElement[];
+    header: string;
+    list: ListItem[];
 }
 
-const ExpandableList = ({ list }: Props) => {
+const ExpandableList = ({ header, list }: Props) => {
     const [showAll, setShowAll] = useState<boolean>(false);
 
     // Initial values: the list is collapsed by default.
     let buttonText = "show all";
     let buttonIcon = <IoIosArrowDown />;
-    let lastElement = 4;
+    let listLenght = 4;
 
     if (showAll) {
         buttonText = "hide";
         buttonIcon = <IoIosArrowUp />;
-        lastElement = list.length;
+        listLenght = list.length;
     }
 
     return (
         <Stack>
+            <Heading>{header}</Heading>
             {/* list's elements */}
-            {list.slice(0, lastElement).map((listElement) => (
+            {list.slice(0, listLenght).map((listItem) => (
                 <FilteringButton
-                    buttonContent={listElement}
+                    buttonContent={listItem}
                     key={
-                        listElement.listType === "Manual"
-                            ? `manual_${listElement.elementId}`
-                            : `player_${listElement.elementId}`
+                        listItem.itemType === "Manual"
+                            ? `manual_${listItem.id}`
+                            : `player_${listItem.id}`
                     }
                 />
             ))}

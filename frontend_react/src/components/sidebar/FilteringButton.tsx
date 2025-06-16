@@ -1,50 +1,69 @@
-import { ListElement } from "@/interfaces/ListElement";
+import { ListItem } from "@/interfaces/ListItem";
 import useFiltersStore from "@/stores/FiltersStore";
-import { gold_inntale } from "@/utils/colors";
-import { Button, Circle, HStack } from "@chakra-ui/react";
+import { Button, Image, HStack } from "@chakra-ui/react";
 
 /**
- * This component turns an element of the ExpandableList into a button for filtering the campaigns.
- * It needs to know:
- * - the string to render (es: "Brancalonia")
- * - a tag to place near the string (es: 0 to indicate that has been never used)
- * - the id of the element (to handle the onClick event that updates the state with the element id)
- * - what kind of list is (manuals? Players?)
+ * Each list item of the sidebar is made of by:
+ * - a logo/image (the manual's logo, the player's pic, ...).
+ * - a name (the manual's name, the player's full name, ...).
+ * - a counter, that represents how many times a manual has been used, a player has played, ...
+ *
+ * [ logo ] [ name ] (counter)
+ *
+ * This component is used to update the url query parameter: for example, if the user click the
+ * FilteringButton that represents the manual with id equals to 4, than the following filter is applied:
+ * /root/campaigns/?manual=4 (check out useFiltersStore at src/components/store/FiltersStore.ts)
+ * This is why we've need of the id of the item (manual, player, ...) (as you can see in the Props interface below).
+ *
+ * Beside, we've also need to specify the type of the item:
+ * - Does it represent a manual? Then we need to update ?manual.
+ * - Does it represent a player? Then we need to update ?player, instead.
+ * - and so on.
+ *
+ * There is an exception: the first item of the list.
+ * This button is made only by the name: no logo and counter (this is why, in the Props interface, are set as optional):
+ *
+ * [ name ]
+ *
+ * In fact, this is a special button which purpose is to remove the selected (if any)
+ * url query parameter. How? By setting it to "undefined".
+ * This is why, in the Props interface, the id is set as "optional"
  */
 
 interface Props {
-    buttonContent: ListElement;
+    buttonContent: ListItem;
 }
 
-const FilteringButton = ({ buttonContent }: Props) => {
+const FilteringButton = ({
+    buttonContent: { id, logo, name, counter, itemType },
+}: Props) => {
     const setSelectedManual = useFiltersStore((s) => s.setSelectedManual);
     const setSelectedPlayer = useFiltersStore((s) => s.setSelectedPlayer);
 
     // When the user click on the button, we change the state's value
     const handleClick = () => {
-        switch (buttonContent.listType) {
+        switch (itemType) {
             case "Manual":
-                setSelectedManual(buttonContent.elementId);
+                setSelectedManual(id);
                 break;
 
             case "Player":
-                setSelectedPlayer(buttonContent.elementId);
+                setSelectedPlayer(id);
                 break;
         }
     };
 
     return (
         <HStack justifyContent={"start"} alignItems={"start"}>
-            {buttonContent.tag !== undefined && (
-                <Circle
-                    size="25px"
-                    bg="white"
-                    color={gold_inntale}
-                    fontSize={"md"}
-                    fontWeight={"bold"}
-                >
-                    {buttonContent.tag}
-                </Circle>
+            {logo && (
+                <Image
+                    src={logo}
+                    alt={`Logo ${name}`}
+                    boxSize={"32px"}
+                    objectFit={"contain"}
+                    // aspectRatio={"1:1"}
+                    borderRadius={"6px"}
+                />
             )}
             <Button
                 variant="link"
@@ -53,12 +72,11 @@ const FilteringButton = ({ buttonContent }: Props) => {
                 color={"black"}
                 marginBottom={"8px"}
                 onClick={handleClick}
-                // border="2px solid black"
                 _hover={{
                     color: "white",
                 }}
             >
-                {buttonContent.name}
+                {`${name}${counter ? ` (${counter})` : ""}`}
             </Button>
         </HStack>
     );

@@ -2,7 +2,7 @@ import { Spinner, Text } from "@chakra-ui/react";
 import ExpandableList from "./ExpandableList";
 import { titleCase } from "@/utils/utils";
 import usePlayers from "@/hooks/usePlayers";
-import { ListElement } from "@/interfaces/ListElement";
+import { ListItem } from "@/interfaces/ListItem";
 
 const PlayersList = () => {
     const { players, error, isLoading } = usePlayers();
@@ -16,15 +16,16 @@ const PlayersList = () => {
     }
 
     /**
-     * The ExpandableList component needs an array of ListElement objects,
+     * The ExpandableList component needs an array of ListItem objects,
      * so we convert the "players" variable (an array of Player objects) into it.
      */
-    const playersList: ListElement[] = players.map((player) => {
+    const playersList: ListItem[] = players.map((player) => {
         return {
-            elementId: player.id,
+            id: player.id,
+            logo: player.profile_pic,
             name: titleCase(`${player.first_name} ${player.last_name}`),
-            tag: player.appearances,
-            listType: "Player",
+            counter: player.appearances,
+            itemType: "Player",
         };
     });
 
@@ -32,12 +33,13 @@ const PlayersList = () => {
      * The first element of the list will be used to built a button that cleans up the selected filter
      */
     playersList.unshift({
-        elementId: undefined,
+        id: undefined,
         name: "All players",
-        listType: "Player",
+        counter: undefined,
+        itemType: "Player",
     });
 
-    return <ExpandableList list={playersList} />;
+    return <ExpandableList list={playersList} header="Players" />;
 };
 
 export default PlayersList;
