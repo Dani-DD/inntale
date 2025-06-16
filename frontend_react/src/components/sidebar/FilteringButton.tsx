@@ -9,6 +9,7 @@ import { Button, Image, HStack } from "@chakra-ui/react";
  * - a counter, that represents how many times a manual has been used, a player has played, ...
  *
  * [ logo ] [ name ] (counter)
+ * like: [ andross pic ] [ Andrea Guagnini ] ( 4 )
  *
  * This component is used to update the url query parameter: for example, if the user click the
  * FilteringButton that represents the manual with id equals to 4, than the following filter is applied:
@@ -24,6 +25,7 @@ import { Button, Image, HStack } from "@chakra-ui/react";
  * This button is made only by the name: no logo and counter (this is why, in the Props interface, are set as optional):
  *
  * [ name ]
+ * like: All players
  *
  * In fact, this is a special button which purpose is to remove the selected (if any)
  * url query parameter. How? By setting it to "undefined".
@@ -39,6 +41,7 @@ const FilteringButton = ({
 }: Props) => {
     const setSelectedManual = useFiltersStore((s) => s.setSelectedManual);
     const setSelectedPlayer = useFiltersStore((s) => s.setSelectedPlayer);
+    const setSelectedSetting = useFiltersStore((s) => s.setSelectedSetting);
 
     // When the user click on the button, we change the state's value
     const handleClick = () => {
@@ -49,6 +52,9 @@ const FilteringButton = ({
 
             case "Player":
                 setSelectedPlayer(id);
+                break;
+            case "Setting":
+                setSelectedSetting(id);
                 break;
         }
     };

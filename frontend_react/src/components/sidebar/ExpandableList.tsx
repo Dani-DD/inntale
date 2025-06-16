@@ -8,12 +8,16 @@ import { showAllButtonBackgroundColor } from "@/utils/applyingStylesToComponents
 
 /**
  * This component represents an expandable/collapsable list.
- * The last element of the list is the button that set the list's status (expanded or collapsed).
- * It needs the list to render.
- * In this case, due to project requirements (see FilteringButton component), each element of the list
- * is an object described in the ListElement interface.
+ * It has 3 main elements:
+ * - the last item of the list, that is a button used to set the list's status (expanded or collapsed).
+ * - the other list items (represented with the FilteringButton.tsx component)
+ * - a header
  *
- * This object is constructed and returned by the parent component.
+ * This component is used to render many types of lists, like a Player[], a Manual[] or a Setting[].
+ * How?
+ * Each list needs to be converted into the appropriate format that this component is able to render: ListItem.ts
+ * The conversion from a Player[] (or any other kind of list) to a ListItem[] is made by the parent component
+ * (like <ManualsList /> or <PlayersList />). Doing so, the only thing that this component have to think is rendering the list.
  */
 
 interface Props {

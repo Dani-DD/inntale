@@ -4,6 +4,7 @@ import { create } from "zustand";
 export interface Filters {
     selected_manual?: number;
     selected_player?: number;
+    selected_setting?: number;
     search?: string;
     ordering?: string;
 }
@@ -12,6 +13,7 @@ interface FiltersStore {
     filters: Filters;
     setSelectedManual: (chosenId: number | undefined) => void;
     setSelectedPlayer: (chosenId: number | undefined) => void;
+    setSelectedSetting: (chosenId: number | undefined) => void;
     setSearch: (searchString: string) => void;
     setOrdering: (ordering: string) => void;
 }
@@ -31,6 +33,13 @@ const useFiltersStore = create<FiltersStore>((set) => ({
             filters: {
                 ...initialState.filters,
                 selected_player: chosenId,
+            },
+        })),
+    setSelectedSetting: (chosenId) =>
+        set((initialState) => ({
+            filters: {
+                ...initialState.filters,
+                selected_setting: chosenId,
             },
         })),
     setSearch: (searchString) =>

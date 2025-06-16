@@ -54,10 +54,11 @@ class CampaignViewSet(SlugViewSet):
 
     # Filtering, searching and ordering
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ["manual", "campaign_cast__player"]
+    filterset_fields = ["manual", "setting", "campaign_cast__player"]
     search_fields = [
         "name",  # campaign's name
         "manual__name",
+        "setting__name",
         "campaign_cast__player__nickname",
         "campaign_cast__player__first_name",
         "campaign_cast__player__last_name",

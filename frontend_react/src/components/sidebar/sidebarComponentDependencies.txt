@@ -1,6 +1,20 @@
 ManualsList -> ExpandableList -> FilteringButton
-PlayersList ->
+PlayersList ->      "                  "
+SettingsList ->     "                  "
 
-ExpandableList: renders an expandable/collapsable list.
-ManualsList/PlayersList: build the list for ExpandableList.
-FilteringButton: turn each element of the list into a button for filtering campaigns.
+ADDING A NEW FILTER FOR CAMPAIGNS
+
+1) RENDER THE NEW LIST
+- Define the ne custom hook that will fetch the new list of options and an interface that describe theirs shape
+(check out useManuals or usePlayers for examples).
+- Define the new component where the new hook will be used (check out <ManualsList /> or <SettingsList /> as examples).
+
+2) IMPLEMENTING FILTERING/SEARCHING LOGIC
+- in useData.ts, add the new url query parameter in the axios.get's AxiosObject argument.
+- in FiltersStore.ts, add in the Zustand's store a new property to keep track of the url query parameter value and a new function to set it.
+- in FilteringButton.tsx, use the function defined in the previous point to set the url query parameter when the user clicks on one of the options.
+- check out if you've implemented the filtering and searching logic in backend, throught the filterset_fields and search_fields attributes of the CampaignViewSet views (views.py).
+
+3) UPDATE THE OTHER COMPONENTS
+- SearchBar placeholder
+- DynamicHeader component

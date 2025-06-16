@@ -26,6 +26,7 @@ const useData = <T>(
                 signal: controller.signal,
                 params: {
                     manual: filters?.selected_manual,
+                    setting: filters?.selected_setting,
                     campaign_cast__player: filters?.selected_player,
                     search: filters?.search,
                     ordering: filters?.ordering,
