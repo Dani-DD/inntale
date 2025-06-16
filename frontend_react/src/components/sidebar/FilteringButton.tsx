@@ -76,7 +76,7 @@ const FilteringButton = ({
                     color: "white",
                 }}
             >
-                {`${name}${counter ? ` (${counter})` : ""}`}
+                {`${name}${counter ? ` ( ${counter} )` : ""}`}
             </Button>
         </HStack>
     );

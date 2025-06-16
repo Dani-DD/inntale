@@ -27,7 +27,7 @@ const ExpandableList = ({ header, list }: Props) => {
     // Initial values: the list is collapsed by default.
     let buttonText = "show all";
     let buttonIcon = <IoIosArrowDown />;
-    let listLenght = 4;
+    let listLenght = 5;
 
     if (showAll) {
         buttonText = "hide";

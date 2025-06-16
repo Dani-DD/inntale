@@ -3,5 +3,5 @@ export interface ListItem {
     logo?: string;
     name: string;
     counter?: number;
-    itemType: "Manual" | "Player";
+    itemType: "Manual" | "Player" | "Setting";
 }

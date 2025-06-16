@@ -3,6 +3,7 @@ import DynamicHeading from "@/components/main/DynamicHeading";
 import SortSelector from "@/components/main/SortSelector";
 import ManualsList from "@/components/sidebar/ManualsList";
 import PlayersList from "@/components/sidebar/PlayersList";
+import SettingsList from "@/components/sidebar/SettingsList";
 import useFiltersStore from "@/stores/FiltersStore";
 import {
     mainBackgroundColor,
@@ -34,6 +35,7 @@ const HomePage = () => {
                     >
                         <ManualsList />
                         <PlayersList />
+                        <SettingsList />
                     </GridItem>
                 </Show>
                 <GridItem
