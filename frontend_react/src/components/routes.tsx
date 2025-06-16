@@ -5,7 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@/contexts/authContext";
 import UserPage from "@/pages/UserPage";
 import PrivatePage from "@/pages/PrivatePage";
-import Test from "./Test";
+import TestPage from "../pages/TestPage";
 
 const router = createBrowserRouter([
     {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     },
     {
         path: "test/",
-        element: <Test />,
+        element: <TestPage />,
     },
 ]);
 
