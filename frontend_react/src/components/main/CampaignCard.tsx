@@ -2,7 +2,7 @@ import AuthContext from "@/contexts/authContext";
 import usePrivateAxios from "@/hooks/usePrivateAxios";
 import { Campaign } from "@/interfaces/Campaign";
 import { PostWatchlistItem } from "@/interfaces/WatchlistItem";
-import { campaignCardBackgroundColor } from "@/utils/applyingColorsToComponents";
+import { campaignCardBackgroundColor } from "@/utils/applyingStylesToComponents";
 import { gold_inntale } from "@/utils/colors";
 import { titleCase } from "@/utils/utils";
 import {

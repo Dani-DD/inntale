@@ -2,7 +2,7 @@ import useCampaigns from "@/hooks/useCampaigns";
 import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import CampaignCard from "./CampaignCard";
 import useFiltersStore from "@/stores/FiltersStore";
-import { campaignGridBackgroundColor } from "@/utils/applyingColorsToComponents";
+import { campaignGridBackgroundColor } from "@/utils/applyingStylesToComponents";
 
 const CampaignGrid = () => {
     const filters = useFiltersStore((s) => s.filters);

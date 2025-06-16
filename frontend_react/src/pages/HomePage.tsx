@@ -8,7 +8,7 @@ import {
     mainBackgroundColor,
     mainBorderWidth,
     sidebarBackgroundColor,
-} from "@/utils/applyingColorsToComponents";
+} from "@/utils/applyingStylesToComponents";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 
 const HomePage = () => {

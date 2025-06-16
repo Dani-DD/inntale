@@ -4,7 +4,7 @@ import useFiltersStore from "@/stores/FiltersStore";
 import {
     dynamicHeadingBackgroundColor,
     dynamicHeadingBorderWidth,
-} from "@/utils/applyingColorsToComponents";
+} from "@/utils/applyingStylesToComponents";
 import { titleCase } from "@/utils/utils";
 import { Box, Heading, Text } from "@chakra-ui/react";
 

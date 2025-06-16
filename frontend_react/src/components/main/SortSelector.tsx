@@ -2,7 +2,7 @@ import useFiltersStore from "@/stores/FiltersStore";
 import {
     sortSelectorBackgroundColor,
     sortSelectorBorderWidth,
-} from "@/utils/applyingColorsToComponents";
+} from "@/utils/applyingStylesToComponents";
 import {
     Box,
     Button,
