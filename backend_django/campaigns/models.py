@@ -112,6 +112,7 @@ class Manual(ManualAndSetting):
 
     # "used_in" as reverse foreign key from Campaign model
     class Meta:
+        ordering = ["name"]
         abstract = False
 
 
@@ -120,6 +121,7 @@ class Setting(ManualAndSetting):
 
     # "campaigns" as reverse foreigk key from Campaign model
     class Meta:
+        ordering = ["name"]
         abstract = False
 
 

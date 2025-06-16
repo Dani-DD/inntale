@@ -67,21 +67,21 @@ class CampaignViewSet(SlugViewSet):
 
 class ManualViewSet(SlugViewSet):
     def get_queryset(self):
-        return Manual.objects.total_use(related_name="used_in").all()
+        return Manual.objects.total_use(related_name="used_in").order_by("name")
 
     serializer_class = ManualSerializer
 
 
 class SettingViewSet(SlugViewSet):
     def get_queryset(self):
-        return Setting.objects.total_use(related_name="campaigns").all()
+        return Setting.objects.total_use(related_name="campaigns").order_by("name")
 
     serializer_class = SettingSerializer
 
 
 class PlayerViewSet(SlugViewSet):
     def get_queryset(self):
-        return Player.objects.appearances().all()
+        return Player.objects.appearances().order_by("first_name", "last_name")
 
     serializer_class = PlayerSerializer
 
