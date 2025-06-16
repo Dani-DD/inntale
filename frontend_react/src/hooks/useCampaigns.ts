@@ -1,17 +1,14 @@
 import { Campaign } from "@/interfaces/Campaign";
 import useData from "./useData";
 import { Filters } from "@/stores/FiltersStore";
+import { ORIGIN } from "@/settings/development";
 
 const useCampaigns = (filters?: Filters) => {
     const {
         fetchedData: campaigns,
         error,
         isLoading,
-    } = useData<Campaign>(
-        "http://127.0.0.1:8000/root/campaigns/",
-        false,
-        filters
-    );
+    } = useData<Campaign>(`${ORIGIN}root/campaigns/`, false, filters);
 
     return { campaigns, error, isLoading };
 };

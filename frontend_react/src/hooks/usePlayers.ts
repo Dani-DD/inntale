@@ -1,12 +1,13 @@
 import { Player } from "@/interfaces/Player";
 import useData from "./useData";
+import { ORIGIN } from "@/settings/development";
 
 const usePlayers = () => {
     const {
         fetchedData: players,
         error,
         isLoading,
-    } = useData<Player>("http://127.0.0.1:8000/root/players/", false);
+    } = useData<Player>(`${ORIGIN}root/players/`, false);
 
     return { players, error, isLoading };
 };

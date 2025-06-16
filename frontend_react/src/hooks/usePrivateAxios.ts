@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import AuthContext from "@/contexts/authContext";
 import { DecodedToken, Tokens } from "@/interfaces/allIntefaces";
+import { ORIGIN } from "@/settings/development";
 import axios, { AxiosResponse } from "axios";
 import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
@@ -10,13 +11,11 @@ interface RefreshResponse {
     access: string;
 }
 
-const BASE_URL = "http://127.0.0.1:8000/";
-
 const usePrivateAxios = () => {
     const { tokens, setTokens, setUser } = useContext(AuthContext);
 
     const axiosForProtectedEndpoints = axios.create({
-        baseURL: BASE_URL,
+        baseURL: ORIGIN,
         headers: {
             Authorization: `JWT ${tokens?.access}`,
         },
@@ -39,7 +38,7 @@ const usePrivateAxios = () => {
                 RefreshResponse,
                 AxiosResponse<RefreshResponse, any>,
                 any
-            >(`${BASE_URL}auth/jwt/refresh/`, {
+            >(`${ORIGIN}auth/jwt/refresh/`, {
                 refresh: tokens!.refresh,
             });
 

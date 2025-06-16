@@ -1,15 +1,13 @@
 import { GetWatchlistItem } from "@/interfaces/WatchlistItem";
 import useData from "./useData";
+import { ORIGIN } from "@/settings/development";
 
 const useWatchlist = () => {
     const {
         fetchedData: watchlist,
         isLoading,
         error,
-    } = useData<GetWatchlistItem>(
-        "http://127.0.0.1:8000/root/watchlist/",
-        true
-    );
+    } = useData<GetWatchlistItem>(`${ORIGIN}root/watchlist/`, true);
 
     return { watchlist, isLoading, error };
 };
