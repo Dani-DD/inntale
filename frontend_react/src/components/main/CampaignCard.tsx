@@ -2,7 +2,10 @@ import AuthContext from "@/contexts/authContext";
 import usePrivateAxios from "@/hooks/usePrivateAxios";
 import { Campaign } from "@/interfaces/Campaign";
 import { PostWatchlistItem } from "@/interfaces/WatchlistItem";
-import { campaignCardBackgroundColor } from "@/utils/applyingStylesToComponents";
+import {
+    campaignCardBackgroundColor,
+    fontCardHeader,
+} from "@/utils/applyingStylesToComponents";
 import { gold_inntale } from "@/utils/colors";
 import { titleCase } from "@/utils/utils";
 import {
@@ -54,10 +57,15 @@ const CampaignCard = ({ campaign }: Props) => {
             />
             <CardHeader>
                 <Stack alignItems="center">
-                    <Heading as="h1" size="lg">
+                    <Heading as="h1" size="lg" fontFamily={fontCardHeader}>
                         {titleCase(campaign.name)} S{campaign.season}
                     </Heading>
-                    <Text as="i" fontSize="xl" marginBottom="4px">
+                    <Text
+                        as="i"
+                        fontSize="xl"
+                        marginBottom="4px"
+                        fontFamily={fontCardHeader}
+                    >
                         {titleCase(campaign.manual)}
                     </Text>
                     <Label

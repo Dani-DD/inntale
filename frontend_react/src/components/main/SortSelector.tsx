@@ -65,6 +65,7 @@ const SortSelector = ({ orderBy }: Props) => {
             backgroundColor={sortSelectorBackgroundColor}
             borderWidth={sortSelectorBorderWidth}
             borderColor={"black"}
+            marginTop="40px"
         >
             <Menu>
                 <MenuButton as={Button} rightIcon={<SlArrowDown />}>

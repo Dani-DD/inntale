@@ -1,6 +1,6 @@
 import { ListItem } from "@/interfaces/ListItem";
 import useFiltersStore from "@/stores/FiltersStore";
-import { Button, Image, HStack } from "@chakra-ui/react";
+import { Button, Image, HStack, Text } from "@chakra-ui/react";
 
 /**
  * Each list item of the sidebar is made of by:
@@ -60,7 +60,12 @@ const FilteringButton = ({
     };
 
     return (
-        <HStack justifyContent={"start"} alignItems={"start"}>
+        <HStack
+            justifyContent={"start"}
+            alignItems={"center"}
+            // border={"3px solid green"}
+            maxWidth={"100%"}
+        >
             {logo && (
                 <Image
                     src={logo}
@@ -69,6 +74,7 @@ const FilteringButton = ({
                     objectFit={"contain"}
                     // aspectRatio={"1:1"}
                     borderRadius={"6px"}
+                    // border="3px solid black"
                 />
             )}
             <Button
@@ -81,8 +87,17 @@ const FilteringButton = ({
                 _hover={{
                     color: "white",
                 }}
+                // border="3px solid red"
+                maxWidth={"100%"}
+                // New one!
+                margin={"0px"}
             >
-                {`${name}${counter ? ` ( ${counter} )` : ""}`}
+                <Text
+                    // border={"2px solid pink"}
+                    maxWidth={"100%"}
+                    whiteSpace={"normal"}
+                    overflowWrap={"break-word"}
+                >{`${name}${counter ? ` ( ${counter} )` : ""}`}</Text>
             </Button>
         </HStack>
     );

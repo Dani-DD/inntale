@@ -1,5 +1,5 @@
 import AuthContext from "@/contexts/authContext";
-import { HStack, Image, Box } from "@chakra-ui/react";
+import { HStack, Image, Box, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logoMobile from "../../assets/inntale_transparent_logo.png";
@@ -16,15 +16,49 @@ const NavbarMobile = () => {
                 </Link>
                 {user ? (
                     <>
-                        <NavLink to="/me">{user.username}</NavLink>
+                        <NavLink to="/me">
+                            <Text
+                                _hover={{
+                                    color: "white",
+                                    borderBottom: "1px solid white",
+                                }}
+                            >
+                                {user.username}
+                            </Text>
+                        </NavLink>
                         <NavLink to="/login" onClick={() => logout()}>
-                            Logout
+                            <Text
+                                _hover={{
+                                    color: "white",
+                                    borderBottom: "1px solid white",
+                                }}
+                            >
+                                Logout
+                            </Text>
                         </NavLink>
                     </>
                 ) : (
                     <>
-                        <NavLink to="/login">Login</NavLink>
-                        <NavLink to="/registration">Register</NavLink>
+                        <NavLink to="/login">
+                            <Text
+                                _hover={{
+                                    color: "white",
+                                    borderBottom: "1px solid white",
+                                }}
+                            >
+                                Login
+                            </Text>
+                        </NavLink>
+                        <NavLink to="/registration">
+                            <Text
+                                _hover={{
+                                    color: "white",
+                                    borderBottom: "1px solid white",
+                                }}
+                            >
+                                Register
+                            </Text>
+                        </NavLink>
                     </>
                 )}
             </HStack>

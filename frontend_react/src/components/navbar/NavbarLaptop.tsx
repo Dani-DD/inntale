@@ -1,4 +1,4 @@
-import { HStack, Image } from "@chakra-ui/react";
+import { HStack, Image, Text } from "@chakra-ui/react";
 import logoLaptop from "../../assets/inntale_logo2.png";
 import { NavLink, Link } from "react-router-dom";
 import SearchBox from "./SearchBox";
@@ -23,15 +23,49 @@ const NavbarLaptop = () => {
                 <HStack spacing="10px">
                     {user ? (
                         <>
-                            <NavLink to="/me">{user.username}</NavLink>
+                            <NavLink to="/me">
+                                <Text
+                                    _hover={{
+                                        color: "white",
+                                        borderBottom: "1px solid white",
+                                    }}
+                                >
+                                    {user.username}
+                                </Text>
+                            </NavLink>
                             <NavLink to="/login" onClick={() => logout()}>
-                                Logout
+                                <Text
+                                    _hover={{
+                                        color: "white",
+                                        borderBottom: "1px solid white",
+                                    }}
+                                >
+                                    Logout
+                                </Text>
                             </NavLink>
                         </>
                     ) : (
                         <>
-                            <NavLink to="/login">Login</NavLink>
-                            <NavLink to="/registration">Register</NavLink>
+                            <NavLink to="/login">
+                                <Text
+                                    _hover={{
+                                        color: "white",
+                                        borderBottom: "1px solid white",
+                                    }}
+                                >
+                                    Login
+                                </Text>
+                            </NavLink>
+                            <NavLink to="/registration">
+                                <Text
+                                    _hover={{
+                                        color: "white",
+                                        borderBottom: "1px solid white",
+                                    }}
+                                >
+                                    Register
+                                </Text>
+                            </NavLink>
                         </>
                     )}
                 </HStack>

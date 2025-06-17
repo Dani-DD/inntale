@@ -6,6 +6,7 @@ import PlayersList from "@/components/sidebar/PlayersList";
 import SettingsList from "@/components/sidebar/SettingsList";
 import useFiltersStore from "@/stores/FiltersStore";
 import {
+    fontSidebar,
     mainBackgroundColor,
     mainBorderWidth,
     sidebarBackgroundColor,
@@ -23,7 +24,7 @@ const HomePage = () => {
                 }}
                 templateColumns={{
                     base: "1fr",
-                    lg: "250px 1fr",
+                    lg: "252px 1fr",
                 }}
             >
                 <Show above="lg">
@@ -31,7 +32,8 @@ const HomePage = () => {
                         area="sidebar"
                         backgroundColor={sidebarBackgroundColor}
                         paddingLeft="5"
-                        paddingTop="150px"
+                        paddingTop="160px"
+                        fontFamily={fontSidebar}
                     >
                         <ManualsList />
                         <PlayersList />
@@ -43,6 +45,7 @@ const HomePage = () => {
                     backgroundColor={mainBackgroundColor}
                     borderWidth={mainBorderWidth}
                     paddingLeft="10"
+                    paddingTop={"30px"}
                 >
                     <DynamicHeading />
                     <SortSelector orderBy={ordering} />

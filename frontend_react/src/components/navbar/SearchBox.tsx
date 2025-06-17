@@ -1,4 +1,5 @@
 import useFiltersStore from "@/stores/FiltersStore";
+import { blue_inntale } from "@/utils/colors";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { BsSearch } from "react-icons/bs";
@@ -30,6 +31,8 @@ const SearchBox = ({ width = "50%" }: Props) => {
                     placeholder="Search by name, manual, player or setting"
                     _placeholder={{ color: "black" }}
                     borderRadius={20}
+                    backgroundColor={"white"}
+                    _hover={{ backgroundColor: "whiteAlpha.700" }}
                     {...register("search")}
                 />
             </InputGroup>

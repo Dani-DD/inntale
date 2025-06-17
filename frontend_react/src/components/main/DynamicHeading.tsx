@@ -118,6 +118,7 @@ const DynamicHeading = () => {
                             width={"fit-content"}
                             paddingLeft={"30px"}
                             marginTop="10px"
+                            color={gold_inntale}
                         >
                             {`- ${name}`}
                         </Heading>

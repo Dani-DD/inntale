@@ -31,20 +31,13 @@ export const campaignGridBorderWidth = DEBUGGING_VALUE;
 export const sidebarBorderWidth = DEBUGGING_VALUE;
 
 // FONT STYLES
-let testingFont = "";
-testingFont = "IM Fell English SC";
-testingFont = "Cormorant Unicase";
-testingFont = "Merriweather Variable";
-testingFont = "Lora Variable";
-testingFont = "Cinzel Decorative"; // per altro?
-testingFont = "Cinzel Variable";
-export const fontNavbar = testingFont;
+const imFellEnglish = "IM Fell English SC";
+const loraVariable = "Lora Variable";
+const cinzelDecorative = "Cinzel Decorative"; // per altro?
+const cormorantUnicase = "Cormorant Unicase"; // per altro?
+const merriweatherVariable = "Merriweather Variable"; // per altro?
 
-/**
- * PREFERENCES:
- * - Lora Variable
- * - Merriweather Variable
- * - Cormorant Unicase (maybe with an higher width/weight)
- * - Cinzel Variable
- * - IM Fell English SC
- */
+export const fontNavbar = "Cinzel Variable";
+export const fontSidebar = "Cinzel Decorative";
+export const fontDynamicHeading = "Merriweather Variable";
+export const fontCardHeader = "Cormorant Unicase";

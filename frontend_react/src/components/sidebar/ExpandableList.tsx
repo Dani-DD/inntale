@@ -4,7 +4,11 @@ import { useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { ListItem } from "@/interfaces/ListItem";
-import { showAllButtonBackgroundColor } from "@/utils/applyingStylesToComponents";
+import {
+    fontSidebar,
+    showAllButtonBackgroundColor,
+} from "@/utils/applyingStylesToComponents";
+import { gold_inntale } from "@/utils/colors";
 
 /**
  * This component represents an expandable/collapsable list.
@@ -41,7 +45,13 @@ const ExpandableList = ({ header, list }: Props) => {
 
     return (
         <Stack>
-            <Heading>{header}</Heading>
+            <Heading
+                fontFamily={fontSidebar}
+                borderBottom={`2px solid ${gold_inntale}`}
+                color={gold_inntale}
+            >
+                {header}
+            </Heading>
             {/* list's elements */}
             {list.slice(0, listLenght).map((listItem) => (
                 <FilteringButton

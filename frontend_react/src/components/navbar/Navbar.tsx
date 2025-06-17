@@ -1,11 +1,14 @@
 import { Box, Show } from "@chakra-ui/react";
 import NavbarLaptop from "./NavbarLaptop";
 import NavbarMobile from "./NavbarMobile";
-import { navbarBackgroundColor } from "@/utils/applyingColorsToComponents";
+import {
+    fontNavbar,
+    navbarBackgroundColor,
+} from "@/utils/applyingStylesToComponents";
 
 const Navbar = () => {
     return (
-        <Box backgroundColor={navbarBackgroundColor}>
+        <Box backgroundColor={navbarBackgroundColor} fontFamily={fontNavbar}>
             <Show above="650px">
                 <NavbarLaptop />
             </Show>
