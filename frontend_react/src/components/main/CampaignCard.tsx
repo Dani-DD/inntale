@@ -5,6 +5,7 @@ import { PostWatchlistItem } from "@/interfaces/WatchlistItem";
 import {
     campaignCardBackgroundColor,
     fontCardHeader,
+    fontCardSettingText,
 } from "@/utils/applyingStylesToComponents";
 import { gold_inntale } from "@/utils/colors";
 import { titleCase } from "@/utils/utils";
@@ -80,13 +81,14 @@ const CampaignCard = ({ campaign }: Props) => {
             <CardBody>
                 <CastAccordion cast={campaign.campaign_cast} />
             </CardBody>
-            <CardFooter justifyContent={"center"}>
+            <CardFooter justifyContent={"center"} marginBottom={"10px"}>
                 <VStack justifyContent={"stretch"} alignItems={"stretch"}>
                     <YouTubeButtonLink
                         youtube_link={campaign.youtube_link}
                         text={"Watch here"}
                         new_page={true}
                     />
+                    {/*The watchlist button*/}
                     {user && (
                         <Button
                             colorScheme="blue"
@@ -111,6 +113,11 @@ const CampaignCard = ({ campaign }: Props) => {
                     )}
                 </VStack>
             </CardFooter>
+            <Text margin={"15px 0 10px 0"} fontFamily={fontCardSettingText}>
+                {campaign.setting === "InnVerse"
+                    ? "An Inntale Original Story"
+                    : `From The World Of ${campaign.setting}`}
+            </Text>
         </Card>
     );
 };

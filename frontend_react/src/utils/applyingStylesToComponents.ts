@@ -30,14 +30,15 @@ export const sortSelectorBorderWidth = DEBUGGING_VALUE;
 export const campaignGridBorderWidth = DEBUGGING_VALUE;
 export const sidebarBorderWidth = DEBUGGING_VALUE;
 
-// FONT STYLES
+// FONTS
 const imFellEnglish = "IM Fell English SC";
 const loraVariable = "Lora Variable";
-const cinzelDecorative = "Cinzel Decorative"; // per altro?
-const cormorantUnicase = "Cormorant Unicase"; // per altro?
-const merriweatherVariable = "Merriweather Variable"; // per altro?
+const cinzelDecorative = "Cinzel Decorative";
+const cormorantUnicase = "Cormorant Unicase";
+const merriweatherVariable = "Merriweather Variable";
 
 export const fontNavbar = "Cinzel Variable";
 export const fontSidebar = "Cinzel Decorative";
 export const fontDynamicHeading = "Merriweather Variable";
 export const fontCardHeader = "Cormorant Unicase";
+export const fontCardSettingText = "IM Fell English SC";
