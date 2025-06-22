@@ -20,7 +20,7 @@ export interface DecodedToken extends User {
 }
 
 // This is the structure of the JSON object sent to the server for performing registration
-export interface RegistrationForm extends User {
+export interface Registration extends User {
     // first_name: string;
     // last_name: string;
     // email: string;

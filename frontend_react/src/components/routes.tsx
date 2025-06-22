@@ -1,11 +1,9 @@
 import HomePage from "@/pages/HomePage";
-import LoginPage from "@/pages/LoginPage";
-import RegistrationPage from "@/pages/RegistrationPage";
 import { createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@/contexts/authContext";
 import UserPage from "@/pages/UserPage";
 import PrivatePage from "@/pages/PrivatePage";
-import TestPage from "../pages/TestPage";
+import TestPage from "../tests/TestPage";
 
 const router = createBrowserRouter([
     {
@@ -15,16 +13,6 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <HomePage />,
-            },
-
-            {
-                path: "/registration",
-                element: <RegistrationPage />,
-            },
-
-            {
-                path: "/login",
-                element: <LoginPage />,
             },
             {
                 path: "/me",

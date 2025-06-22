@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import { Tokens, User, UserCredentials } from "@/interfaces/allIntefaces";
-import { RegistrationForm } from "@/interfaces/allIntefaces";
+import { Registration } from "@/interfaces/allIntefaces";
+import { handleAxiosError } from "@/utils/utils";
 import axios, { AxiosResponse } from "axios";
 import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
@@ -8,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 // Interfaces
 interface AuthContext {
-    registration: (userInputs: RegistrationForm) => Promise<void>;
+    registration: (userInputs: Registration) => Promise<void>;
     login: (userInputs: UserCredentials) => Promise<void>;
     logout: () => void;
     user: User | null;
@@ -42,15 +43,15 @@ export const AuthProvider = () => {
     const navigate = useNavigate();
 
     const contextData: AuthContext = {
-        registration: (userInputs: RegistrationForm) => {
+        registration: (userInputs: Registration) => {
             return axios
                 .post("http://127.0.0.1:8000/auth/users/", userInputs)
                 .then(() => {
                     console.log("New user created.");
-                    console.log("Redirecting to the login page.");
-                    navigate("/login");
+                    console.log("Redirecting to the home page.");
+                    navigate("/");
                 })
-                .catch((error: Error) => console.log(error.message));
+                .catch(handleAxiosError);
         },
 
         login: (userInputs: UserCredentials) => {
@@ -73,7 +74,7 @@ export const AuthProvider = () => {
 
                     navigate("/");
                 })
-                .catch((error: Error) => console.log(error.message));
+                .catch(handleAxiosError);
         },
 
         logout: () => {
@@ -81,8 +82,7 @@ export const AuthProvider = () => {
             localStorage.removeItem("tokens");
             setTokens(null);
             setUser(null);
-
-            navigate("/login");
+            navigate("/");
         },
 
         user,

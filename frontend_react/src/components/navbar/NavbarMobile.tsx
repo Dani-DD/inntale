@@ -4,6 +4,9 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logoMobile from "../../assets/inntale_transparent_logo.png";
 import SearchBox from "./SearchBox";
+import DrawerWithForm from "./DrawerWithForm";
+import ReusableForm from "./ReusableForm";
+import { loginFormFields, registrationFormFields } from "@/utils/utils";
 
 const NavbarMobile = () => {
     const { user, logout } = useContext(AuthContext);
@@ -26,7 +29,7 @@ const NavbarMobile = () => {
                                 {user.username}
                             </Text>
                         </NavLink>
-                        <NavLink to="/login" onClick={() => logout()}>
+                        <NavLink to="/" onClick={() => logout()}>
                             <Text
                                 _hover={{
                                     color: "white",
@@ -39,26 +42,32 @@ const NavbarMobile = () => {
                     </>
                 ) : (
                     <>
-                        <NavLink to="/login">
-                            <Text
-                                _hover={{
-                                    color: "white",
-                                    borderBottom: "1px solid white",
-                                }}
-                            >
-                                Login
-                            </Text>
-                        </NavLink>
-                        <NavLink to="/registration">
-                            <Text
-                                _hover={{
-                                    color: "white",
-                                    borderBottom: "1px solid white",
-                                }}
-                            >
-                                Register
-                            </Text>
-                        </NavLink>
+                        <DrawerWithForm
+                            openButtonText={"Log in"}
+                            drawerHeaderText={"Access to your account"}
+                            formComponent={
+                                <ReusableForm
+                                    inputFields={loginFormFields}
+                                    isRegistrationForm={false}
+                                    form_id_attribute={"login-form"}
+                                />
+                            }
+                            button_form_attribute={"login-form"}
+                            textSubmitButton={"Log in"}
+                        />
+                        <DrawerWithForm
+                            openButtonText={"Register"}
+                            drawerHeaderText={"Create your account"}
+                            formComponent={
+                                <ReusableForm
+                                    inputFields={registrationFormFields}
+                                    isRegistrationForm={true}
+                                    form_id_attribute={"registration-form"}
+                                />
+                            }
+                            button_form_attribute={"registration-form"}
+                            textSubmitButton={"Register"}
+                        />
                     </>
                 )}
             </HStack>
