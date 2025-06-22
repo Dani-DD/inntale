@@ -149,11 +149,15 @@ class RegisteringUserSerializer(UserCreateSerializer):
             "repeat_password",
         ]
 
-    def validate(self, attrs):
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("This email already exists.")
+        return value
 
+    def validate(self, attrs):
         if attrs["password"] != attrs["repeat_password"]:
             raise serializers.ValidationError(
-                {"password": "Password fields didn't match."}
+                {"password": "Password fields don't match."}
             )
 
         return attrs
