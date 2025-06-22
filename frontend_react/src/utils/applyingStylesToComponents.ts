@@ -1,4 +1,4 @@
-import { blue_inntale } from "./colors";
+import { blue_inntale, gold_inntale } from "./colors";
 import "@fontsource-variable/cinzel"; // Supports weights 400-900
 import "@fontsource/cormorant-unicase";
 import "@fontsource/im-fell-english-sc";
@@ -9,6 +9,8 @@ import "@fontsource/cinzel-decorative";
 // COLOR APPLIED TO COMPONENTS
 // Navbar section
 export const navbarBackgroundColor = blue_inntale;
+export const drawerHeaderColor = gold_inntale;
+export const labelFormColor = gold_inntale;
 
 // Main section
 export const mainBackgroundColor = blue_inntale;

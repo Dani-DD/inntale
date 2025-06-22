@@ -1,5 +1,4 @@
 import useFiltersStore from "@/stores/FiltersStore";
-import { blue_inntale } from "@/utils/colors";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { BsSearch } from "react-icons/bs";

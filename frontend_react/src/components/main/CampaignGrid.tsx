@@ -6,7 +6,7 @@ import { campaignGridBackgroundColor } from "@/utils/applyingStylesToComponents"
 
 const CampaignGrid = () => {
     const filters = useFiltersStore((s) => s.filters);
-    console.log(filters);
+    console.log("Selected filters:", filters);
     const { campaigns, error, isLoading } = useCampaigns(filters);
 
     if (isLoading) {
