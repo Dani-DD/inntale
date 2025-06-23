@@ -1,5 +1,5 @@
 import AuthContext from "@/contexts/authContext";
-import { HStack, Image, Box, Text } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logoMobile from "../../assets/inntale_transparent_logo.png";
@@ -12,36 +12,47 @@ const NavbarMobile = () => {
     const { user, logout } = useContext(AuthContext);
 
     return (
-        <Box padding="10px">
-            <HStack justifyContent={"space-around"} marginBottom="10px">
-                <Link to="/">
-                    <Image src={logoMobile} alt="InnTale logo" width="100px" />
-                </Link>
-                {user ? (
-                    <>
-                        <NavLink to="/me">
-                            <Text
-                                _hover={{
-                                    color: "white",
-                                    borderBottom: "1px solid white",
-                                }}
-                            >
-                                {user.username}
-                            </Text>
-                        </NavLink>
-                        <NavLink to="/" onClick={() => logout()}>
-                            <Text
-                                _hover={{
-                                    color: "white",
-                                    borderBottom: "1px solid white",
-                                }}
-                            >
-                                Logout
-                            </Text>
-                        </NavLink>
-                    </>
-                ) : (
-                    <>
+        <Box padding="10px" paddingBottom={"25px"} textAlign={"center"}>
+            <Link to="/">
+                <Image
+                    src={logoMobile}
+                    alt="InnTale logo"
+                    width="100px"
+                    marginLeft={"auto"}
+                    marginRight={"auto"}
+                    marginBottom={"20px"}
+                />
+            </Link>
+
+            {user ? (
+                <>
+                    <NavLink to="/me">
+                        <Text
+                            _hover={{
+                                color: "white",
+                                borderBottom: "1px solid white",
+                            }}
+                            maxW="100%"
+                            marginBottom={"10px"}
+                        >
+                            {user.username}
+                        </Text>
+                    </NavLink>
+                    <NavLink to="/" onClick={() => logout()}>
+                        <Text
+                            _hover={{
+                                color: "white",
+                                borderBottom: "1px solid white",
+                            }}
+                            marginBottom={"10px"}
+                        >
+                            Logout
+                        </Text>
+                    </NavLink>
+                </>
+            ) : (
+                <>
+                    <Box marginBottom={"10px"}>
                         <DrawerWithForm
                             openButtonText={"Log in"}
                             drawerHeaderText={"Access to your account"}
@@ -55,6 +66,8 @@ const NavbarMobile = () => {
                             button_form_attribute={"login-form"}
                             textSubmitButton={"Log in"}
                         />
+                    </Box>
+                    <Box marginBottom={"10px"}>
                         <DrawerWithForm
                             openButtonText={"Register"}
                             drawerHeaderText={"Create your account"}
@@ -68,9 +81,10 @@ const NavbarMobile = () => {
                             button_form_attribute={"registration-form"}
                             textSubmitButton={"Register"}
                         />
-                    </>
-                )}
-            </HStack>
+                    </Box>
+                </>
+            )}
+
             <SearchBox width="100%" />
         </Box>
     );
