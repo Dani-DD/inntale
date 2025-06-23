@@ -3,10 +3,14 @@ import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import CampaignCard from "./CampaignCard";
 import useFiltersStore from "@/stores/FiltersStore";
 import { campaignGridBackgroundColor } from "@/utils/applyingStylesToComponents";
+import useWatchlistStore from "@/stores/WatchlistStore";
 
 const CampaignGrid = () => {
+    // Fetching the user's watchlist
+    const watchlist = useWatchlistStore((s) => s.watchlist);
+
+    // Fetching campaigns
     const filters = useFiltersStore((s) => s.filters);
-    console.log("Selected filters:", filters);
     const { campaigns, error, isLoading } = useCampaigns(filters);
 
     if (isLoading) {
@@ -26,7 +30,13 @@ const CampaignGrid = () => {
             backgroundColor={campaignGridBackgroundColor}
         >
             {campaigns.map((campaign) => (
-                <CampaignCard campaign={campaign} key={campaign.id} />
+                <CampaignCard
+                    campaign={campaign}
+                    key={campaign.id}
+                    inWatchlist={watchlist.some(
+                        (item) => item.campaign.id === campaign.id
+                    )}
+                />
             ))}
         </SimpleGrid>
     );

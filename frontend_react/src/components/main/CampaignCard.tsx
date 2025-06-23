@@ -1,7 +1,10 @@
 import AuthContext from "@/contexts/authContext";
 import usePrivateAxios from "@/hooks/usePrivateAxios";
 import { Campaign } from "@/interfaces/Campaign";
-import { PostWatchlistItem } from "@/interfaces/WatchlistItem";
+import {
+    GetWatchlistItem,
+    PostWatchlistItem,
+} from "@/interfaces/WatchlistItem";
 import {
     campaignCardBackgroundColor,
     fontCardHeader,
@@ -26,12 +29,16 @@ import { FaTwitch, FaYoutube } from "react-icons/fa";
 import CastAccordion from "./CastAccordion";
 import Label from "./Label";
 import YouTubeButtonLink from "./YouTubeButtonLink";
+import useWatchlistStore from "@/stores/WatchlistStore";
 
 interface Props {
     campaign: Campaign;
+    inWatchlist: boolean;
 }
 
-const CampaignCard = ({ campaign }: Props) => {
+const CampaignCard = ({ campaign, inWatchlist }: Props) => {
+    const { addToWatchlist } = useWatchlistStore();
+
     const { user } = useContext(AuthContext);
     const privateAxiosObject = usePrivateAxios();
 
@@ -93,22 +100,25 @@ const CampaignCard = ({ campaign }: Props) => {
                         <Button
                             colorScheme="blue"
                             onClick={() => {
-                                const watchlistItem: PostWatchlistItem = {
+                                const postWatchlistItem: PostWatchlistItem = {
                                     campaign: campaign.id,
                                 };
-                                console.log(watchlistItem);
 
                                 privateAxiosObject
-                                    .post("root/watchlist/", watchlistItem)
-                                    .then((response) =>
-                                        console.log(response.data)
-                                    )
+                                    .post("root/watchlist/", postWatchlistItem)
+                                    .then(() => {
+                                        const getWatchlistItem: GetWatchlistItem =
+                                            {
+                                                campaign: campaign,
+                                            };
+                                        addToWatchlist(getWatchlistItem);
+                                    })
                                     .catch((error: Error) =>
                                         console.log(error.message)
                                     );
                             }}
                         >
-                            Add to watchlist
+                            {inWatchlist ? "In watchlist" : "Add to watchlist"}
                         </Button>
                     )}
                 </VStack>
