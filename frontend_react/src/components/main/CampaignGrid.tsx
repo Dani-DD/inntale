@@ -1,9 +1,10 @@
 import useCampaigns from "@/hooks/useCampaigns";
-import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import CampaignCard from "./CampaignCard";
 import useFiltersStore from "@/stores/FiltersStore";
 import { campaignGridBackgroundColor } from "@/utils/applyingStylesToComponents";
 import useWatchlistStore from "@/stores/WatchlistStore";
+import SkeletonCard from "./SkeletonCard";
 
 const CampaignGrid = () => {
     // Fetching the user's watchlist
@@ -12,10 +13,6 @@ const CampaignGrid = () => {
     // Fetching campaigns
     const filters = useFiltersStore((s) => s.filters);
     const { campaigns, error, isLoading } = useCampaigns(filters);
-
-    if (isLoading) {
-        return <Spinner />;
-    }
 
     if (error) {
         return <Text>{error}</Text>;
@@ -29,15 +26,17 @@ const CampaignGrid = () => {
             paddingLeft="0"
             backgroundColor={campaignGridBackgroundColor}
         >
-            {campaigns.map((campaign) => (
-                <CampaignCard
-                    campaign={campaign}
-                    key={campaign.id}
-                    inWatchlist={watchlist.some(
-                        (item) => item.campaign.id === campaign.id
-                    )}
-                />
-            ))}
+            {isLoading
+                ? [0, 1, 2, 3, 4].map(() => <SkeletonCard />)
+                : campaigns.map((campaign) => (
+                      <CampaignCard
+                          campaign={campaign}
+                          key={campaign.id}
+                          inWatchlist={watchlist.some(
+                              (item) => item.campaign.id === campaign.id
+                          )}
+                      />
+                  ))}
         </SimpleGrid>
     );
 };

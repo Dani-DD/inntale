@@ -1,14 +1,15 @@
-import { Spinner, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import ExpandableList from "./ExpandableList";
 import { titleCase } from "@/utils/utils";
 import usePlayers from "@/hooks/usePlayers";
 import { ListItem } from "@/interfaces/ListItem";
+import SkeletonList from "./SkeletonList";
 
 const PlayersList = () => {
     const { players, error, isLoading } = usePlayers();
 
     if (isLoading) {
-        return <Spinner />;
+        return <SkeletonList />;
     }
 
     if (error) {

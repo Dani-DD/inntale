@@ -1,14 +1,15 @@
 import useManuals from "@/hooks/useManuals";
-import { Spinner, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import ExpandableList from "./ExpandableList";
 import { titleCase } from "@/utils/utils";
 import { ListItem } from "@/interfaces/ListItem";
+import SkeletonList from "./SkeletonList";
 
 const ManualsList = () => {
     const { manuals, error, isLoading } = useManuals();
 
     if (isLoading) {
-        return <Spinner />;
+        return <SkeletonList />;
     }
 
     if (error) {

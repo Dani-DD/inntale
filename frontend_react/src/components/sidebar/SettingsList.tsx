@@ -1,14 +1,15 @@
-import { Spinner, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import ExpandableList from "./ExpandableList";
 import { titleCase } from "@/utils/utils";
 import { ListItem } from "@/interfaces/ListItem";
 import useSettings from "@/hooks/useSettings";
+import SkeletonList from "./SkeletonList";
 
 const SettingsList = () => {
     const { settings, error, isLoading } = useSettings();
 
     if (isLoading) {
-        return <Spinner />;
+        return <SkeletonList />;
     }
 
     if (error) {

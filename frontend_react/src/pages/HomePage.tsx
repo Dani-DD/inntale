@@ -11,6 +11,7 @@ import {
     mainBorderWidth,
     sidebarBackgroundColor,
 } from "@/utils/applyingStylesToComponents";
+import { blue_inntale } from "@/utils/colors";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 
 const HomePage = () => {
@@ -26,6 +27,7 @@ const HomePage = () => {
                     base: "1fr",
                     lg: "252px 1fr",
                 }}
+                backgroundColor={blue_inntale}
             >
                 <Show above="lg">
                     <GridItem

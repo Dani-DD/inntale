@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import useManuals from "@/hooks/useManuals";
 import usePlayers from "@/hooks/usePlayers";
 import useSettings from "@/hooks/useSettings";
