@@ -22,11 +22,11 @@ const router = createBrowserRouter([
                 path: "/protected-endpoint",
                 element: <PrivatePage />,
             },
+            {
+                path: "/test",
+                element: <TestPage />,
+            },
         ],
-    },
-    {
-        path: "test/",
-        element: <TestPage />,
     },
 ]);
 

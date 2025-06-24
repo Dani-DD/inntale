@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 
 const Test = () => {
-    return <Box></Box>;
+    return <Box>Hello, World!</Box>;
 };
 
 export default Test;

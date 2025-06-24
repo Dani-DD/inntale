@@ -6,9 +6,16 @@ interface Props {
     text: string;
     new_page: boolean;
     width?: string;
+    size?: string;
 }
 
-const YouTubeButtonLink = ({ youtube_link, text, new_page, width }: Props) => {
+const YouTubeButtonLink = ({
+    youtube_link,
+    text,
+    new_page,
+    width,
+    size = "md",
+}: Props) => {
     return (
         <Button
             colorScheme="red"
@@ -17,6 +24,7 @@ const YouTubeButtonLink = ({ youtube_link, text, new_page, width }: Props) => {
             href={youtube_link}
             target={new_page ? "_blank" : ""}
             width={width}
+            size={size}
         >
             {text}
         </Button>

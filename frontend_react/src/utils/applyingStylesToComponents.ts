@@ -39,8 +39,13 @@ const cinzelDecorative = "Cinzel Decorative";
 const cormorantUnicase = "Cormorant Unicase";
 const merriweatherVariable = "Merriweather Variable";
 
+// Navbar section
 export const fontNavbar = "Cinzel Variable";
+
+// Sidebar section
 export const fontSidebar = "Cinzel Decorative";
+
+// Main section
 export const fontDynamicHeading = "Merriweather Variable";
 export const fontCardHeader = "Cormorant Unicase";
 export const fontCardSettingText = "IM Fell English SC";
