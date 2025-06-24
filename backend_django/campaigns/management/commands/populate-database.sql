@@ -1,6 +1,6 @@
--- POPULATE AUTH_USER TABLE
 USE campaigns;
 
+-- POPULATE AUTH_USER TABLE
 INSERT INTO
     `auth_user` (
         id,
@@ -18,8 +18,8 @@ INSERT INTO
 VALUES
     (
         1,
-        'pbkdf2_sha256$1000000$eJcUrXERv1EQyvwo4IgwKl$eYUXwcbvebPmn5SO4cEgF7t+TwzEVzXT8Jki92vCgGM=',
-        '2025-05-02 16:13:46.083756',
+        'pbkdf2_sha256$870000$lVDIHX4snSf8u0GGcn53Ve$hfVHD594RiPU7TEjynBbPVscJaGkF35W6Zp0VxByimE=',
+        '2025-06-18 18:53:18.047946',
         1,
         'inntale_superuser',
         '',
@@ -28,6 +28,138 @@ VALUES
         1,
         1,
         '2025-05-02 16:12:59.038782'
+    ),
+    (
+        2,
+        'pbkdf2_sha256$870000$P4Skg8Dfgm6jZPVfTbVdJP$ToXGAL+6pql8GrhaCaZ3KPFm1ZsjBRX9znezgNnPFfI=',
+        NULL,
+        0,
+        'MagisterBarbero',
+        'Alessandro',
+        'Barbero',
+        'alebarbero@magister.com',
+        0,
+        1,
+        '2025-06-13 18:45:45.156639'
+    ),
+    (
+        21,
+        'pbkdf2_sha256$870000$8pf0Ugo1yqCE70EAsfaOWh$eMl6tpHGzmoEAJS3Xlx9dMKMArv1DDA0h/EhHfkAokg=',
+        NULL,
+        0,
+        'UgoIlDistruttoreDiMondiUltraterreni',
+        'Ugo',
+        'Ugognazzi',
+        'ugo@gmail.com',
+        0,
+        1,
+        '2025-06-23 21:22:08.798076'
+    );
+
+-- POPULATE MANUAL TABLE
+INSERT INTO
+    `campaigns_manual` (id, name, slug, image)
+VALUES
+    (
+        1,
+        'Savage Worlds',
+        'savage-worlds',
+        'manuals/savage_worlds6.jpg'
+    ),
+    (
+        2,
+        'Trail Of Cthulhu',
+        'trail-of-cthulhu',
+        'manuals/trail_of_cthulhu3.jpg'
+    ),
+    (
+        3,
+        'Dungeons And Dragons 5e',
+        'dungeons-and-dragons-5e',
+        'manuals/dnd3.jpg'
+    ),
+    (
+        4,
+        'Pathfinder',
+        'pathfinder',
+        'manuals/pathfinder2.jpg'
+    ),
+    (
+        5,
+        'Kids On Bikes',
+        'kids-on-bikes',
+        'manuals/kids_on_bike2.jpg'
+    ),
+    (
+        6,
+        '7th Sea',
+        '7th-sea',
+        'manuals/7thsea_xqVgLPM.jpg'
+    ),
+    (
+        7,
+        'Kids On Brooms',
+        'kids-on-brooms',
+        'manuals/kids_on_brooms3.jpg'
+    ),
+    (
+        10,
+        'Don''t Rest Your Head',
+        'dont-rest-your-head',
+        'manuals/dont_rest_your_head2.jpg'
+    ),
+    (
+        11,
+        'Vampire The Masquerade',
+        'vampire-the-masquerade',
+        'manuals/vampire_the_masquerade2.jpg'
+    ),
+    (
+        12,
+        'Broken Compass',
+        'broken-compass',
+        'manuals/broken_compass_600px.jpg'
+    ),
+    (
+        13,
+        'Brancalonia',
+        'brancalonia',
+        'manuals/brancalonia2.jpg'
+    );
+
+-- POPULATE SETTING TABLE
+INSERT INTO
+    `campaigns_setting` (id, slug, name, image)
+VALUES
+    (
+        2,
+        'innverse',
+        'InnVerse',
+        'settings/Inntale_logo.jpg'
+    ),
+    (
+        3,
+        'star-wars',
+        'Star Wars',
+        'settings/star_wars1.jpg'
+    ),
+    (
+        4,
+        'vampire-the-masquerade',
+        'Vampire The Masquerade',
+        'settings/vampire_the_masquerade2.jpg'
+    ),
+    (
+        5,
+        'harry-potter',
+        'Harry Potter',
+        'settings/harry_potter2_jgfQaV2.png'
+    ),
+    (
+        6,
+        'cthulhu-mythos',
+        'Cthulhu Mythos',
+        'settings/lovecraft_aOTy56z.jpg'
     );
 
 -- POPULATE PLAYER TABLE
@@ -47,7 +179,7 @@ VALUES
         'mattia',
         'ceniti',
         'mattia-ceniti',
-        NULL
+        'players/mattia_ceniti.jpg'
     ),
     (
         2,
@@ -111,7 +243,7 @@ VALUES
         'lapo',
         'raspanti',
         'lapo-raspanti',
-        NULL
+        'players/lapo_raspanti.jpg'
     ),
     (
         10,
@@ -127,7 +259,7 @@ VALUES
         'tommaso',
         'amitrano',
         'tommaso-amitrano',
-        NULL
+        'players/tommaso_amitrano.jpg'
     ),
     (
         12,
@@ -135,7 +267,7 @@ VALUES
         'pietro',
         'ubaldi',
         'pietro-ubaldi',
-        NULL
+        'players/pietro_ubaldi.webp'
     ),
     (
         13,
@@ -143,7 +275,7 @@ VALUES
         'marco',
         'arata',
         'marco-arata',
-        NULL
+        'players/marco_arata.webp'
     ),
     (
         14,
@@ -151,7 +283,7 @@ VALUES
         'leonardo',
         'brugnara',
         'leonardo-brugnara',
-        NULL
+        'players/leonardo_brugnara.png'
     ),
     (
         15,
@@ -159,7 +291,7 @@ VALUES
         'roberta',
         'sorge',
         'roberta-sorge',
-        NULL
+        'players/roberta-sorge.png'
     ),
     (
         16,
@@ -167,7 +299,7 @@ VALUES
         'nicola',
         'de gobbis',
         'nicola-de-gobbis',
-        NULL
+        'players/nicola_de_gobbis.jpg'
     ),
     (
         17,
@@ -175,7 +307,7 @@ VALUES
         'miguel',
         'velasquez',
         'miguel-velasquez',
-        NULL
+        'players/miguel_velasquez.png'
     ),
     (
         18,
@@ -183,7 +315,7 @@ VALUES
         'lorenzo',
         'pratt',
         'lorenzo-pratt',
-        NULL
+        'players/lorenzo_pratt.png'
     ),
     (
         19,
@@ -191,7 +323,7 @@ VALUES
         'adrian',
         'fartade',
         'adrian-fartade',
-        NULL
+        'players/adrian_fartade.jpg'
     ),
     (
         20,
@@ -199,7 +331,7 @@ VALUES
         'valentina',
         'lavalend',
         'valentina-lavalend',
-        NULL
+        'players/valentina_lavalend.jpg'
     ),
     (
         21,
@@ -207,7 +339,7 @@ VALUES
         'marco',
         'cioni',
         'marco-cioni',
-        NULL
+        'players/marcio_cioni_NxeiMWK.jpg'
     ),
     (
         22,
@@ -215,7 +347,7 @@ VALUES
         'enrico',
         'gamba',
         'enrico-gamba',
-        NULL
+        'players/enrico_gamba.jpg'
     ),
     (
         23,
@@ -223,7 +355,7 @@ VALUES
         'dario',
         'moccia',
         'dario-moccia',
-        NULL
+        'players/dario_moccia.jpeg'
     ),
     (
         24,
@@ -231,7 +363,7 @@ VALUES
         'mario',
         'del pennino',
         'mario-del-pennino',
-        NULL
+        'players/mario_del_pennino.jpg'
     ),
     (
         25,
@@ -239,7 +371,7 @@ VALUES
         'chiara',
         'preziosi',
         'chiara-preziosi',
-        NULL
+        'players/chiara_preziosi.webp'
     ),
     (
         26,
@@ -247,7 +379,7 @@ VALUES
         'gabriele',
         'rubini',
         'gabriele-rubini',
-        NULL
+        'players/gabriele_rubini.png'
     ),
     (
         27,
@@ -255,7 +387,7 @@ VALUES
         'claudio',
         'mastronardi',
         'claudio-mastronardi',
-        NULL
+        'players/claudio_mastronardi.jpg'
     ),
     (
         28,
@@ -263,7 +395,7 @@ VALUES
         'daniele',
         'daccò',
         'daniele-dacco',
-        NULL
+        'players/daniele_dacco.jpg'
     ),
     (
         29,
@@ -271,7 +403,7 @@ VALUES
         'giada',
         'taribelli',
         'giada-taribelli',
-        NULL
+        'players/giada_taribelli.png'
     ),
     (
         30,
@@ -279,7 +411,7 @@ VALUES
         'laura',
         'lamadredeidraghi',
         'laura-lamadredeidraghi',
-        NULL
+        'players/laura_lamadredeidraghi.png'
     ),
     (
         31,
@@ -287,7 +419,7 @@ VALUES
         'ludovica',
         'guspini',
         'ludovica-guspini',
-        NULL
+        'players/ludovica_guspini.jpg'
     ),
     (
         32,
@@ -298,190 +430,176 @@ VALUES
         'players/roberto_ortu.png'
     );
 
--- POPULATE MANUAL TABLE
-INSERT INTO
-    `campaigns_manual` (id, name, slug)
-VALUES
-    (1, 'Savage Worlds', 'savage-worlds'),
-    (2, 'Trail Of Cthulhu', 'trail-of-cthulhu'),
-    (
-        3,
-        'Dungeons And Dragons 5e',
-        'dungeons-and-dragons-5e'
-    ),
-    (4, 'Pathfinder', 'pathfinder'),
-    (5, 'Kids On Bikes', 'kids-on-bikes'),
-    (6, '7th Sea', '7th-sea'),
-    (7, 'Kids On Brooms', 'kids-on-brooms'),
-    (
-        10,
-        'Don''t Rest Your Head',
-        'dont-rest-your-head'
-    ),
-    (
-        11,
-        'Vampire The Masquerade',
-        'vampire-the-masquerade'
-    ),
-    (12, 'Broken Compass', 'broken-compass'),
-    (13, 'Brancalonia', 'brancalonia');
-
 -- POPULATE CAMPAIGN TABLE
 INSERT INTO
     `campaigns_campaign` (
         id,
         name,
         season,
+        slug,
         is_edited,
         youtube_link,
         release_date,
         manual_id,
-        slug,
-        thumbnail
+        thumbnail,
+        setting_id
     )
 VALUES
     (
         1,
         'Anime Selvagge (Francia)',
         1,
+        'anime-selvagge-francia-s1',
         0,
         'https://www.youtube.com/watch?v=gh6VGOerW80&list=PLoVHA-lOjjEBi74ModOwvn6Hxeibuj-6S',
         '2020-03-28',
         1,
-        'anime-selvagge-francia-s1',
-        'campaigns/anime_selvagge_francia3.jpg'
+        'campaigns/anime_selvagge_francia3.jpg',
+        2
     ),
     (
         2,
         'Elevator Of Madness',
         1,
+        'elevator-of-madness-s1',
         0,
         'https://www.youtube.com/watch?v=VFZC4Nk8ahg&list=PLoVHA-lOjjEApqlKjZDCnlt3cpVf-_hbU',
         '2022-04-21',
         2,
-        'elevator-of-madness-s1',
-        'campaigns/elevator_of_madness2.jpg'
+        'campaigns/elevator_of_madness2.jpg',
+        6
     ),
     (
         3,
         'Anime Selvagge (Francia)',
         2,
+        'anime-selvagge-francia-s2',
         0,
         'https://www.youtube.com/watch?v=Y6q0k-C1EUQ&list=PLoVHA-lOjjEBi74ModOwvn6Hxeibuj-6S&index=9',
         '2021-10-19',
         5,
-        'anime-selvagge-francia-s2',
-        'campaigns/anime_selvagge_francia3.jpg'
+        'campaigns/anime_selvagge_francia3.jpg',
+        2
     ),
     (
         4,
         'Luxastra''s Lullaby',
         3,
+        'luxastras-lullaby-s3',
         1,
         'https://www.youtube.com/watch?v=fPRxVYSFguc&list=PLFVd9VXb61Q1siXbAK78PyO-sbEUWDVuv',
         '2020-09-03',
         3,
-        'luxastras-lullaby-s3',
-        'campaigns/luxastra3.jpg'
+        'campaigns/luxastra3.jpg',
+        2
     ),
     (
         5,
         'Luxastra''s Lullaby',
         1,
+        'luxastras-lullaby-s1',
         1,
         'https://www.youtube.com/watch?v=MXlCB2GczKU&list=PLFVd9VXb61Q0rxcFOqwnw4QvW88dlyg7b',
         '2019-02-28',
         4,
-        'luxastras-lullaby-s1',
-        'campaigns/luxastra3.jpg'
+        'campaigns/luxastra3.jpg',
+        2
     ),
     (
         6,
         'Luxastra''s Lullaby',
         2,
+        'luxastras-lullaby-s2',
         1,
         'https://www.youtube.com/watch?v=ZjXrqltXOUE&list=PLFVd9VXb61Q3nThzHNDaB8Mee7-qoYU8X',
         '2019-09-19',
         3,
-        'luxastras-lullaby-s2',
-        'campaigns/luxastra3.jpg'
+        'campaigns/luxastra3.jpg',
+        2
     ),
     (
         7,
         'Navigavia',
         2,
+        'navigavia-s2',
         1,
         'https://www.youtube.com/watch?v=J9xYEEWp2So&list=PLFVd9VXb61Q2o6epC0Q-LKtLKX667orR1',
         '2023-11-09',
         6,
-        'navigavia-s2',
-        'campaigns/navigavia.jpg'
+        'campaigns/navigavia.jpg',
+        2
     ),
     (
         8,
         'Navigavia',
         1,
+        'navigavia-s1',
         1,
         'https://www.youtube.com/watch?v=0lq6LI2kdkQ&list=PLFVd9VXb61Q3uyTtaPvMnXnX1O8J5IHbM',
         '2021-12-02',
         6,
-        'navigavia-s1',
-        'campaigns/navigavia.jpg'
+        'campaigns/navigavia.jpg',
+        2
     ),
     (
         9,
         'Augusta Sanguinorum',
         1,
+        'augusta-sanguinorum-s1',
         0,
         'https://www.youtube.com/watch?v=ESC339B54ns&list=PLoVHA-lOjjEB2W2bc2LPxlKNNjM3Qp25c',
         '2020-05-23',
         11,
-        'augusta-sanguinorum-s1',
-        'campaigns/augusta_sanguinorum2.jpg'
+        'campaigns/augusta_sanguinorum2.jpg',
+        4
     ),
     (
         10,
         'Armored Soul',
         1,
+        'armored-soul-s1',
         0,
         'https://www.youtube.com/watch?v=YqoDB9ZUSyQ&list=PLoVHA-lOjjED2L-j7OlXDqujHBq3DZuE6',
         '2020-07-04',
         3,
-        'armored-soul-s1',
-        'campaigns/armored_soul.jpg'
+        'campaigns/armored_soul.jpg',
+        3
     ),
     (
         11,
         'Police Vanguard',
         1,
+        'police-vanguard-s1',
         0,
         'https://www.youtube.com/watch?v=2ANtEtSM7PI&list=PLoVHA-lOjjEB495kuCueQNtGfZ5wwk2FC',
         '2021-07-24',
         12,
-        'police-vanguard-s1',
-        'campaigns/police_vanguard2.jpg'
+        'campaigns/police_vanguard2.jpg',
+        2
     ),
     (
         12,
         'Midnight Howl',
         1,
+        'midnight-howl-s1',
         0,
         'https://www.youtube.com/watch?v=PWn9x7Tbdm4&list=PLoVHA-lOjjEBRbLIYw9XiF7jVSHlpdqIa',
         '2023-02-13',
         7,
-        'midnight-howl-s1',
-        'campaigns/midnight_howl.jpg'
+        'campaigns/midnight_howl.jpg',
+        5
     ),
     (
         14,
         'Luxastra''s Dream',
         1,
+        'luxastras-dream-s1',
         1,
         'https://www.youtube.com/watch?v=1zabpobPq8o&list=PLFVd9VXb61Q3wiDtiDrlAb7hgXFRQDlSN',
         '2022-11-17',
         3,
-        'luxastras-dream-s1',
-        'campaigns/luxastra3.jpg'
+        'campaigns/luxastra3.jpg',
+        2
     );
 
 -- POPULATE CAST TABLE
