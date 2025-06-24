@@ -106,9 +106,10 @@ const CampaignCard = ({ campaign, inWatchlist }: Props) => {
 
                                 privateAxiosObject
                                     .post("root/watchlist/", postWatchlistItem)
-                                    .then(() => {
+                                    .then((response) => {
                                         const getWatchlistItem: GetWatchlistItem =
                                             {
+                                                id: response.data.id,
                                                 campaign: campaign,
                                             };
                                         addToWatchlist(getWatchlistItem);

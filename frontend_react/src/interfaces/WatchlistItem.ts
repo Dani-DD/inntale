@@ -1,7 +1,7 @@
 import { Campaign } from "./Campaign";
 
 export interface GetWatchlistItem {
-    id?: number;
+    id: number;
     user?: number;
     campaign: Campaign;
 }

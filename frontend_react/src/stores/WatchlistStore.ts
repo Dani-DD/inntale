@@ -15,11 +15,9 @@ const useWatchlistStore = create<WatchlistStore>((set) => ({
         set((state) => ({
             watchlist: [...state.watchlist, item],
         })),
-    removeFromWatchlist: (campaignId) =>
+    removeFromWatchlist: (itemId) =>
         set((state) => ({
-            watchlist: state.watchlist.filter(
-                (item) => item.campaign.id !== campaignId
-            ),
+            watchlist: state.watchlist.filter((item) => item.id !== itemId),
         })),
 }));
 

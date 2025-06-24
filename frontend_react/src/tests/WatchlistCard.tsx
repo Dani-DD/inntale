@@ -69,7 +69,7 @@ const WatchlistCard = ({ watchlistItem }: Props) => {
                         privateAxiosObject
                             .delete(`root/watchlist/${watchlistItem.id}/`)
                             .then(() => {
-                                removeFromWatchlist(watchlistItem.campaign.id);
+                                removeFromWatchlist(watchlistItem.id);
                             })
                             .catch((error: Error) =>
                                 console.error(

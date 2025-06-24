@@ -104,14 +104,10 @@ class WatchlistUserSerializer(serializers.ModelSerializer):
         if self.context["request"].method == "GET":
             self.fields["campaign"] = CampaignSerializer()
 
-    def save(self):
-        # Obtain the id of the user from the context
+    def create(self, validated_data):
         user_id = self.context["user_id"]
         user = User.objects.get(id=user_id)
-
-        campaign = self.validated_data["campaign"]
-
-        Watchlist.objects.create(user=user, campaign=campaign)
+        return Watchlist.objects.create(user=user, **validated_data)
 
 
 # AUTHENTICATION
