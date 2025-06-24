@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import { Tokens, User, UserCredentials } from "@/interfaces/allIntefaces";
 import { Registration } from "@/interfaces/allIntefaces";
+import { ORIGIN } from "@/settings/development";
 import { handleAxiosError } from "@/utils/utils";
 import axios, { AxiosResponse } from "axios";
 import { jwtDecode } from "jwt-decode";
@@ -45,7 +46,7 @@ export const AuthProvider = () => {
     const contextData: AuthContext = {
         registration: (userInputs: Registration) => {
             return axios
-                .post("http://127.0.0.1:8000/auth/users/", userInputs)
+                .post(`${ORIGIN}auth/users/`, userInputs)
                 .then(() => {
                     console.log("New user created.");
                     console.log("Redirecting to the home page.");
@@ -60,7 +61,7 @@ export const AuthProvider = () => {
                     Tokens,
                     AxiosResponse<Tokens, UserCredentials>,
                     UserCredentials
-                >("http://127.0.0.1:8000/auth/jwt/create/", userInputs)
+                >(`${ORIGIN}/auth/jwt/create/`, userInputs)
                 .then((response) => {
                     // store the tokens into the local storage
                     localStorage.setItem(
@@ -93,8 +94,6 @@ export const AuthProvider = () => {
 
     useEffect(() => {
         console.log("Application start");
-        console.log("User: ", user);
-        console.log("Tokens: ", tokens);
     }, [user, tokens]);
 
     return (
