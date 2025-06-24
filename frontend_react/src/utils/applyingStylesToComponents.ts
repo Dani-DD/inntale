@@ -49,3 +49,6 @@ export const fontSidebar = "Cinzel Decorative";
 export const fontDynamicHeading = "Merriweather Variable";
 export const fontCardHeader = "Cormorant Unicase";
 export const fontCardSettingText = "IM Fell English SC";
+
+// UserPage
+export const fontUserPageHeading = "Cinzel Decorative";
