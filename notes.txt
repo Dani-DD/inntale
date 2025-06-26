@@ -1,9 +1,10 @@
 FUTURE FEATURES?
-1) introducing "guest star VS regular cast member" concept?
-2) implement like button?
-3) working on automated test
-4) working on performance test
-5) working on background tasks
-6) working on sendig email (notifying when a new campaign has been published?)
-7) implement comments (nested routers).
-8) implementing Chakra's Toast?
+1) introducing a GET-DETAIL page for campaigns?
+2) introducing "guest star VS regular cast member" concept? Maybe in the GET-DETAIL page?
+3) implement like button?
+4) working on automated test
+5) working on performance test
+6) working on background tasks
+7) working on sendig email (notifying when a new campaign has been published?)
+8) implement comments (nested routers).
+9) implementing Chakra's Toast?
