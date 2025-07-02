@@ -11,7 +11,7 @@ import { Button, Image, HStack, Text } from "@chakra-ui/react";
  * [ logo ] [ name ] (counter)
  * like: [ andross pic ] [ Andrea Guagnini ] ( 4 )
  *
- * This component is used to update the url query parameter: for example, if the user click the
+ * This component is used to update the url query filter parameter: for example, if the user click the
  * FilteringButton that represents the manual with id equals to 4, than the following filter is applied:
  * /root/campaigns/?manual=4 (check out useFiltersStore at src/components/store/FiltersStore.ts)
  * This is why we've need of the id of the item (manual, player, ...) (as you can see in the Props interface below).
@@ -63,7 +63,6 @@ const FilteringButton = ({
         <HStack
             justifyContent={"start"}
             alignItems={"center"}
-            // border={"3px solid green"}
             maxWidth={"100%"}
         >
             {logo && (
@@ -72,9 +71,7 @@ const FilteringButton = ({
                     alt={`Logo ${name}`}
                     boxSize={"32px"}
                     objectFit={"contain"}
-                    // aspectRatio={"1:1"}
                     borderRadius={"6px"}
-                    // border="3px solid black"
                 />
             )}
             <Button
@@ -87,13 +84,10 @@ const FilteringButton = ({
                 _hover={{
                     color: "white",
                 }}
-                // border="3px solid red"
                 maxWidth={"100%"}
-                // New one!
                 margin={"0px"}
             >
                 <Text
-                    // border={"2px solid pink"}
                     maxWidth={"100%"}
                     whiteSpace={"normal"}
                     overflowWrap={"break-word"}

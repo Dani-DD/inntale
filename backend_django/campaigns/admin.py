@@ -178,6 +178,8 @@ class ManualAndSettingAdmin(SlugAdminModel):
         return obj.name.title()
 
     @admin.display(ordering="total_use")
+    # It shows how many times a manual/setting has been used.
+    # But it's also a link: When clicked, it redirects to the list of campaigns that use that particular manual/setting
     def total_use(self, obj: Union[Manual, Setting]):
         campaign_admin_url = "admin/campaigns/campaign/"
         url_query_parameter = (

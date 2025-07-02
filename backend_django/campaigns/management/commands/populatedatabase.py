@@ -16,8 +16,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print("Populating the database...")
+        # Get the path of the .sql file
         sql_file_path = os.path.join(os.path.dirname(__file__), "populate-database.sql")
+        # Read the content of that file
         sql_file_content = Path(sql_file_path).read_text()
 
         with connection.cursor() as cursor:
+            # Execute its content
             cursor.execute(sql_file_content)

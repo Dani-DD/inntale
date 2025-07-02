@@ -59,7 +59,9 @@ const ExpandableList = ({ header, list }: Props) => {
                     key={
                         listItem.itemType === "Manual"
                             ? `manual_${listItem.id}`
-                            : `player_${listItem.id}`
+                            : listItem.itemType === "Player"
+                            ? `player_${listItem.id}`
+                            : `setting_${listItem.id}`
                     }
                 />
             ))}

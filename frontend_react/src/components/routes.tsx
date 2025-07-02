@@ -2,7 +2,6 @@ import HomePage from "@/pages/HomePage";
 import { createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@/contexts/authContext";
 import UserPage from "@/pages/UserPage";
-import PrivatePage from "@/pages/PrivatePage";
 import TestPage from "../tests/TestPage";
 
 const router = createBrowserRouter([
@@ -17,10 +16,6 @@ const router = createBrowserRouter([
             {
                 path: "/me",
                 element: <UserPage />,
-            },
-            {
-                path: "/protected-endpoint",
-                element: <PrivatePage />,
             },
             {
                 path: "/test",

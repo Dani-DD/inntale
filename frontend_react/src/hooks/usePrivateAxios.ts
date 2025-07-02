@@ -14,6 +14,8 @@ interface RefreshResponse {
 const usePrivateAxios = () => {
     const { tokens, setTokens, setUser } = useContext(AuthContext);
 
+    // Create an Axios object that contains the JWT access token
+    // Without it, we can't access to protected endpoints
     const axiosForProtectedEndpoints = axios.create({
         baseURL: ORIGIN,
         headers: {
@@ -21,19 +23,22 @@ const usePrivateAxios = () => {
         },
     });
 
+    // Intercept the request to see if the JWT token is expired. If so, refresh it.
     axiosForProtectedEndpoints.interceptors.request.use(async (request) => {
-        // Check if access token is expired
         const decodedAccessToken: DecodedToken = jwtDecode(tokens!.access);
+        // Check if access token is expired
         const isExpired = dayjs.unix(decodedAccessToken.exp).diff(dayjs()) < 1;
 
         if (!isExpired) {
             console.log("Token still valid.");
+            // Return the original request
             return request;
         }
 
         // Refresh token
         console.log("Token expired: requiring a new one...");
         try {
+            // Ask for new tokens
             const response = await axios.post<
                 RefreshResponse,
                 AxiosResponse<RefreshResponse, any>,
@@ -42,6 +47,7 @@ const usePrivateAxios = () => {
                 refresh: tokens!.refresh,
             });
 
+            // Store the new tokens
             const newTokens: Tokens = {
                 access: response.data.access,
                 refresh: tokens!.refresh,

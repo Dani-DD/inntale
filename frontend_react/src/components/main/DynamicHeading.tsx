@@ -27,31 +27,37 @@ import { Box, Heading } from "@chakra-ui/react";
  */
 
 const DynamicHeading = () => {
-    // No filters? So render "All campaigns", otherwise "Campaigns with:"
     const filters = useFiltersStore((s) => s.filters);
     const { selected_manual, selected_player, selected_setting, search } =
         filters;
 
+    // Check if there is any enabled filter
     const hasActiveFilters =
         selected_manual ||
         selected_player ||
         selected_setting ||
         (search && search.trim() !== "");
 
+    // No filters? So render "All campaigns", otherwise "Campaigns with:"
     const headingText = hasActiveFilters ? "Campaigns with:" : "All Campaigns";
 
     // This function creates the strings for the sub-headers
     const createSubHeadingText = <T extends { id: number }>(
         list: T[],
+        // "property" refers to the properties of the Filters object
         property: string
     ) => {
+        // Check the search query parameter
         if (property === "search")
             return filters.search ? `Searching for: ${filters.search}` : "";
 
+        // Check the filter query parameters
+        // Get the id from the property
         const query_id = filters[property as keyof Filters];
 
         if (query_id === undefined) return "";
 
+        // Find the object
         const item = list.find((item) => item.id === query_id);
 
         switch (property) {

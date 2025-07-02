@@ -26,11 +26,14 @@ export default AuthContext;
 // The custom provider
 export const AuthProvider = () => {
     const [tokens, setTokens] = useState<Tokens | null>(() => {
+        // To set an initial value, let's check if there are already tokens in the localStorage
         const stringifyTokens = localStorage.getItem("tokens");
         return stringifyTokens ? JSON.parse(stringifyTokens) : null;
     });
 
     const [user, setUser] = useState<User | null>(() => {
+        // To set an initial value, let's check if there is already an access token.
+        // If so, let's decode it to get the User
         const stringifyTokens = localStorage.getItem("tokens");
 
         if (stringifyTokens) {

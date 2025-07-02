@@ -13,10 +13,14 @@ export const titleCase = (string: string) => {
 
 // Used in authContext.tsx
 export const handleAxiosError = (error: unknown) => {
+    // Throw an error that will be handled by the form
+
+    // If it's an AxiosError
     if (axios.isAxiosError(error) && error.response) {
         console.log(error.response.data);
         throw error.response.data;
     } else {
+        // If it's not an AxiosError
         throw {
             non_field_errors: ["An unexpected error occurred."],
         };
