@@ -30,6 +30,19 @@ VALUES
         '2025-05-02 16:12:59.038782'
     ),
     (
+        3,
+        'pbkdf2_sha256$870000$8SdBDzR1YRR9pQPg0gHRiA$cQxTSwuj4HVteMn+HQe8YDJQ3IZkkhGzcyzv1ZH0LGk=',
+        '2025-06-18 18:53:18.047946',
+        1,
+        'inntale_admin',
+        '',
+        '',
+        '',
+        1,
+        1,
+        '2025-05-02 16:12:59.038782'
+    ),
+    (
         2,
         'pbkdf2_sha256$870000$P4Skg8Dfgm6jZPVfTbVdJP$ToXGAL+6pql8GrhaCaZ3KPFm1ZsjBRX9znezgNnPFfI=',
         NULL,
@@ -41,19 +54,6 @@ VALUES
         0,
         1,
         '2025-06-13 18:45:45.156639'
-    ),
-    (
-        21,
-        'pbkdf2_sha256$870000$8pf0Ugo1yqCE70EAsfaOWh$eMl6tpHGzmoEAJS3Xlx9dMKMArv1DDA0h/EhHfkAokg=',
-        NULL,
-        0,
-        'UgoIlDistruttoreDiMondiUltraterreni',
-        'Ugo',
-        'Ugognazzi',
-        'ugo@gmail.com',
-        0,
-        1,
-        '2025-06-23 21:22:08.798076'
     );
 
 -- POPULATE MANUAL TABLE
