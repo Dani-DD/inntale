@@ -8,6 +8,8 @@ services:
     ports:
       - 8000:8000
     environment:
+      - ENVIRONMENT=${ENVIRONMENT}
+      - SECRET_KEY=${SECRET_KEY}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PSW=${MYSQL_PSW}
