@@ -1,6 +1,7 @@
 # Django's imports
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Q
 from django.db.models.aggregates import Count
 from django.utils.text import slugify
 
@@ -68,19 +69,23 @@ class Campaign(SlugModel):
         return f"{self.name} s{self.season}"
 
     def save(self, *args, **kwargs):
-        # Avoid duplicating existing images
+        """
+        Avoiding the upload of already existing images
+        """
+
         if self.thumbnail:
-            # Get the image chosen for this record
-            image_name = os.path.basename(self.thumbnail.name)
+            # Get the name of the image, without path and extension
+            image_name = os.path.splitext(os.path.basename(self.thumbnail.name))[0]
 
             # Let's check if already exist a record that use that image
             existing_record = Campaign.objects.filter(
-                thumbnail__endswith=image_name
+                Q(thumbnail__icontains=image_name) & ~Q(id=self.pk)
             ).first()
+            print(existing_record)
 
-            # If so, let's use that image
-            if existing_record:
-                self.thumbnail = existing_record.thumbnail
+        # If so, let's use that image
+        if existing_record:
+            self.thumbnail = existing_record.thumbnail
 
         return super().save(*args, **kwargs)
 
