@@ -27,7 +27,7 @@ class SlugModel(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.get_slug_source)
+            self.slug = slugify(self.get_slug_source())
         super().save(*args, **kwargs)
 
 
