@@ -10,10 +10,15 @@ services:
     environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - SECRET_KEY=${SECRET_KEY}
+      # For Cloudinary
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      # For MySQL database
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PSW=${MYSQL_PSW}
-      - MYSQL_HOST=${MYSQL_HOST}
+      - DOCKER_MYSQL_PSW=${DOCKER_MYSQL_PSW}
+      - DOCKER_MYSQL_HOST=${DOCKER_MYSQL_HOST}
       - MYSQL_HOST_PORT=${MYSQL_HOST_PORT}
     restart: on-failure
     depends_on:
@@ -43,10 +48,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PSW}
+      - MYSQL_ROOT_PASSWORD=${DOCKER_MYSQL_ROOT_PSW}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PSW}
+      - MYSQL_PASSWORD=${DOCKER_MYSQL_PSW}
     volumes:
       - mysqldata:/var/lib/mysql
       - ./backend_django/mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql
