@@ -33,11 +33,11 @@ export const campaignGridBorderWidth = DEBUGGING_VALUE;
 export const sidebarBorderWidth = DEBUGGING_VALUE;
 
 // FONTS
-const imFellEnglish = "IM Fell English SC";
-const loraVariable = "Lora Variable";
-const cinzelDecorative = "Cinzel Decorative";
-const cormorantUnicase = "Cormorant Unicase";
-const merriweatherVariable = "Merriweather Variable";
+// const imFellEnglish = "IM Fell English SC";
+// const loraVariable = "Lora Variable";
+// const cinzelDecorative = "Cinzel Decorative";
+// const cormorantUnicase = "Cormorant Unicase";
+// const merriweatherVariable = "Merriweather Variable";
 
 // Navbar section
 export const fontNavbar = "Cinzel Variable";
