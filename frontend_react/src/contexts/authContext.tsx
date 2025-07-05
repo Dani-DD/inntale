@@ -64,7 +64,7 @@ export const AuthProvider = () => {
                     Tokens,
                     AxiosResponse<Tokens, UserCredentials>,
                     UserCredentials
-                >(`${ORIGIN}/auth/jwt/create/`, userInputs)
+                >(`${ORIGIN}auth/jwt/create/`, userInputs)
                 .then((response) => {
                     // store the tokens into the local storage
                     localStorage.setItem(
