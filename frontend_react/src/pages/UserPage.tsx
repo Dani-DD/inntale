@@ -16,10 +16,7 @@ const UserPage = () => {
     }
 
     return (
-        <Box
-            backgroundColor={blue_inntale}
-            border={`2px solid ${blue_inntale}`}
-        >
+        <Box backgroundColor={blue_inntale}>
             <Heading
                 fontFamily={fontUserPageHeading}
                 color={gold_inntale}
