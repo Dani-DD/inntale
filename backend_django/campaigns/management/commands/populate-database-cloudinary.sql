@@ -1,3 +1,4 @@
+-- Media files are stored on Cloudinary
 USE campaigns;
 
 -- POPULATE AUTH_USER TABLE

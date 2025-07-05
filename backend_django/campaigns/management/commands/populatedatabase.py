@@ -9,6 +9,9 @@ from pathlib import Path
 from django.core.management.base import BaseCommand
 from django.db import connection
 import os
+from decouple import config
+
+USING_CLOUDINARY = config("USING_CLOUDINARY")
 
 
 class Command(BaseCommand):
@@ -16,8 +19,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print("Populating the database...")
+
+        if USING_CLOUDINARY:
+            sql_file_name = "populate-database-cloudinary.sql"
+            print("Using Cloudinary for serving Media file.")
+        else:
+            sql_file_name = "populate-database-project.sql"
+
         # Get the path of the .sql file
-        sql_file_path = os.path.join(os.path.dirname(__file__), "populate-database.sql")
+        sql_file_path = os.path.join(os.path.dirname(__file__), sql_file_name)
         # Read the content of that file
         sql_file_content = Path(sql_file_path).read_text()
 

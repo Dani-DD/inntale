@@ -9,7 +9,7 @@
 To use this app, you only need to read the following sections:
 
 1. INTRO
-2. INSTALLATION AND SETUP (just the first part)
+2. INSTALLATION AND SETUP (just the first part and, if you need, the "Troubleshooting" paragraph)
 3. USER INTERFACE
 
 The remaining sections are meant for those interested in how the app works under the hood, or who want to explore the internal logic and implementation details.
@@ -30,14 +30,26 @@ Since these playlists are spread across two different channels and mixed in with
 2.  [Install Docker](https://dev.to/abhay_yt_52a8e72b213be229/how-to-install-docker-on-windows-macos-and-linux-a-step-by-step-guide-3a2i) and make sure it’s running (not familiar with Docker? Here's a [quick explainer](https://www.youtube.com/watch?v=DQdB7wFEygo)).
 3.  In the root `Inntale` folder, create a `.env` file with the following environment variables:
 
-    ```
-    MYSQL_ROOT_PSW=<choose a password for the MySQL root user>
-    MYSQL_DATABASE=campaigns
-    MYSQL_HOST=database_mysql
-    MYSQL_HOST_PORT=3306
-    MYSQL_USER=inntale
-    MYSQL_PSW=<choose a password for the inntale user>
-    ```
+        ```
+        ENVIRONMENT=development
+        SECRET_KEY=<go to https://djecrety.ir/ and copy-paste here the generated value>
+        MYSQL_DATABASE=campaigns
+        MYSQL_USER=inntale
+        MYSQL_HOST_PORT=3306
+        DOCKER_MYSQL_HOST=database_mysql
+        DOCKER_MYSQL_PSW=<choose a password for the inntale user>
+        DOCKER_MYSQL_ROOT_PSW=<choose a password for the MySQL root user>
+        USING_CLOUDINARY=<choose True or False>
+        CLOUDINARY_CLOUD_NAME=<set your cloudinary's cloud name>
+        CLOUDINARY_API_KEY=<set your cloudinary's api key>
+        CLOUDINARY_API_SECRET=<set your cloudinary's api secret>
+        ```
+
+    > [!WARNING]
+    > Don't know Cloudinary? No problem: set `USING_CLOUDINARY` to `False` and give to the other Cloudinary environment variables random values.
+
+    > [!WARNING]  
+    > Values of environment variables shouldn't be wrapped in quotes, unless they contain special characters like whitespaces, $, &, ecc.
 
 4.  In your CLI, run:
 
@@ -58,6 +70,16 @@ You can seed it with initial values by running:
 ```bash
 docker exec -it inntale_backend python manage.py populatedatabase
 ```
+
+## TROUBLESHOOTING
+
+If you get an error like:
+
+```
+inntale_backend | /usr/bin/env: ‘bash\r’: No such file or directory inntale_backend | /usr/bin/env: use -[v]S to pass options in shebang lines inntale_frontend | exec /usr/local/bin/docker-entrypoint.sh: no such file or directory
+```
+
+Make sure that the `.sh` files (`wait-for-it.sh`, `docker-entrypoint.sh`) have `LF` as line ending instead of `CRLF`.
 
 ## IMPLEMENTATION DETAILS
 
