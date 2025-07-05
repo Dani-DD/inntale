@@ -20,8 +20,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 from debug_toolbar.toolbar import debug_toolbar_urls
+from django.http import HttpResponse
 
 urlpatterns = [
+    path("", lambda req: HttpResponse("<h1>Backend online!</h1>")),
     path("admin/", admin.site.urls),
     path("root/", include("campaigns.urls")),
     re_path(r"^auth/", include("djoser.urls")),

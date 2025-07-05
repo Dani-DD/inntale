@@ -2,14 +2,12 @@
 
 #### Author: Daniele Natola
 
-#### Video Demo: [CS50x final project video demo - InnTale Campaigns](https://youtu.be/FjdGBay5ilY)
-
 # 0. DISCLAIMER
 
 To use this app, you only need to read the following sections:
 
 1. INTRO
-2. INSTALLATION AND SETUP (just the first part)
+2. INSTALLATION
 3. USER INTERFACE
 
 The remaining sections are meant for those interested in how the app works under the hood, or who want to explore the internal logic and implementation details.
@@ -24,106 +22,12 @@ Since these playlists are spread across two different channels and mixed in with
 (Well, not every playlist just yet. Only a few, for now. Let's say it's an Early Access).  
 **_This Full-Stack web app uses Django for the backend and React for the frontend, with Django REST Framework powering the API layer._**
 
-# 2. INSTALLATION AND SETUP
+# 2. INSTALLATION
 
-1.  Clone the project's source code to your local machine.
-2.  [Install Docker](https://dev.to/abhay_yt_52a8e72b213be229/how-to-install-docker-on-windows-macos-and-linux-a-step-by-step-guide-3a2i) and make sure it’s running (not familiar with Docker? Here's a [quick explainer](https://www.youtube.com/watch?v=DQdB7wFEygo)).
-3.  In the root `Inntale` folder, create a `.env` file with the following environment variables:
+> This branch is designed exclusively for deployment on Railway.  
+> See the `main` branch to run the app locally with docker-compose.
 
-    ```
-    MYSQL_ROOT_PSW=<choose a password for the MySQL root user>
-    MYSQL_DATABASE=campaigns
-    MYSQL_HOST=database_mysql
-    MYSQL_HOST_PORT=3306
-    MYSQL_USER=inntale
-    MYSQL_PSW=<choose a password for the inntale user>
-    ```
-
-4.  In your CLI, run:
-
-    ```bash
-    docker-compose up --build
-    ```
-
-    This step may take a few minutes, depending on your system.
-
-5.  Open your browser to access the app:
-
-    -   Backend: `http://127.0.0.1:8000`
-    -   Frontend: `http://localhost:5173`
-
-By default, the database starts empty.  
-You can seed it with initial values by running:
-
-```bash
-docker exec -it inntale_backend python manage.py populatedatabase
-```
-
-## IMPLEMENTATION DETAILS
-
-This is a multi-container application defined via `docker-compose.yml`, which includes three services:
-
--   `backend_django`: the backend (Django + Python)
--   `frontend_react`: the frontend (React + Vite)
--   `database_mysql`: the MySQL database
-
-### WAIT-FOR-IT SCRIPT
-
-[wait-for-it.sh](https://wait-for-it.readthedocs.io/en/latest/) is used to ensure that `database_mysql` is fully up and running before starting `backend_django` and `frontend_react`.
-
-### THE NODE_MODULES VOLUME ISSUE
-
-To resolve a known bug with Vite/Node.js on cross-platform setups, I explicitly handle the `node_modules` directory.
-
-**The error:**
-
-```
-Error: Cannot find module @rollup/rollup-linux-x64-gnu. npm has a bug related to optional dependencies (https://github.com/npm/cli/issues/4828). Please try npm i again after removing both package-lock.json and node_modules directory.
-```
-
-This occurs when running a Vite project across different operating systems. Rollup, the bundler used by Vite, installs platform-specific binaries. If dependencies are installed on one OS (e.g. Windows), and later run on another (e.g. Linux inside Docker), the binaries may be incompatible or missing altogether.
-
-**In this setup:**
-
-During the Docker image build process, the `frontend_react` service installs its dependencies using `npm install` inside the container (which runs on Linux). This creates a `node_modules` directory with Linux-compatible binaries.
-However, when mounting `./frontend_react:/app`, everything from the host machine (in this case, Windows) is copied into the container’s `/app` directory, including the local `node_modules` folder, if it exists.
-As a result, the host’s Windows-specific `node_modules` ends up replacing the Linux-compatible one generated inside the container, causing a mismatch in platform-specific dependencies.
-
-**The solution:**
-
-To solve this issue, I explicitly mount a named volume at `/app/node_modules` within the container.
-Unlike the project folder mount (`./frontend_react:/app`), this volume does not come from the host and therefore doesn’t include any incompatible dependencies.
-
-```yaml
-# docker-compose.yml snippet
-volumes:
-    - ./frontend_react:/app
-    - node_modules_volume:/app/node_modules
-```
-
-### MYSQL-INIT.SQL
-
-This file grants administrative privileges to the `inntale` user defined in the `.env` file, allowing it to perform full CRUD operations on the database.
-
-The volume mapping `./backend_django/mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql` declared in the `database_mysql` service ensures that the script is executed the first time the database container is initialized.
-
-MySQL automatically runs any `.sql` scripts placed in the `/docker-entrypoint-initdb.d/` directory during initial setup. This is a built-in feature of the official MySQL Docker image.
-
-### THE POPULATEDATABASE COMMAND
-
-It's a custom command defined in:
-
-```text
-/Inntale
-    /backend_django
-        /campaigns
-            /management
-                /commands
-                    populate-database.sql
-                    populatedatabase.py
-```
-
-Basically, it reads the content of the `populate-database.sql` file, that contains SQL `INSERT` statements, and then execute it using the Django's `connection` module.
+Just visit this link: https://inntale-campaigns.up.railway.app
 
 # 3. USER INTERFACE
 

@@ -13,6 +13,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 from decouple import config
+import dj_database_url
 
 # ----------------------------------------
 # PATH & ENVIRONMENT
@@ -34,7 +35,16 @@ if ENVIRONMENT == "development":
     ALLOWED_HOSTS = []
 else:
     DEBUG = False
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = [
+        "localhost",
+        "127.0.0.1",
+        "backendinntale.up.railway.app",
+        "inntale-campaigns.up.railway.app",
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        "https://backendinntale.up.railway.app",
+        "https://inntale-campaigns.up.railway.app",
+    ]
 
 # ----------------------------------------
 # CLOUDINARY MEDIA STORAGE
@@ -139,24 +149,20 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 # ----------------------------------------
 
-OFF_DOCKER = False
-if OFF_DOCKER:
+if ENVIRONMENT == "development":
     # Remember to activate the MySQL service on your PC
-    SUFFIX = "LOCALLY"
-else:
-    # Remember to turn off the MySQL service on your PC
-    SUFFIX = "DOCKER"
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": config("MYSQL_DATABASE"),
-        "USER": config("MYSQL_USER"),
-        "PASSWORD": config(f"{SUFFIX}_MYSQL_PSW"),
-        "HOST": config(f"{SUFFIX}_MYSQL_HOST"),
-        "PORT": config("MYSQL_HOST_PORT"),
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": config("MYSQL_DATABASE"),
+            "USER": config("MYSQL_USER"),
+            "PASSWORD": config("LOCAL_MYSQL_PSW"),
+            "HOST": config("LOCAL_MYSQL_HOST"),
+            "PORT": config("MYSQL_HOST_PORT"),
+        }
     }
-}
+else:
+    DATABASES = {"default": dj_database_url.parse(config("DATABASE_URL"))}
 
 # ----------------------------------------
 # PASSWORD VALIDATORS
@@ -192,6 +198,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
+
+if ENVIRONMENT == "production":
+    CORS_ALLOWED_ORIGINS.append("https://inntale-campaigns.up.railway.app")
 
 # ----------------------------------------
 # DJOSER & JWT
