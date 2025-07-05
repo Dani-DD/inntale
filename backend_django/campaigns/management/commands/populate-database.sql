@@ -64,67 +64,67 @@ VALUES
         1,
         'Savage Worlds',
         'savage-worlds',
-        'manuals/savage_worlds6.jpg'
+        'media/manuals/savage_worlds6_pbc9sn'
     ),
     (
         2,
         'Trail Of Cthulhu',
         'trail-of-cthulhu',
-        'manuals/trail_of_cthulhu3.jpg'
+        'media/manuals/trail_of_cthulhu3_xivhtb'
     ),
     (
         3,
         'Dungeons And Dragons 5e',
         'dungeons-and-dragons-5e',
-        'manuals/dnd3.jpg'
+        'media/manuals/dnd3_rzoqvq'
     ),
     (
         4,
         'Pathfinder',
         'pathfinder',
-        'manuals/pathfinder2.jpg'
+        'media/manuals/pathfinder2_daggdo'
     ),
     (
         5,
         'Kids On Bikes',
         'kids-on-bikes',
-        'manuals/kids_on_bike2.jpg'
+        'media/manuals/kids_on_bike2_s1emw0'
     ),
     (
         6,
         '7th Sea',
         '7th-sea',
-        'manuals/7thsea_xqVgLPM.jpg'
+        'media/manuals/7thsea_xqVgLPM_p9wmwb'
     ),
     (
         7,
         'Kids On Brooms',
         'kids-on-brooms',
-        'manuals/kids_on_brooms3.jpg'
+        'media/manuals/kids_on_brooms3_qypf7y'
     ),
     (
         10,
         'Don''t Rest Your Head',
         'dont-rest-your-head',
-        'manuals/dont_rest_your_head2.jpg'
+        'media/manuals/dont_rest_your_head2_u0oreq'
     ),
     (
         11,
         'Vampire The Masquerade',
         'vampire-the-masquerade',
-        'manuals/vampire_the_masquerade2.jpg'
+        'media/manuals/vampire_the_masquerade2_cucyab'
     ),
     (
         12,
         'Broken Compass',
         'broken-compass',
-        'manuals/broken_compass_600px.jpg'
+        'media/manuals/broken_compass_600px_knhjem'
     ),
     (
         13,
         'Brancalonia',
         'brancalonia',
-        'manuals/brancalonia2.jpg'
+        'media/manuals/brancalonia2_mfduze'
     );
 
 -- POPULATE SETTING TABLE
@@ -135,31 +135,31 @@ VALUES
         2,
         'innverse',
         'InnVerse',
-        'settings/Inntale_logo.jpg'
+        'media/settings/Inntale_logo_s00doj'
     ),
     (
         3,
         'star-wars',
         'Star Wars',
-        'settings/star_wars1.jpg'
+        'media/settings/star_wars1_tjhmub'
     ),
     (
         4,
         'vampire-the-masquerade',
         'Vampire The Masquerade',
-        'settings/vampire_the_masquerade2.jpg'
+        'media/settings/vampire_the_masquerade2_xwiali'
     ),
     (
         5,
         'harry-potter',
         'Harry Potter',
-        'settings/harry_potter2_jgfQaV2.png'
+        'media/settings/harry_potter2_jgfQaV2_h7ivpp'
     ),
     (
         6,
         'cthulhu-mythos',
         'Cthulhu Mythos',
-        'settings/lovecraft_aOTy56z.jpg'
+        'media/settings/lovecraft_aOTy56z_pcsxtn'
     );
 
 -- POPULATE PLAYER TABLE
@@ -179,7 +179,7 @@ VALUES
         'mattia',
         'ceniti',
         'mattia-ceniti',
-        'players/mattia_ceniti.jpg'
+        'media/players/mattia_ceniti_nymblq'
     ),
     (
         2,
@@ -187,7 +187,7 @@ VALUES
         'simone',
         'rosini',
         'simone-rosini',
-        'players/simone_rosini.png'
+        'media/players/simone_rosini_so5biw'
     ),
     (
         3,
@@ -195,7 +195,7 @@ VALUES
         'gabrio',
         'pozzi',
         'gabrio-pozzi',
-        'players/gabrio_pozzi.jpg'
+        'media/players/gabrio_pozzi_ialqhv'
     ),
     (
         4,
@@ -203,7 +203,7 @@ VALUES
         'sara',
         'stefanizzi',
         'sara-stefanizzi',
-        'players/sara_stefanizzi.jpg'
+        'media/players/sara_stefanizzi_bai3zt'
     ),
     (
         5,
@@ -211,7 +211,7 @@ VALUES
         'giulia',
         'bersani',
         'giulia-bersani',
-        'players/giulia_bersani.jpg'
+        'media/players/giulia_bersani_p7ibqk'
     ),
     (
         6,
@@ -219,7 +219,7 @@ VALUES
         'gianandrea',
         'muià',
         'gianandrea-muia',
-        'players/gianandrea_muia.png'
+        'media/players/gianandrea_muia_dorkhz'
     ),
     (
         7,
@@ -227,7 +227,7 @@ VALUES
         'luca',
         'occhi',
         'luca-occhi',
-        'players/luca_occhi.png'
+        'media/players/luca_occhi_zsxbmo'
     ),
     (
         8,
@@ -235,7 +235,7 @@ VALUES
         'manfredi',
         'mo',
         'manfredi-mo',
-        'players/manfredi_mo.png'
+        'media/players/manfredi_mo_etygqt'
     ),
     (
         9,
@@ -243,7 +243,7 @@ VALUES
         'lapo',
         'raspanti',
         'lapo-raspanti',
-        'players/lapo_raspanti.jpg'
+        'media/players/lapo_raspanti_sbjtb3'
     ),
     (
         10,
@@ -251,7 +251,7 @@ VALUES
         'andrea',
         'guagnini',
         'andrea-guagnini',
-        'players/andrea_guagnini.jpg'
+        'media/players/andrea_guagnini_che20x'
     ),
     (
         11,
@@ -259,7 +259,7 @@ VALUES
         'tommaso',
         'amitrano',
         'tommaso-amitrano',
-        'players/tommaso_amitrano.jpg'
+        'media/players/tommaso_amitrano_wg3ag2'
     ),
     (
         12,
@@ -267,7 +267,7 @@ VALUES
         'pietro',
         'ubaldi',
         'pietro-ubaldi',
-        'players/pietro_ubaldi.webp'
+        'media/players/pietro_ubaldi_ip7hw4'
     ),
     (
         13,
@@ -275,7 +275,7 @@ VALUES
         'marco',
         'arata',
         'marco-arata',
-        'players/marco_arata.webp'
+        'media/players/marco_arata_gxsf4i'
     ),
     (
         14,
@@ -283,7 +283,7 @@ VALUES
         'leonardo',
         'brugnara',
         'leonardo-brugnara',
-        'players/leonardo_brugnara.png'
+        'media/players/leonardo_brugnara_ooey3s'
     ),
     (
         15,
@@ -291,7 +291,7 @@ VALUES
         'roberta',
         'sorge',
         'roberta-sorge',
-        'players/roberta-sorge.png'
+        'media/players/roberta-sorge_qg3dzm'
     ),
     (
         16,
@@ -299,7 +299,7 @@ VALUES
         'nicola',
         'de gobbis',
         'nicola-de-gobbis',
-        'players/nicola_de_gobbis.jpg'
+        'media/players/nicola_de_gobbis_hqcdjq'
     ),
     (
         17,
@@ -307,7 +307,7 @@ VALUES
         'miguel',
         'velasquez',
         'miguel-velasquez',
-        'players/miguel_velasquez.png'
+        'media/players/miguel_velasquez_tujiot'
     ),
     (
         18,
@@ -315,7 +315,7 @@ VALUES
         'lorenzo',
         'pratt',
         'lorenzo-pratt',
-        'players/lorenzo_pratt.png'
+        'media/players/lorenzo_pratt_e0ptdk'
     ),
     (
         19,
@@ -323,7 +323,7 @@ VALUES
         'adrian',
         'fartade',
         'adrian-fartade',
-        'players/adrian_fartade.jpg'
+        'media/players/adrian_fartade_zf2zwr'
     ),
     (
         20,
@@ -331,7 +331,7 @@ VALUES
         'valentina',
         'lavalend',
         'valentina-lavalend',
-        'players/valentina_lavalend.jpg'
+        'media/players/valentina_lavalend_n2xgtu'
     ),
     (
         21,
@@ -339,7 +339,7 @@ VALUES
         'marco',
         'cioni',
         'marco-cioni',
-        'players/marcio_cioni_NxeiMWK.jpg'
+        'media/players/marcio_cioni_NxeiMWK_ep3ywi'
     ),
     (
         22,
@@ -347,7 +347,7 @@ VALUES
         'enrico',
         'gamba',
         'enrico-gamba',
-        'players/enrico_gamba.jpg'
+        'media/players/enrico_gamba_pckgia'
     ),
     (
         23,
@@ -355,7 +355,7 @@ VALUES
         'dario',
         'moccia',
         'dario-moccia',
-        'players/dario_moccia.jpeg'
+        'media/players/dario_moccia_l57smv'
     ),
     (
         24,
@@ -363,7 +363,7 @@ VALUES
         'mario',
         'del pennino',
         'mario-del-pennino',
-        'players/mario_del_pennino.jpg'
+        'media/players/mario_del_pennino_hgugaz'
     ),
     (
         25,
@@ -371,7 +371,7 @@ VALUES
         'chiara',
         'preziosi',
         'chiara-preziosi',
-        'players/chiara_preziosi.webp'
+        'media/players/chiara_preziosi_e68911'
     ),
     (
         26,
@@ -379,7 +379,7 @@ VALUES
         'gabriele',
         'rubini',
         'gabriele-rubini',
-        'players/gabriele_rubini.png'
+        'media/players/gabriele_rubini_xw3kwk'
     ),
     (
         27,
@@ -387,7 +387,7 @@ VALUES
         'claudio',
         'mastronardi',
         'claudio-mastronardi',
-        'players/claudio_mastronardi.jpg'
+        'media/players/claudio_mastronardi_ba7jnb'
     ),
     (
         28,
@@ -395,7 +395,7 @@ VALUES
         'daniele',
         'daccò',
         'daniele-dacco',
-        'players/daniele_dacco.jpg'
+        'media/players/daniele_dacco_xg2qv7'
     ),
     (
         29,
@@ -403,7 +403,7 @@ VALUES
         'giada',
         'taribelli',
         'giada-taribelli',
-        'players/giada_taribelli.png'
+        'media/players/giada_taribelli_mkijor'
     ),
     (
         30,
@@ -411,7 +411,7 @@ VALUES
         'laura',
         'lamadredeidraghi',
         'laura-lamadredeidraghi',
-        'players/laura_lamadredeidraghi.png'
+        'media/players/laura_lamadredeidraghi_voezvs'
     ),
     (
         31,
@@ -419,7 +419,7 @@ VALUES
         'ludovica',
         'guspini',
         'ludovica-guspini',
-        'players/ludovica_guspini.jpg'
+        'media/players/ludovica_guspini_vl5cmi'
     ),
     (
         32,
@@ -427,7 +427,7 @@ VALUES
         'roberto',
         'ortu',
         'roberto-ortu',
-        'players/roberto_ortu.png'
+        'media/players/roberto_ortu_unvicg'
     );
 
 -- POPULATE CAMPAIGN TABLE
@@ -454,7 +454,7 @@ VALUES
         'https://www.youtube.com/watch?v=gh6VGOerW80&list=PLoVHA-lOjjEBi74ModOwvn6Hxeibuj-6S',
         '2020-03-28',
         1,
-        'campaigns/anime_selvagge_francia3.jpg',
+        'media/campaigns/anime_selvagge_francia3_oxtb0z',
         2
     ),
     (
@@ -466,7 +466,7 @@ VALUES
         'https://www.youtube.com/watch?v=VFZC4Nk8ahg&list=PLoVHA-lOjjEApqlKjZDCnlt3cpVf-_hbU',
         '2022-04-21',
         2,
-        'campaigns/elevator_of_madness2.jpg',
+        'media/campaigns/elevator_of_madness2_ukfv0d',
         6
     ),
     (
@@ -478,7 +478,7 @@ VALUES
         'https://www.youtube.com/watch?v=Y6q0k-C1EUQ&list=PLoVHA-lOjjEBi74ModOwvn6Hxeibuj-6S&index=9',
         '2021-10-19',
         5,
-        'campaigns/anime_selvagge_francia3.jpg',
+        'media/campaigns/anime_selvagge_francia3_oxtb0z',
         2
     ),
     (
@@ -490,7 +490,7 @@ VALUES
         'https://www.youtube.com/watch?v=fPRxVYSFguc&list=PLFVd9VXb61Q1siXbAK78PyO-sbEUWDVuv',
         '2020-09-03',
         3,
-        'campaigns/luxastra3.jpg',
+        'media/campaigns/luxastra3_hnzz8e',
         2
     ),
     (
@@ -502,7 +502,7 @@ VALUES
         'https://www.youtube.com/watch?v=MXlCB2GczKU&list=PLFVd9VXb61Q0rxcFOqwnw4QvW88dlyg7b',
         '2019-02-28',
         4,
-        'campaigns/luxastra3.jpg',
+        'media/campaigns/luxastra3_hnzz8e',
         2
     ),
     (
@@ -514,7 +514,7 @@ VALUES
         'https://www.youtube.com/watch?v=ZjXrqltXOUE&list=PLFVd9VXb61Q3nThzHNDaB8Mee7-qoYU8X',
         '2019-09-19',
         3,
-        'campaigns/luxastra3.jpg',
+        'media/campaigns/luxastra3_hnzz8e',
         2
     ),
     (
@@ -526,7 +526,7 @@ VALUES
         'https://www.youtube.com/watch?v=J9xYEEWp2So&list=PLFVd9VXb61Q2o6epC0Q-LKtLKX667orR1',
         '2023-11-09',
         6,
-        'campaigns/navigavia.jpg',
+        'media/campaigns/navigavia_et18wf',
         2
     ),
     (
@@ -538,7 +538,7 @@ VALUES
         'https://www.youtube.com/watch?v=0lq6LI2kdkQ&list=PLFVd9VXb61Q3uyTtaPvMnXnX1O8J5IHbM',
         '2021-12-02',
         6,
-        'campaigns/navigavia.jpg',
+        'media/campaigns/navigavia_et18wf',
         2
     ),
     (
@@ -550,7 +550,7 @@ VALUES
         'https://www.youtube.com/watch?v=ESC339B54ns&list=PLoVHA-lOjjEB2W2bc2LPxlKNNjM3Qp25c',
         '2020-05-23',
         11,
-        'campaigns/augusta_sanguinorum2.jpg',
+        'media/campaigns/augusta_sanguinorum2_dlmu4p',
         4
     ),
     (
@@ -562,7 +562,7 @@ VALUES
         'https://www.youtube.com/watch?v=YqoDB9ZUSyQ&list=PLoVHA-lOjjED2L-j7OlXDqujHBq3DZuE6',
         '2020-07-04',
         3,
-        'campaigns/armored_soul.jpg',
+        'media/campaigns/armored_soul_i7pnbj',
         3
     ),
     (
@@ -574,7 +574,7 @@ VALUES
         'https://www.youtube.com/watch?v=2ANtEtSM7PI&list=PLoVHA-lOjjEB495kuCueQNtGfZ5wwk2FC',
         '2021-07-24',
         12,
-        'campaigns/police_vanguard2.jpg',
+        'media/campaigns/police_vanguard2_evi3al',
         2
     ),
     (
@@ -586,7 +586,7 @@ VALUES
         'https://www.youtube.com/watch?v=PWn9x7Tbdm4&list=PLoVHA-lOjjEBRbLIYw9XiF7jVSHlpdqIa',
         '2023-02-13',
         7,
-        'campaigns/midnight_howl.jpg',
+        'media/campaigns/midnight_howl_ff8uwl',
         5
     ),
     (
@@ -598,7 +598,7 @@ VALUES
         'https://www.youtube.com/watch?v=1zabpobPq8o&list=PLFVd9VXb61Q3wiDtiDrlAb7hgXFRQDlSN',
         '2022-11-17',
         3,
-        'campaigns/luxastra3.jpg',
+        'media/campaigns/luxastra3_hnzz8e',
         2
     );
 
